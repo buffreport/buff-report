@@ -85,7 +85,7 @@
   }
   .logo { display: flex; align-items: center; gap: 14px; }
   .logo-mark {
-    width: 44px; height: 44px;
+    width: 280px; height: 100px;
     background: var(--secondary);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
@@ -122,10 +122,10 @@
   /* NAV */
   .nav-bar {
     background: white;
-    border-bottom: 3px solid var(--primary);
+    border-bottom: 1px solid var(--border);
     max-width: 1200px; margin: 0 auto;
     padding: 0 24px;
-    display: flex; gap: 0; overflow-x: auto;
+    display: flex; gap: 0; overflow-x: hidden;
   }
   .nav-link {
     font-size: 11px; font-weight: 700;
@@ -134,7 +134,7 @@
     padding: 12px 16px;
     border-bottom: 2px solid transparent;
     transition: all 0.15s; white-space: nowrap;
-    cursor: pointer; margin-bottom: -3px;
+    cursor: pointer; margin-bottom: -1px;
   }
   .nav-link:hover, .nav-link.active { color: var(--secondary); border-bottom-color: var(--primary); }
   .nav-link.live { color: var(--accent-red); }
@@ -590,19 +590,11 @@
 
 <!-- AD 1: TOP LEADERBOARD — Max visibility, seen by 100% of visitors -->
 <div style="background:#f0f0f0; padding: 8px 0; display:flex; justify-content:center; border-bottom: 1px solid var(--border);">
-  <div class="ad-slot ad-leaderboard-top" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); border: none; position: relative; overflow: hidden; cursor: pointer;" onclick="window.open('#','_blank')">
-    <div style="display:flex; align-items:center; gap: 24px; padding: 0 32px; width:100%; justify-content:space-between;">
-      <div style="display:flex; align-items:center; gap:16px;">
-        <div style="width:52px; height:52px; background:#CFB87C; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:900; color:#1a1a2e; flex-shrink:0;">C</div>
-        <div>
-          <div style="color:#CFB87C; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; font-family:'Inter',sans-serif;">Colorado Athletics</div>
-          <div style="color:white; font-size:17px; font-weight:800; font-family:'Playfair Display',serif; line-height:1.1;">2025 Football Season Tickets</div>
-          <div style="color:#aaa; font-size:11px; font-family:'Inter',sans-serif; margin-top:2px;">Lock in your seats before they sell out — Folsom Field, Boulder CO</div>
-        </div>
-      </div>
-      <div style="flex-shrink:0; background:#CFB87C; color:#1a1a2e; font-size:12px; font-weight:800; padding: 10px 20px; border-radius:4px; text-transform:uppercase; letter-spacing:1px; font-family:'Inter',sans-serif; white-space:nowrap;">Get Tickets →</div>
-    </div>
-    <div style="position:absolute; bottom:4px; right:8px; font-size:8px; color:#555; font-family:'Inter',sans-serif; letter-spacing:1px;">AD</div>
+  <div class="ad-slot ad-leaderboard-top" style="padding:0; border:none; background:none; overflow:hidden; position:relative;">
+    <a href="https://www.continuumsearchgroup.com" target="_blank" style="display:block; width:100%; height:100%;">
+      <img src="cont.svg" alt="Continuum Search Group" style="width:100%; height:100%; object-fit:contain; display:block;">
+    </a>
+    <div style="position:absolute; bottom:4px; right:8px; font-size:8px; color:#555; font-family:'Inter',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px;">AD</div>
   </div>
 </div>
 
@@ -610,7 +602,9 @@
 <header style="background:white; border-bottom: 1px solid var(--border);">
   <div class="site-header">
         <div class="logo">
-      <div class="logo-mark">BR</div>
+      <div class="logo-mark" style="background:none; padding:0; overflow:hidden;">
+        <img src="newlogo.png" alt="The Buff Report" style="width:100%; height:100%; object-fit:contain; display:block;">
+      </div>
       <div class="logo-text">
         <h1>The Buff Report</h1>
         <span>Athletics. Academics. Every Headline. One Page.</span>
@@ -651,9 +645,22 @@
 
 <!-- AD 2: ABOVE-THE-FOLD BANNER — Premium slot, just before all content -->
 <div class="ad-banner-wrap">
-  <div class="ad-slot">
-    <span class="ad-size">970 × 90</span>
-    <span class="ad-label">Advertisement Goes Here — Billboard Banner</span>
+  <div class="ad-slot" style="padding:0; border:none; overflow:hidden; position:relative; background: linear-gradient(90deg, #1a1a1a 0%, #0d0d0d 40%, #1a1a1a 100%); cursor:pointer;" onclick="window.open('https://www.draftkings.com','_blank')">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding: 0 32px; width:100%; height:100%; box-sizing:border-box;">
+      <div style="display:flex; align-items:center; gap:18px;">
+        <div style="font-size:28px; font-weight:900; color:#53d337; font-family:'Inter',sans-serif; letter-spacing:-1px;">DK</div>
+        <div style="width:1px; height:36px; background:#333;"></div>
+        <div>
+          <div style="color:#53d337; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; font-family:'Inter',sans-serif;">DraftKings Sportsbook</div>
+          <div style="color:white; font-size:18px; font-weight:800; font-family:'Inter',sans-serif; line-height:1.1;">Bet $5, Get $200 in Bonus Bets</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div style="color:#aaa; font-size:11px; font-family:'Inter',sans-serif; text-align:right; line-height:1.5;">New customers only.<br>21+ to wager. CO only.</div>
+        <div style="background:#53d337; color:#0d0d0d; font-size:13px; font-weight:900; padding: 12px 24px; border-radius:4px; text-transform:uppercase; letter-spacing:1px; font-family:'Inter',sans-serif; white-space:nowrap;">Bet Now →</div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:4px; right:8px; font-size:8px; color:#555; font-family:'Inter',sans-serif; letter-spacing:1px;">AD</div>
   </div>
 </div>
 
@@ -667,7 +674,7 @@
         <span class="tag">🏆 Campus Recognition</span>
         <h2><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">CU Boulder Named 3rd Most Beautiful College Campus in America</a></h2>
         <p>Travel + Leisure ranks the University of Colorado Boulder among the nation's most stunning campuses, citing the iconic Flatirons backdrop, historic sandstone architecture, and unmatched mountain setting as defining features.</p>
-        <div class="meta">March 2026 · <a href="https://www.travelandleisure.com" target="_blank" style="color:rgba(255,255,255,0.6)">Travel + Leisure</a></div>
+        <div class="meta">March 5, 2026 · <a href="https://www.travelandleisure.com" target="_blank" style="color:rgba(255,255,255,0.6)">Travel + Leisure</a></div>
       </div>
     </div>
 
@@ -723,15 +730,15 @@
       <div class="section-label"><h3>More Football</h3></div>
       <div class="link-cluster">
         <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-new-coaching-staff-officially-announced-deion-sanders" target="_blank">12 New Coaches: CU Officially Announces Revamped Staff Under Sanders</a><span class="src">SI</span></div>
-        <div class="link-item"><a href="https://www.dailycamera.com/2026/02/24/cu-buffs-dante-carter-defensive-line-coach/" target="_blank">Dante' Carter promoted to DL coach after Peko leaves for Steelers</a><span class="src">Daily Camera</span></div>
+        <div class="link-item"><a href="https://www.dailycamera.com/2026/02/24/cu-buffs-dante-carter-defensive-line-coach/" target="_blank">Dante' Carter promoted to DL coach after Peko leaves for Steelers</a><span class="src">Daily Camera · Feb 24</span></div>
         <div class="link-item"><a href="https://www.si.com/college/colorado/football/deion-sanders-revamp-colorado-coaching-staff-hire-fire-brennan-marion" target="_blank">Every move Sanders made to revamp coaching staff</a><span class="src">SI</span></div>
         <div class="link-item"><a href="https://clutchpoints.com/ncaa-football/colorado-football-news-deion-sanders-hires-ex-saints-bengals-safety-assistant-coach" target="_blank">Vonn Bell (ex-Saints, Bengals) joins staff as safeties coach</a><span class="src">Clutch Points</span></div>
-        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/01/colorado-buffs-football-spring-preview/" target="_blank">Overhauled roster, staff: Complete spring preview</a><span class="src">Daily Camera</span></div>
-        <div class="link-item"><a href="https://cubuffs.com/news/2026/2/19/football-at-t-black-gold-day-slated-for-april-11" target="_blank">AT&amp;T Black &amp; Gold Day Spring Game — April 11 — Free Admission</a><span class="src">CUBuffs.com</span></div>
-        <div class="link-item"><a href="https://cubuffs.com/news/2026/3/13/football-buffs-reload-wide-receiver-room-with-speed-and-explosive-talent" target="_blank">Buffs Reload Wide Receiver Room With Speed and Explosive Talent</a><span class="src">CUBuffs.com</span></div>
-        <div class="link-item"><a href="https://www.axios.com/local/boulder/2026/03/02/colorado-football-spring-practice-dominiq-ponder-crash" target="_blank">Dominiq Ponder remembered as spring football begins</a><span class="src">Axios Boulder</span></div>
-        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/13/colorado-buffaloes-football-richard-young/" target="_blank">Buffaloes' Richard Young enjoying fresh start in Boulder</a><span class="src">Daily Camera</span></div>
-        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/08/colorado-buffs-football-danny-scudero-2/" target="_blank">Danny Scudero excited to join Colorado Buffs football</a><span class="src">Daily Camera</span></div>
+        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/01/colorado-buffs-football-spring-preview/" target="_blank">Overhauled roster, staff: Complete spring preview</a><span class="src">Daily Camera · Mar 1</span></div>
+        <div class="link-item"><a href="https://cubuffs.com/news/2026/2/19/football-at-t-black-gold-day-slated-for-april-11" target="_blank">AT&amp;T Black &amp; Gold Day Spring Game — April 11 — Free Admission</a><span class="src">CUBuffs.com · Feb 19</span></div>
+        <div class="link-item"><a href="https://cubuffs.com/news/2026/3/13/football-buffs-reload-wide-receiver-room-with-speed-and-explosive-talent" target="_blank">Buffs Reload Wide Receiver Room With Speed and Explosive Talent</a><span class="src">CUBuffs.com · Mar 13</span></div>
+        <div class="link-item"><a href="https://www.axios.com/local/boulder/2026/03/02/colorado-football-spring-practice-dominiq-ponder-crash" target="_blank">Dominiq Ponder remembered as spring football begins</a><span class="src">Axios Boulder · Mar 2</span></div>
+        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/13/colorado-buffaloes-football-richard-young/" target="_blank">Buffaloes' Richard Young enjoying fresh start in Boulder</a><span class="src">Daily Camera · Mar 13</span></div>
+        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/08/colorado-buffs-football-danny-scudero-2/" target="_blank">Danny Scudero excited to join Colorado Buffs football</a><span class="src">Daily Camera · Mar 8</span></div>
       </div>
 
       <!-- 2025 Season Schedule -->
@@ -763,9 +770,9 @@
     <!-- AD 5: IN-FEED LEADERBOARD — High engagement, between Football & Basketball sections -->
     <div class="tab-section" data-tabs="latest">
       <div class="ad-infeed-wrap">
-        <div class="ad-slot">
-          <span class="ad-size">728 × 90</span>
-          <span class="ad-label">Advertisement Goes Here — In-Feed Leaderboard</span>
+        <div class="ad-slot" style="padding:0; border:none; overflow:hidden; position:relative; cursor:pointer;" onclick="window.open('#','_blank')">
+          <img src="superpower.webp" alt="Superpower" style="width:100%; height:100%; object-fit:cover; object-position:center 42%; display:block;">
+          <div style="position:absolute; bottom:4px; right:8px; font-size:8px; color:rgba(255,255,255,0.6); font-family:'Inter',sans-serif; letter-spacing:1px; background:rgba(0,0,0,0.3); padding:1px 3px; border-radius:2px;">AD</div>
         </div>
       </div>
     </div>
@@ -851,7 +858,7 @@
     <div class="tab-section hidden" data-tabs="basketball">
       <div class="section-label"><h3>More Basketball</h3></div>
       <div class="link-cluster">
-        <div class="link-item"><a href="https://www.timescall.com/2026/03/16/colorado-buffaloes-college-basketball-crown/" target="_blank">MBB season continues at College Basketball Crown in Las Vegas</a><span class="src">Times Call</span></div>
+        <div class="link-item"><a href="https://www.timescall.com/2026/03/16/colorado-buffaloes-college-basketball-crown/" target="_blank">MBB season continues at College Basketball Crown in Las Vegas</a><span class="src">Times Call · Mar 16</span></div>
         <div class="link-item"><a href="https://www.espn.com/mens-college-basketball/story/_/id/48209506/arizona-gets-revenge-tops-houston-win-big-12-championship" target="_blank">Arizona tops Houston for Big 12 title — Eight teams to NCAA Tourney</a><span class="src">ESPN</span></div>
         <div class="link-item"><a href="https://www.yardbarker.com/college_basketball/articles/colorado_buffaloes_big_12_tournament_hub_with_full_schedule_bracket/s1_17284_43572871" target="_blank">Full Big 12 Tournament hub: Schedule, bracket, results</a><span class="src">Yardbarker</span></div>
       </div>
@@ -1003,7 +1010,7 @@
           <div class="hl-body">
             <h4><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">🏆 CU Boulder Named 3rd Most Beautiful College Campus in America</a></h4>
             <div class="hl-sub">Travel + Leisure ranks CU among the nation's most stunning campuses, citing the Flatirons backdrop, sandstone architecture, and mountain setting as defining features.</div>
-            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>Travel + Leisure</span><span>Mar 2026</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>Travel + Leisure</span><span>Mar 5</span></div>
           </div>
         </div>
         <div class="hl-card">
@@ -1030,14 +1037,6 @@
             <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Boulder Today</span><span>Mar 11</span></div>
           </div>
         </div>
-        <div class="hl-card">
-          <span class="accent-dot dot-campus"></span>
-          <div class="hl-body">
-            <h4><a href="https://www.axios.com/local/boulder/2025/09/23/cu-boulder-top-100-best-colleges-us-news" target="_blank">CU Boulder No. 97 in U.S. News Best Colleges — Rises One Spot</a></h4>
-            <div class="hl-sub">Engineering No. 15 among publics. Aerospace No. 6. Civil No. 10. Computer Science No. 14.</div>
-            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>Axios Boulder</span></div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -1050,7 +1049,7 @@
           <div class="hl-body">
             <h4><a href="https://www.colorado.edu/today/2026/03/05/bfa-announces-2026-excellence-awards-winners-celebratory-ceremony-april-7" target="_blank">Faculty Assembly Announces 2026 Excellence Award Winners</a></h4>
             <div class="hl-sub">Awards ceremony April 7. $5,000 prize in teaching, leadership, and research categories.</div>
-            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Boulder Today</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Boulder Today</span><span>Mar 5</span></div>
           </div>
         </div>
         <div class="hl-card">
@@ -1061,28 +1060,9 @@
             <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Boulder Today</span><span>Mar 3</span></div>
           </div>
         </div>
-        <div class="hl-card">
-          <span class="accent-dot dot-campus"></span>
-          <div class="hl-body">
-            <h4><a href="https://www.coloradohometownweekly.com/2025/12/16/cu-boulder-award-research-project-seed-grant-program-2026/" target="_blank">CU Boulder Awards $872K Across 16 Research Projects — Record 122 Proposals</a></h4>
-            <div class="hl-sub">Topics include weather, water quality, AI, folk religion, and violence reduction.</div>
-            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CO Hometown Weekly</span></div>
-          </div>
-        </div>
-        <div class="hl-card">
-          <span class="accent-dot dot-campus"></span>
-          <div class="hl-body">
-            <h4><a href="https://kdvr.com/news/local/us-news-releases-top-universities-in-nation-heres-where-colorado-schools-rank/" target="_blank">CU Boulder Ranked 5th Nationally for Free-Speech Climate</a></h4>
-            <div class="hl-sub">Highest in Colorado. Based on survey of 68,000+ students.</div>
-            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>KDVR / Fox31</span></div>
-          </div>
-        </div>
       </div>
       <div class="link-cluster">
-        <div class="link-item"><a href="https://www.cu.edu/news/cu-boulder-ranked-no-46-global-list-us-news-world-report" target="_blank">CU ranked No. 46 globally by U.S. News &amp; World Report</a><span class="src">CU System</span></div>
-        <div class="link-item"><a href="https://bizwest.com/2025/09/23/university-of-colorado-cracks-u-s-news-top-100-ranking/" target="_blank">BizWest: University of Colorado cracks U.S. News top 100</a><span class="src">BizWest</span></div>
-        <div class="link-item"><a href="https://www.colorado.edu/today/2025/12/12/prioritizing-research-and-innovation-look-back-and-ahead-massimo-ruzzene" target="_blank">Research VP Massimo Ruzzene: A Look Back and Ahead</a><span class="src">CU Boulder Today</span></div>
-        <div class="link-item"><a href="https://www.colorado.edu/researchinnovation/2026/02/26/march-25-virtual-event-pilot-cohort-explore-how-cu-boulder-innovators-are-using-ai-win" target="_blank">Mar 25 Virtual Event: How CU Innovators Are Using AI to Win Major Grants</a><span class="src">CU Research &amp; Innovation</span></div>
+        <div class="link-item"><a href="https://www.colorado.edu/researchinnovation/2026/02/26/march-25-virtual-event-pilot-cohort-explore-how-cu-boulder-innovators-are-using-ai-win" target="_blank">Mar 25 Virtual Event: How CU Innovators Are Using AI to Win Major Grants</a><span class="src">CU Research &amp; Innovation · Feb 26</span></div>
       </div>
 
       <!-- Live Campus Feed -->
@@ -1248,7 +1228,7 @@
       <div class="section-label"><h3>Around the Big 12</h3></div>
       <div class="link-cluster">
         <div class="link-item"><a href="https://www.espn.com/mens-college-basketball/story/_/id/48209506/arizona-gets-revenge-tops-houston-win-big-12-championship" target="_blank">Arizona tops Houston for Big 12 basketball title</a><span class="src">ESPN</span></div>
-        <div class="link-item"><a href="https://www.heartlandcollegesports.com/2026/03/15/eight-big-12-basketball-teams-will-play-in-march-madness/" target="_blank">Eight Big 12 teams headed to March Madness — conference record</a><span class="src">Heartland CS</span></div>
+        <div class="link-item"><a href="https://www.heartlandcollegesports.com/2026/03/15/eight-big-12-basketball-teams-will-play-in-march-madness/" target="_blank">Eight Big 12 teams headed to March Madness — conference record</a><span class="src">Heartland CS · Mar 15</span></div>
         <div class="link-item"><a href="https://www.foxsports.com/college-football/colorado-buffaloes-team" target="_blank">Big 12 spring practice tracker: Who's turning heads across the conference</a><span class="src">FOX Sports</span></div>
       </div>
     </div>
@@ -1259,9 +1239,11 @@
   <aside class="sidebar">
 
     <!-- AD 3: SIDEBAR TOP — 300×250 Medium Rectangle, highest CPM sidebar spot -->
-    <div class="ad-slot ad-sidebar">
-      <span class="ad-size">300 × 250</span>
-      <span class="ad-label">Advertisement Goes Here — Medium Rectangle</span>
+    <div class="ad-slot ad-sidebar" style="padding:0; border:none; background:none; overflow:hidden; position:relative;">
+      <a href="https://tallowlskincare.com" target="_blank">
+        <img src="tallow.png" alt="Tallow — Vanilla Orange Whipped Tallow" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </a>
+      <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Inter',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px;">AD</div>
     </div>
 
     <div class="widget">
@@ -1320,9 +1302,11 @@
     </div>
 
     <!-- AD 4: SIDEBAR MID — 300×250 Medium Rectangle, mid-scroll engagement spot -->
-    <div class="ad-slot ad-sidebar">
-      <span class="ad-size">300 × 250</span>
-      <span class="ad-label">Advertisement Goes Here — Medium Rectangle</span>
+    <div class="ad-slot ad-sidebar" style="padding:0; border:none; background:none; overflow:hidden; position:relative;">
+      <a href="https://tallowlskincare.com/collections/all/products/eye-serum" target="_blank">
+        <img src="eyeserum.png" alt="Tallow Eye Serum" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </a>
+      <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Inter',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px;">AD</div>
     </div>
 
     <div class="widget">
@@ -1330,9 +1314,7 @@
       <div class="otf-item" style="border-left: 3px solid #CFB87C; padding-left: 8px; background: #fffdf5;"><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank" style="font-weight:700;">🏆 CU Boulder ranked 3rd Most Beautiful Campus in America</a><div class="otf-src">Travel + Leisure</div></div>
       <div class="otf-item"><a href="https://connections.cu.edu/stories/innovation-real-time-2026-cu-ie-awards-spotlight-smart-solutions" target="_blank">No. 2 in nation for startups launched</a><div class="otf-src">CU Connections</div></div>
       <div class="otf-item"><a href="https://www.cpr.org/2026/03/09/cu-ai-rollout/" target="_blank">Faculty push back against university AI rollout</a><div class="otf-src">Colorado Public Radio</div></div>
-      <div class="otf-item"><a href="https://www.coloradohometownweekly.com/2025/12/16/cu-boulder-award-research-project-seed-grant-program-2026/" target="_blank">$872K in research seed grants awarded</a><div class="otf-src">CO Hometown Weekly</div></div>
-      <div class="otf-item"><a href="https://www.colorado.edu/today/2026/03/05/bfa-announces-2026-excellence-awards-winners-celebratory-ceremony-april-7" target="_blank">Faculty Excellence Award winners named</a><div class="otf-src">CU Boulder Today</div></div>
-      <div class="otf-item"><a href="https://www.colorado.edu/today/2025/12/12/prioritizing-research-and-innovation-look-back-and-ahead-massimo-ruzzene" target="_blank">Research VP: A look back and ahead</a><div class="otf-src">CU Boulder Today</div></div>
+      <div class="otf-item"><a href="https://www.colorado.edu/today/2026/03/05/bfa-announces-2026-excellence-awards-winners-celebratory-ceremony-april-7" target="_blank">Faculty Excellence Award winners named</a><div class="otf-src">CU Boulder Today · Mar 5</div></div>
     </div>
 
     <div class="widget">
@@ -1371,9 +1353,22 @@
 
 <!-- AD 6: PRE-FOOTER BILLBOARD — Last impression before user leaves page -->
 <div class="ad-prefooter-wrap">
-  <div class="ad-slot">
-    <span class="ad-size">970 × 90</span>
-    <span class="ad-label">Advertisement Goes Here — Pre-Footer Billboard</span>
+  <div class="ad-slot" style="padding:0; border:none; overflow:hidden; position:relative; background: linear-gradient(90deg, #0d0d0d 0%, #111 50%, #0d0d0d 100%); cursor:pointer;" onclick="window.open('https://www.draftkings.com','_blank')">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding: 0 32px; width:100%; height:100%; box-sizing:border-box;">
+      <div style="display:flex; align-items:center; gap:18px;">
+        <div style="font-size:28px; font-weight:900; color:#53d337; font-family:'Inter',sans-serif; letter-spacing:-1px;">DK</div>
+        <div style="width:1px; height:36px; background:#333;"></div>
+        <div>
+          <div style="color:#53d337; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; font-family:'Inter',sans-serif;">DraftKings Sportsbook</div>
+          <div style="color:white; font-size:18px; font-weight:800; font-family:'Inter',sans-serif; line-height:1.1;">March Madness Is Here — Build Your Bracket & Win Big</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div style="color:#aaa; font-size:11px; font-family:'Inter',sans-serif; text-align:right; line-height:1.5;">New customers only.<br>21+ to wager. CO only.</div>
+        <div style="background:#53d337; color:#0d0d0d; font-size:13px; font-weight:900; padding: 12px 24px; border-radius:4px; text-transform:uppercase; letter-spacing:1px; font-family:'Inter',sans-serif; white-space:nowrap;">Play Free →</div>
+      </div>
+    </div>
+    <div style="position:absolute; bottom:4px; right:8px; font-size:8px; color:#555; font-family:'Inter',sans-serif; letter-spacing:1px;">AD</div>
   </div>
 </div>
 
