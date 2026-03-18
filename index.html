@@ -455,17 +455,6 @@
   .status-target { color: var(--accent-orange); }
   .stars { color: var(--primary); font-size: 10px; }
 
-  /* Poll */
-  .poll-body { padding: 14px; }
-  .poll-q { font-weight: 700; font-size: 13px; margin-bottom: 10px; }
-  .poll-opt { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; cursor: pointer; }
-  .poll-opt input { accent-color: var(--primary); }
-  .poll-vote {
-    background: var(--secondary); color: var(--primary);
-    border: none; padding: 6px 16px; border-radius: 4px;
-    font-size: 10px; font-weight: 700; letter-spacing: 1px;
-    text-transform: uppercase; cursor: pointer; margin-top: 8px;
-  }
 
   /* Trending */
   .trend-item {
@@ -1322,16 +1311,6 @@
       <div class="trend-item"><span class="trend-num">5</span><div><h4>MBB heads to CBC vs. Oklahoma</h4><div class="tm">890 discussions</div></div></div>
     </div>
 
-    <div class="widget">
-      <div class="widget-header">Quick Vote</div>
-      <div class="poll-body">
-        <div class="poll-q">How far will CU WBB go in March Madness?</div>
-        <label class="poll-opt"><input type="radio" name="poll"> Sweet 16 — this team is special</label>
-        <label class="poll-opt"><input type="radio" name="poll"> Win Round 1, lose Round 2</label>
-        <label class="poll-opt"><input type="radio" name="poll"> One and done — tough draw</label>
-        <button class="poll-vote" onclick="alert('Thanks for voting! Go Buffs!')">VOTE</button>
-      </div>
-    </div>
 
 
   </aside>
