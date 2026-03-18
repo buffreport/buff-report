@@ -85,7 +85,7 @@
   }
   .logo { display: flex; align-items: center; gap: 14px; }
   .logo-mark {
-    width: 280px; height: 100px;
+    width: 160px; height: 90px;
     background: var(--secondary);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
@@ -96,12 +96,12 @@
   .logo-text { display: flex; flex-direction: column; }
   .logo-text h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 22px; font-weight: 900;
+    font-size: 36px; font-weight: 900;
     color: var(--secondary);
     line-height: 1; letter-spacing: -0.5px;
   }
   .logo-text span {
-    font-size: 11px; color: var(--text-muted);
+    font-size: 14px; color: var(--text-muted);
     letter-spacing: 2px; text-transform: uppercase;
     font-weight: 600; margin-top: 2px;
   }
@@ -590,22 +590,9 @@
 
 <!-- AD 1: TOP LEADERBOARD — Max visibility, seen by 100% of visitors -->
 <div style="background:#f0f0f0; padding: 8px 0; display:flex; justify-content:center; border-bottom: 1px solid var(--border);">
-  <div class="ad-slot ad-leaderboard-top" style="padding:0; border:none; overflow:hidden; position:relative; background: linear-gradient(90deg, #1a1a1a 0%, #0d0d0d 40%, #1a1a1a 100%); cursor:pointer;" onclick="window.open('https://www.draftkings.com','_blank')">
-    <div style="display:flex; align-items:center; justify-content:space-between; padding: 0 32px; width:100%; height:100%; box-sizing:border-box;">
-      <div style="display:flex; align-items:center; gap:18px;">
-        <div style="font-size:28px; font-weight:900; color:#53d337; font-family:'Inter',sans-serif; letter-spacing:-1px;">DK</div>
-        <div style="width:1px; height:36px; background:#333;"></div>
-        <div>
-          <div style="color:#53d337; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; font-family:'Inter',sans-serif;">DraftKings Sportsbook</div>
-          <div style="color:white; font-size:18px; font-weight:800; font-family:'Inter',sans-serif; line-height:1.1;">Bet $5, Get $200 in Bonus Bets</div>
-        </div>
-      </div>
-      <div style="display:flex; align-items:center; gap:16px;">
-        <div style="color:#aaa; font-size:11px; font-family:'Inter',sans-serif; text-align:right; line-height:1.5;">New customers only.<br>21+ to wager. CO only.</div>
-        <div style="background:#53d337; color:#0d0d0d; font-size:13px; font-weight:900; padding: 12px 24px; border-radius:4px; text-transform:uppercase; letter-spacing:1px; font-family:'Inter',sans-serif; white-space:nowrap;">Bet Now →</div>
-      </div>
-    </div>
-    <div style="position:absolute; bottom:4px; right:8px; font-size:8px; color:#555; font-family:'Inter',sans-serif; letter-spacing:1px;">AD</div>
+  <div class="ad-slot ad-leaderboard-top">
+    <span class="ad-size">970 × 90</span>
+    <span class="ad-label">Your Ad Here</span>
   </div>
 </div>
 
@@ -614,7 +601,7 @@
   <div class="site-header">
         <div class="logo">
       <div class="logo-mark" style="background:none; padding:0; overflow:hidden;">
-        <img src="newlogo.png" alt="The Buff Report" style="width:100%; height:100%; object-fit:contain; display:block;">
+        <img src="goodlogo.png" alt="The Buff Report" style="width:100%; height:100%; object-fit:contain; display:block;">
       </div>
       <div class="logo-text">
         <h1>The Buff Report</h1>
@@ -762,7 +749,7 @@
     <div class="tab-section" data-tabs="latest">
       <div class="ad-infeed-wrap">
         <div class="ad-slot" style="padding:0; border:none; overflow:hidden; position:relative; cursor:pointer;" onclick="window.open('#','_blank')">
-          <img src="superpower.webp" alt="Superpower" style="width:100%; height:100%; object-fit:cover; object-position:center 42%; display:block;">
+          <img src="superpower.webp" alt="Superpower" style="width:100%; height:100%; object-fit:cover; object-position:center 50%; display:block;">
           <div style="position:absolute; bottom:4px; right:8px; font-size:8px; color:rgba(255,255,255,0.6); font-family:'Inter',sans-serif; letter-spacing:1px; background:rgba(0,0,0,0.3); padding:1px 3px; border-radius:2px;">AD</div>
         </div>
       </div>
@@ -1344,22 +1331,9 @@
 
 <!-- AD 6: PRE-FOOTER BILLBOARD — Last impression before user leaves page -->
 <div class="ad-prefooter-wrap">
-  <div class="ad-slot" style="padding:0; border:none; overflow:hidden; position:relative; background: linear-gradient(90deg, #0d0d0d 0%, #111 50%, #0d0d0d 100%); cursor:pointer;" onclick="window.open('https://www.draftkings.com','_blank')">
-    <div style="display:flex; align-items:center; justify-content:space-between; padding: 0 32px; width:100%; height:100%; box-sizing:border-box;">
-      <div style="display:flex; align-items:center; gap:18px;">
-        <div style="font-size:28px; font-weight:900; color:#53d337; font-family:'Inter',sans-serif; letter-spacing:-1px;">DK</div>
-        <div style="width:1px; height:36px; background:#333;"></div>
-        <div>
-          <div style="color:#53d337; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; font-family:'Inter',sans-serif;">DraftKings Sportsbook</div>
-          <div style="color:white; font-size:18px; font-weight:800; font-family:'Inter',sans-serif; line-height:1.1;">March Madness Is Here — Build Your Bracket & Win Big</div>
-        </div>
-      </div>
-      <div style="display:flex; align-items:center; gap:16px;">
-        <div style="color:#aaa; font-size:11px; font-family:'Inter',sans-serif; text-align:right; line-height:1.5;">New customers only.<br>21+ to wager. CO only.</div>
-        <div style="background:#53d337; color:#0d0d0d; font-size:13px; font-weight:900; padding: 12px 24px; border-radius:4px; text-transform:uppercase; letter-spacing:1px; font-family:'Inter',sans-serif; white-space:nowrap;">Play Free →</div>
-      </div>
-    </div>
-    <div style="position:absolute; bottom:4px; right:8px; font-size:8px; color:#555; font-family:'Inter',sans-serif; letter-spacing:1px;">AD</div>
+  <div class="ad-slot">
+    <span class="ad-size">970 × 90</span>
+    <span class="ad-label">Your Ad Here</span>
   </div>
 </div>
 
@@ -1376,7 +1350,6 @@
     <a href="#">Subscribe</a>
     <a href="#">Privacy</a>
     <a href="#">Tips</a>
-    <a href="style-guide.html">Style Guide</a>
   </div>
 </footer>
 
@@ -1565,6 +1538,60 @@ loadLiveFeeds();
 setInterval(loadLiveFeeds, 15 * 60 * 1000);
 
 activateTab('latest');
+</script>
+
+<!-- NEWSLETTER POPUP -->
+<div id="newsletter-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:#3a3a3a; border-radius:12px; padding:48px 40px 36px; max-width:480px; width:90%; position:relative; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+    <!-- Close button -->
+    <button onclick="closeNewsletter()" style="position:absolute; top:14px; right:18px; background:none; border:none; color:#aaa; font-size:22px; cursor:pointer; line-height:1;">×</button>
+    <!-- Logo mark -->
+    <div style="font-family:'Playfair Display',serif; font-size:13px; font-weight:900; color:#CFB87C; letter-spacing:3px; text-transform:uppercase; margin-bottom:16px;">THE BUFF REPORT</div>
+    <!-- Heading -->
+    <h2 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:900; color:white; margin:0 0 8px;">Sign up today!</h2>
+    <p style="color:#bbb; font-size:14px; font-family:'Inter',sans-serif; margin:0 0 28px; line-height:1.5;">Get the latest CU Buffs news — athletics, academics, and everything Boulder — delivered straight to your inbox.</p>
+    <!-- Email input -->
+    <input type="email" id="popup-email" placeholder="Email" style="width:100%; box-sizing:border-box; background:none; border:none; border-bottom:1px solid #888; color:white; font-size:15px; font-family:'Inter',sans-serif; padding:8px 0; margin-bottom:20px; outline:none;">
+    <!-- Checkbox -->
+    <label style="display:flex; align-items:center; gap:10px; text-align:left; margin-bottom:24px; cursor:pointer;">
+      <input type="checkbox" checked style="width:18px; height:18px; accent-color:#CFB87C; flex-shrink:0;">
+      <span style="color:#ccc; font-size:13px; font-family:'Inter',sans-serif;">I agree to receive promotional emails and special offers</span>
+    </label>
+    <!-- Button -->
+    <button onclick="submitNewsletter()" style="width:100%; background:#888; color:white; border:none; padding:14px; font-size:15px; font-weight:700; font-family:'Inter',sans-serif; border-radius:6px; cursor:pointer; letter-spacing:1px; text-transform:uppercase;">Sign Up</button>
+    <!-- Fine print -->
+    <p style="color:#888; font-size:11px; font-family:'Inter',sans-serif; margin:16px 0 0; line-height:1.6;">Signing up indicates you agree with our <a href="#" style="color:#aaa;">Terms of Service</a> · <a href="#" style="color:#aaa;">Privacy Policy</a></p>
+  </div>
+</div>
+
+<script>
+  // Show popup after 2 seconds, but only once per session
+  if (!sessionStorage.getItem('newsletter-dismissed')) {
+    setTimeout(() => {
+      const overlay = document.getElementById('newsletter-overlay');
+      overlay.style.display = 'flex';
+    }, 2000);
+  }
+
+  // Close on overlay background click
+  document.getElementById('newsletter-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeNewsletter();
+  });
+
+  function closeNewsletter() {
+    document.getElementById('newsletter-overlay').style.display = 'none';
+    sessionStorage.setItem('newsletter-dismissed', '1');
+  }
+
+  function submitNewsletter() {
+    const email = document.getElementById('popup-email').value;
+    if (!email || !email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    closeNewsletter();
+    alert('Thanks for signing up! Go Buffs! 🦬');
+  }
 </script>
 </body>
 </html>
