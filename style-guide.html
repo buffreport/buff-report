@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Buff Report — Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:        #CFB87C;
+    --primary-dark:   #B8A265;
+    --secondary:      #000000;
+    --secondary-light:#1A1A1A;
+    --bg:             #FAFAF7;
+    --bg-card:        #FFFFFF;
+    --text:           #111111;
+    --text-secondary: #666666;
+    --text-muted:     #999999;
+    --border:         #E8E8E4;
+    --border-light:   #F0F0EC;
+    --academic:       #2563EB;
+    --accent-red:     #DC2626;
+    --accent-green:   #16A34A;
+    --accent-orange:  #EA580C;
+    --radius:         8px;
+    --shadow-sm:      0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md:      0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── TOP BAR ── */
+  .sg-topbar {
+    background: var(--secondary);
+    padding: 12px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .sg-topbar .brand { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900; color: var(--primary); }
+  .sg-topbar .label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 2px; }
+  .sg-topbar a { color: var(--primary); font-size: 12px; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; }
+  .sg-topbar a:hover { color: white; }
+
+  /* ── LAYOUT ── */
+  .sg-wrap { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+
+  /* ── HERO ── */
+  .sg-hero {
+    background: var(--secondary);
+    border-radius: var(--radius);
+    padding: 48px;
+    margin-bottom: 56px;
+    border-left: 6px solid var(--primary);
+  }
+  .sg-hero h1 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: white; margin-bottom: 12px; }
+  .sg-hero h1 span { color: var(--primary); }
+  .sg-hero p { color: rgba(255,255,255,0.55); font-size: 15px; max-width: 600px; line-height: 1.7; }
+  .sg-hero .version { display: inline-block; margin-top: 20px; background: rgba(207,184,124,0.15); border: 1px solid var(--primary); color: var(--primary); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 4px; }
+
+  /* ── SECTION ── */
+  .sg-section { margin-bottom: 64px; }
+  .sg-section-head {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 3px solid var(--primary);
+  }
+  .sg-section-num {
+    background: var(--primary);
+    color: var(--secondary);
+    font-size: 12px; font-weight: 900;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sg-section-head h2 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--secondary); }
+  .sg-desc { color: var(--text-secondary); font-size: 14px; margin-bottom: 28px; line-height: 1.7; max-width: 720px; }
+
+  /* ── SUBSECTION ── */
+  .sg-sub { margin-bottom: 32px; }
+  .sg-sub h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 16px; }
+
+  /* ── COLOR GRID ── */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .color-swatch {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .swatch-block { height: 72px; }
+  .swatch-info { padding: 12px 14px; }
+  .swatch-name { font-size: 13px; font-weight: 700; color: var(--text); }
+  .swatch-hex { font-size: 11px; color: var(--text-muted); font-family: 'Courier New', monospace; margin-top: 2px; }
+  .swatch-var { font-size: 10px; color: var(--academic); font-family: 'Courier New', monospace; margin-top: 4px; font-weight: 600; }
+  .swatch-role { font-size: 11px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4; }
+
+  /* ── TYPOGRAPHY ── */
+  .type-samples { display: flex; flex-direction: column; gap: 16px; }
+  .type-row {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .type-label { min-width: 180px; flex-shrink: 0; }
+  .type-label .tl-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+  .type-label .tl-spec { font-size: 10px; color: var(--academic); font-family: 'Courier New', monospace; margin-top: 4px; }
+  .type-sample { flex: 1; }
+
+  /* ── COMPONENT DEMOS ── */
+  .component-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .comp-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .comp-label {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-light);
+    padding: 8px 16px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--text-muted);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .comp-label span { font-weight: 400; font-family: 'Courier New', monospace; color: var(--accent-red); font-size: 10px; letter-spacing: 0; text-transform: none; }
+  .comp-body { padding: 20px; }
+
+  /* ── LIVE COMPONENT DEMOS ── */
+  /* Hero preview */
+  .demo-hero {
+    background: var(--secondary);
+    border-radius: 6px; padding: 20px 22px;
+  }
+  .demo-hero .tag { display: inline-block; background: var(--primary); color: #000; font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 3px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .demo-hero h2 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: white; line-height: 1.2; margin-bottom: 6px; }
+  .demo-hero p { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+  .demo-hero .meta { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 10px; }
+
+  /* Nav preview */
+  .demo-nav { border-bottom: 3px solid var(--primary); display: flex; gap: 0; overflow-x: auto; }
+  .demo-nav-link { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); padding: 10px 12px; border-bottom: 2px solid transparent; white-space: nowrap; cursor: pointer; margin-bottom: -3px; }
+  .demo-nav-link.active { color: var(--secondary); border-bottom-color: var(--primary); }
+  .demo-nav-link.live { color: var(--accent-red); }
+
+  /* Article card */
+  .demo-card { border: 1px solid var(--border-light); border-radius: 6px; padding: 12px 14px; display: flex; gap: 10px; transition: all 0.15s; cursor: pointer; }
+  .demo-card:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+  .demo-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .demo-card-body h4 { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+  .demo-card-body .sub { font-size: 11px; color: var(--text-secondary); line-height: 1.35; }
+  .demo-card-body .meta { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Pills */
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { padding: 4px 12px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+
+  /* Widget header */
+  .demo-widget-headers { display: flex; flex-direction: column; gap: 6px; }
+  .demo-wh { padding: 9px 12px; border-radius: 4px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+
+  /* Breaking bar */
+  .demo-breaking { background: var(--secondary); padding: 8px 16px; border-radius: 4px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: white; }
+  .demo-breaking .badge { background: var(--accent-red); color: white; padding: 2px 8px; border-radius: 3px; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .demo-breaking a { color: var(--primary); }
+
+  /* Schedule chip */
+  .demo-sched { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border-light); border-radius: 6px; overflow: hidden; }
+  .sched-row-demo { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--border-light); font-size: 11px; }
+  .sched-row-demo:last-child { border-bottom: none; }
+  .sched-chip { background: var(--secondary); color: var(--primary); border-radius: 5px; padding: 3px 7px; font-weight: 800; font-size: 9px; min-width: 38px; text-align: center; }
+  .sched-info-demo { flex: 1; }
+  .sched-info-demo strong { display: block; font-size: 11px; }
+  .sched-info-demo span { font-size: 9px; color: var(--text-muted); }
+  .result { font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 3px; }
+  .win  { background: #ecfdf5; color: #059669; }
+  .loss { background: #fef2f2; color: #dc2626; }
+  .tbd  { background: #f5f5f5; color: #999; }
+
+  /* ── CSS VAR TABLE ── */
+  .var-table { width: 100%; border-collapse: collapse; }
+  .var-table th { background: var(--secondary); color: var(--primary); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 10px 14px; text-align: left; }
+  .var-table td { padding: 9px 14px; border-bottom: 1px solid var(--border-light); font-size: 13px; vertical-align: top; }
+  .var-table tr:last-child td { border-bottom: none; }
+  .var-table tr:hover td { background: #f9f9f7; }
+  .var-table .var-name { font-family: 'Courier New', monospace; color: var(--academic); font-weight: 700; font-size: 12px; white-space: nowrap; }
+  .var-table .var-val  { font-family: 'Courier New', monospace; color: var(--accent-red); font-size: 12px; white-space: nowrap; }
+  .var-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.1); vertical-align: middle; margin-right: 6px; }
+  .var-table .var-desc { color: var(--text-secondary); font-size: 12px; }
+
+  /* ── AD ZONE TABLE ── */
+  .ad-table { width: 100%; border-collapse: collapse; }
+  .ad-table th { background: var(--secondary); color: var(--primary); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 10px 14px; text-align: left; }
+  .ad-table td { padding: 10px 14px; border-bottom: 1px solid var(--border-light); font-size: 13px; }
+  .ad-table tr:last-child td { border-bottom: none; }
+  .ad-table tr:hover td { background: #f9f9f7; }
+  .ad-zone-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--secondary); color: var(--primary); border-radius: 50%; font-size: 11px; font-weight: 900; margin-right: 8px; }
+  .ad-size-pill { display: inline-block; background: #EFF6FF; color: var(--academic); font-family: 'Courier New', monospace; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+  .ad-cls { font-family: 'Courier New', monospace; color: var(--accent-red); font-size: 11px; }
+
+  /* ── DO / DON'T ── */
+  .dos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .do-col, .dont-col { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; }
+  .do-col-head { background: #F0FDF4; border-bottom: 2px solid var(--accent-green); padding: 10px 16px; font-size: 12px; font-weight: 800; color: var(--accent-green); text-transform: uppercase; letter-spacing: 1px; }
+  .dont-col-head { background: #FEF2F2; border-bottom: 2px solid var(--accent-red); padding: 10px 16px; font-size: 12px; font-weight: 800; color: var(--accent-red); text-transform: uppercase; letter-spacing: 1px; }
+  .rule-list { list-style: none; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .rule-list li { font-size: 13px; color: var(--text); padding-left: 20px; position: relative; line-height: 1.4; }
+  .do-col .rule-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent-green); font-weight: 900; font-size: 13px; }
+  .dont-col .rule-list li::before { content: '✗'; position: absolute; left: 0; color: var(--accent-red); font-weight: 900; font-size: 13px; }
+
+  /* ── FOOTER ── */
+  .sg-footer {
+    background: var(--secondary);
+    padding: 24px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 64px;
+  }
+  .sg-footer .brand { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 900; color: var(--primary); }
+  .sg-footer p { font-size: 11px; color: #555; }
+  .sg-footer a { color: var(--primary); font-size: 12px; font-weight: 700; text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .sg-wrap { padding: 24px 20px; }
+    .component-grid { grid-template-columns: 1fr; }
+    .dos-grid { grid-template-columns: 1fr; }
+    .color-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+    .type-row { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="sg-topbar">
+  <div>
+    <div class="brand">The Buff Report</div>
+    <div class="label">Style Guide</div>
+  </div>
+  <a href="index.html">← Back to Site</a>
+</div>
+
+<div class="sg-wrap">
+
+  <!-- HERO -->
+  <div class="sg-hero">
+    <h1>Website <span>Style Guide</span></h1>
+    <p>The definitive visual and code reference for The Buff Report. All colors, typography, UI components, CSS variables, and advertising standards defined in one place.</p>
+    <span class="version">v1.0 &nbsp;·&nbsp; 2025–2026 Season</span>
+  </div>
+
+  <!-- ── 1. COLOR PALETTE ────────────────────────────────────────────────── -->
+  <div class="sg-section">
+    <div class="sg-section-head">
+      <div class="sg-section-num">1</div>
+      <h2>Color Palette</h2>
+    </div>
+    <p class="sg-desc">All colors are rooted in the official CU Boulder brand. Gold and Black are the primary brand colors — everything else is supporting. Accent colors are used only at small sizes for category identification.</p>
+
+    <div class="sg-sub">
+      <h3>Primary Brand Colors</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#CFB87C;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">CU Gold</div>
+            <div class="swatch-hex">#CFB87C</div>
+            <div class="swatch-var">--primary</div>
+            <div class="swatch-role">Nav underline, buttons, hover states, tags, schedule chips</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#B8A265;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">CU Gold Dark</div>
+            <div class="swatch-hex">#B8A265</div>
+            <div class="swatch-var">--primary-dark</div>
+            <div class="swatch-role">Headline hover, score highlights, CU team names</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#000000; border-bottom:1px solid #222;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Black</div>
+            <div class="swatch-hex">#000000</div>
+            <div class="swatch-var">--secondary</div>
+            <div class="swatch-role">Hero background, breaking bar, logo mark, schedule date chips</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#FAFAF7; border-bottom:1px solid #E8E8E4;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">Off-White</div>
+            <div class="swatch-hex">#FAFAF7</div>
+            <div class="swatch-var">--bg</div>
+            <div class="swatch-role">Page background — warm, not stark white</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#FFFFFF; border-bottom:1px solid #E8E8E4;"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">White</div>
+            <div class="swatch-hex">#FFFFFF</div>
+            <div class="swatch-var">--bg-card</div>
+            <div class="swatch-role">All cards, sidebar widgets, site header</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-sub" style="margin-top:24px;">
+      <h3>Text &amp; Border Colors</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#111111;"></div>
+          <div class="swatch-info"><div class="swatch-name">Near Black</div><div class="swatch-hex">#111111</div><div class="swatch-var">--text</div><div class="swatch-role">Primary body text, headlines</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#666666;"></div>
+          <div class="swatch-info"><div class="swatch-name">Gray</div><div class="swatch-hex">#666666</div><div class="swatch-var">--text-secondary</div><div class="swatch-role">Article sub-copy, dek text</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#999999;"></div>
+          <div class="swatch-info"><div class="swatch-name">Light Gray</div><div class="swatch-hex">#999999</div><div class="swatch-var">--text-muted</div><div class="swatch-role">Metadata, timestamps, source labels</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#E8E8E4;"></div>
+          <div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#E8E8E4</div><div class="swatch-var">--border</div><div class="swatch-role">Card borders, dividers, input fields</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-sub" style="margin-top:24px;">
+      <h3>Accent / Category Colors — small use only</h3>
+      <div class="color-grid">
+        <div class="color-swatch"><div class="swatch-block" style="background:#DC2626;"></div><div class="swatch-info"><div class="swatch-name">Alert Red</div><div class="swatch-hex">#DC2626</div><div class="swatch-var">--accent-red</div><div class="swatch-role">Breaking, LIVE badge, losses</div></div></div>
+        <div class="color-swatch"><div class="swatch-block" style="background:#16A34A;"></div><div class="swatch-info"><div class="swatch-name">Green</div><div class="swatch-hex">#16A34A</div><div class="swatch-var">--accent-green</div><div class="swatch-role">Wins, recruiting, live status</div></div></div>
+        <div class="color-swatch"><div class="swatch-block" style="background:#EA580C;"></div><div class="swatch-info"><div class="swatch-name">Orange</div><div class="swatch-hex">#EA580C</div><div class="swatch-var">--accent-orange</div><div class="swatch-role">Basketball category</div></div></div>
+        <div class="color-swatch"><div class="swatch-block" style="background:#2563EB;"></div><div class="swatch-info"><div class="swatch-name">Academic Blue</div><div class="swatch-hex">#2563EB</div><div class="swatch-var">--academic</div><div class="swatch-role">Campus/Academics, Off the Field</div></div></div>
+        <div class="color-swatch"><div class="swatch-block" style="background:#6366F1;"></div><div class="swatch-info"><div class="swatch-name">Indigo</div><div class="swatch-hex">#6366F1</div><div class="swatch-role">Transfer Portal, Podcasts</div></div></div>
+        <div class="color-swatch"><div class="swatch-block" style="background:#8B5CF6;"></div><div class="swatch-info"><div class="swatch-name">Purple</div><div class="swatch-hex">#8B5CF6</div><div class="swatch-role">Portal pill text</div></div></div>
+        <div class="color-swatch"><div class="swatch-block" style="background:#D946EF;"></div><div class="swatch-info"><div class="swatch-name">Pink</div><div class="swatch-hex">#D946EF</div><div class="swatch-role">Women's Basketball</div></div></div>
+        <div class="color-swatch"><div class="swatch-block" style="background:#E11D48;"></div><div class="swatch-info"><div class="swatch-name">Rose</div><div class="swatch-hex">#E11D48</div><div class="swatch-role">Lacrosse</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. TYPOGRAPHY ──────────────────────────────────────────────────── -->
+  <div class="sg-section">
+    <div class="sg-section-head">
+      <div class="sg-section-num">2</div>
+      <h2>Typography</h2>
+    </div>
+    <p class="sg-desc">Two Google Fonts only. Playfair Display is reserved strictly for editorial headlines. Inter handles all UI, navigation, and body text.</p>
+
+    <div class="sg-sub">
+      <h3>Type Scale</h3>
+      <div class="type-samples">
+        <div class="type-row">
+          <div class="type-label"><div class="tl-name">Hero Headline</div><div class="tl-spec">Playfair Display · 30px · 900</div></div>
+          <div class="type-sample"><span style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;line-height:1.15;letter-spacing:-0.5px;">CU Boulder Named 3rd Most Beautiful Campus</span></div>
+        </div>
+        <div class="type-row">
+          <div class="type-label"><div class="tl-name">Logo Name</div><div class="tl-spec">Playfair Display · 22px · 900</div></div>
+          <div class="type-sample"><span style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;">The Buff Report</span></div>
+        </div>
+        <div class="type-row">
+          <div class="type-label"><div class="tl-name">Article Headline</div><div class="tl-spec">Inter · 14px · 700</div></div>
+          <div class="type-sample"><span style="font-size:14px;font-weight:700;">Buffs Open Spring Practice With Heavy Hearts — Honor Dominiq Ponder</span></div>
+        </div>
+        <div class="type-row">
+          <div class="type-label"><div class="tl-name">Article Sub-copy</div><div class="tl-spec">Inter · 12px · 400</div></div>
+          <div class="type-sample"><span style="font-size:12px;color:var(--text-secondary);">Senior safety Ben Finneseth: 'Dom wouldn't miss a day.' Team decided unanimously to practice despite tragedy.</span></div>
+        </div>
+        <div class="type-row">
+          <div class="type-label"><div class="tl-name">Section Label</div><div class="tl-spec">Inter · 11px · 800 · uppercase</div></div>
+          <div class="type-sample"><span style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);">Football</span></div>
+        </div>
+        <div class="type-row">
+          <div class="type-label"><div class="tl-name">Nav Link</div><div class="tl-spec">Inter · 11px · 700 · uppercase</div></div>
+          <div class="type-sample"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Latest &nbsp;·&nbsp; Football &nbsp;·&nbsp; Basketball &nbsp;·&nbsp; Campus</span></div>
+        </div>
+        <div class="type-row">
+          <div class="type-label"><div class="tl-name">Widget Header</div><div class="tl-spec">Inter · 10px · 800 · uppercase</div></div>
+          <div class="type-sample"><span style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:2px;">Off the Field</span></div>
+        </div>
+        <div class="type-row">
+          <div class="type-label"><div class="tl-name">Breaking Bar</div><div class="tl-spec">Inter · 13px · 700</div></div>
+          <div class="type-sample"><span style="font-size:13px;font-weight:700;">WBB earns NCAA Tournament bid — No. 10 Seed vs. Illinois</span></div>
+        </div>
+        <div class="type-row">
+          <div class="type-label"><div class="tl-name">Meta / Source</div><div class="tl-spec">Inter · 9–10px · 500–700 · uppercase</div></div>
+          <div class="type-sample"><span style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);">Daily Camera &nbsp;·&nbsp; 2h ago</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. COMPONENTS ──────────────────────────────────────────────────── -->
+  <div class="sg-section">
+    <div class="sg-section-head">
+      <div class="sg-section-num">3</div>
+      <h2>UI Components</h2>
+    </div>
+    <p class="sg-desc">Live previews of every major site component. Hover over article cards to see the interaction states.</p>
+
+    <div class="component-grid">
+
+      <!-- Breaking Bar -->
+      <div class="comp-card">
+        <div class="comp-label">Breaking Bar <span>.breaking-bar</span></div>
+        <div class="comp-body">
+          <div class="demo-breaking">
+            <span class="badge">Breaking</span>
+            <a href="#">CU Women Punch NCAA Tournament Ticket — No. 10 Seed</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero -->
+      <div class="comp-card">
+        <div class="comp-label">Hero Block <span>.hero</span></div>
+        <div class="comp-body">
+          <div class="demo-hero">
+            <span class="tag">🏆 Campus Recognition</span>
+            <h2>CU Boulder Named 3rd Most Beautiful Campus in America</h2>
+            <p>Travel + Leisure cites the Flatirons backdrop, sandstone architecture, and mountain setting.</p>
+            <div class="meta">March 2026 · Travel + Leisure</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <div class="comp-card">
+        <div class="comp-label">Navigation Bar <span>.nav-bar</span></div>
+        <div class="comp-body">
+          <div class="demo-nav">
+            <div class="demo-nav-link active">Latest</div>
+            <div class="demo-nav-link">Football</div>
+            <div class="demo-nav-link">Basketball</div>
+            <div class="demo-nav-link">Campus</div>
+            <div class="demo-nav-link live">● Live</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article Card -->
+      <div class="comp-card">
+        <div class="comp-label">Article Card <span>.hl-card</span></div>
+        <div class="comp-body" style="display:flex;flex-direction:column;gap:8px;">
+          <div class="demo-card">
+            <div class="demo-dot" style="background:#000;"></div>
+            <div class="demo-card-body">
+              <h4>Buffs Open Spring Practice With Heavy Hearts</h4>
+              <div class="sub">Team decided unanimously to practice despite tragedy. Dom wouldn't miss a day.</div>
+              <div class="meta"><span style="background:#f0f0f0;color:#333;padding:1px 6px;border-radius:3px;font-weight:700;">Football</span> CUBuffs.com · Mar 6</div>
+            </div>
+          </div>
+          <div class="demo-card" style="border-left:3px solid var(--primary);background:#fffdf5;">
+            <div class="demo-dot" style="background:var(--academic);"></div>
+            <div class="demo-card-body">
+              <h4>🏆 CU Boulder Named 3rd Most Beautiful Campus</h4>
+              <div class="sub">Gold left border marks pinned/featured stories.</div>
+              <div class="meta"><span style="background:#EFF6FF;color:var(--academic);padding:1px 6px;border-radius:3px;font-weight:700;">Campus</span> Travel + Leisure</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Pills -->
+      <div class="comp-card">
+        <div class="comp-label">Category Pills <span>.sport-pill</span></div>
+        <div class="comp-body">
+          <div class="pill-row">
+            <span class="pill" style="background:#f0f0f0;color:#333;">Football</span>
+            <span class="pill" style="background:#FFF7ED;color:#EA580C;">Basketball</span>
+            <span class="pill" style="background:#FDF4FF;color:#D946EF;">WBB</span>
+            <span class="pill" style="background:#F0FDF4;color:#16A34A;">Recruiting</span>
+            <span class="pill" style="background:#F5F3FF;color:#8B5CF6;">Portal</span>
+            <span class="pill" style="background:#EFF6FF;color:#2563EB;">Campus</span>
+            <span class="pill" style="background:#FFF1F2;color:#E11D48;">Lacrosse</span>
+            <span class="pill" style="background:#EEF2FF;color:#6366F1;">Podcasts</span>
+            <span class="pill" style="background:#FEF2F2;color:#DC2626;">Live</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widget Headers -->
+      <div class="comp-card">
+        <div class="comp-label">Widget Headers <span>.widget-header</span></div>
+        <div class="comp-body">
+          <div class="demo-widget-headers">
+            <div class="demo-wh" style="background:#000;color:#CFB87C;">Scoreboard</div>
+            <div class="demo-wh" style="background:#CFB87C;color:#000;">Upcoming Games</div>
+            <div class="demo-wh" style="background:#16A34A;color:#fff;">Recruiting Wire</div>
+            <div class="demo-wh" style="background:#2563EB;color:#fff;">Off the Field</div>
+            <div class="demo-wh" style="background:#6366F1;color:#fff;">Latest Pods</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schedule Chips -->
+      <div class="comp-card">
+        <div class="comp-label">Schedule Rows <span>.sched-row</span></div>
+        <div class="comp-body">
+          <div class="demo-sched">
+            <div class="sched-row-demo"><div class="sched-chip">SEP<br>6</div><div class="sched-info-demo"><strong>vs Colorado State</strong><span>Folsom Field · ESPN</span></div><span class="result win">W 43–35</span></div>
+            <div class="sched-row-demo"><div class="sched-chip">SEP<br>13</div><div class="sched-info-demo"><strong>at Nebraska</strong><span>Memorial Stadium · Fox</span></div><span class="result loss">L 28–31</span></div>
+            <div class="sched-row-demo"><div class="sched-chip">OCT<br>4</div><div class="sched-info-demo"><strong>vs UCF</strong><span>Folsom Field · ESPN2</span></div><span class="result tbd">TBD</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="comp-card">
+        <div class="comp-label">Buttons &amp; Badges</div>
+        <div class="comp-body" style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <button style="background:#000;color:#CFB87C;padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;border:none;cursor:pointer;">Subscribe</button>
+            <button style="background:#CFB87C;color:#000;padding:8px 18px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;border:none;cursor:pointer;">Get Tickets →</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span style="background:#DC2626;color:#fff;padding:3px 10px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Breaking</span>
+            <span style="background:#CFB87C;color:#000;padding:3px 10px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">🏆 Campus Recognition</span>
+            <span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:800;">W 43–35</span>
+            <span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:800;">L 28–31</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 4. CSS VARIABLES ────────────────────────────────────────────────── -->
+  <div class="sg-section">
+    <div class="sg-section-head">
+      <div class="sg-section-num">4</div>
+      <h2>CSS Custom Properties</h2>
+    </div>
+    <p class="sg-desc">All design tokens live in <code style="background:#f0f0f0;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;font-size:13px;">:root { }</code> at the top of the &lt;style&gt; block. Change a value here and it updates everywhere instantly.</p>
+
+    <table class="var-table">
+      <thead><tr><th>Variable</th><th>Value</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td class="var-name">--primary</td><td class="var-val"><span class="var-swatch" style="background:#CFB87C;"></span>#CFB87C</td><td class="var-desc">CU Gold — primary brand color</td></tr>
+        <tr><td class="var-name">--primary-dark</td><td class="var-val"><span class="var-swatch" style="background:#B8A265;"></span>#B8A265</td><td class="var-desc">CU Gold Dark — hover states, score highlights</td></tr>
+        <tr><td class="var-name">--secondary</td><td class="var-val"><span class="var-swatch" style="background:#000;border:1px solid #333;"></span>#000000</td><td class="var-desc">Black — hero, logo mark, breaking bar</td></tr>
+        <tr><td class="var-name">--secondary-light</td><td class="var-val"><span class="var-swatch" style="background:#1A1A1A;"></span>#1A1A1A</td><td class="var-desc">Near-black — hover backgrounds</td></tr>
+        <tr><td class="var-name">--bg</td><td class="var-val"><span class="var-swatch" style="background:#FAFAF7;border:1px solid #E8E8E4;"></span>#FAFAF7</td><td class="var-desc">Page background — warm off-white</td></tr>
+        <tr><td class="var-name">--bg-card</td><td class="var-val"><span class="var-swatch" style="background:#FFF;border:1px solid #E8E8E4;"></span>#FFFFFF</td><td class="var-desc">Card / widget background</td></tr>
+        <tr><td class="var-name">--text</td><td class="var-val"><span class="var-swatch" style="background:#111;"></span>#111111</td><td class="var-desc">Primary text color</td></tr>
+        <tr><td class="var-name">--text-secondary</td><td class="var-val"><span class="var-swatch" style="background:#666;"></span>#666666</td><td class="var-desc">Secondary text — subheads, deks</td></tr>
+        <tr><td class="var-name">--text-muted</td><td class="var-val"><span class="var-swatch" style="background:#999;"></span>#999999</td><td class="var-desc">Muted — metadata, timestamps, source labels</td></tr>
+        <tr><td class="var-name">--border</td><td class="var-val"><span class="var-swatch" style="background:#E8E8E4;"></span>#E8E8E4</td><td class="var-desc">Standard border color</td></tr>
+        <tr><td class="var-name">--border-light</td><td class="var-val"><span class="var-swatch" style="background:#F0F0EC;border:1px solid #E8E8E4;"></span>#F0F0EC</td><td class="var-desc">Subtle inner dividers</td></tr>
+        <tr><td class="var-name">--academic</td><td class="var-val"><span class="var-swatch" style="background:#2563EB;"></span>#2563EB</td><td class="var-desc">Academic blue — campus section</td></tr>
+        <tr><td class="var-name">--accent-red</td><td class="var-val"><span class="var-swatch" style="background:#DC2626;"></span>#DC2626</td><td class="var-desc">Alert red — breaking news, losses</td></tr>
+        <tr><td class="var-name">--accent-green</td><td class="var-val"><span class="var-swatch" style="background:#16A34A;"></span>#16A34A</td><td class="var-desc">Green — wins, recruiting</td></tr>
+        <tr><td class="var-name">--accent-orange</td><td class="var-val"><span class="var-swatch" style="background:#EA580C;"></span>#EA580C</td><td class="var-desc">Orange — basketball category</td></tr>
+        <tr><td class="var-name">--radius</td><td class="var-val">8px</td><td class="var-desc">Standard border radius for all cards</td></tr>
+        <tr><td class="var-name">--shadow-sm</td><td class="var-val">0 1px 3px rgba(0,0,0,0.06)</td><td class="var-desc">Subtle card shadow</td></tr>
+        <tr><td class="var-name">--shadow-md</td><td class="var-val">0 4px 12px rgba(0,0,0,0.08)</td><td class="var-desc">Medium depth shadow</td></tr>
+        <tr><td class="var-name">--shadow-lg</td><td class="var-val">0 8px 24px rgba(0,0,0,0.10)</td><td class="var-desc">Floating element shadow</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── 5. ADVERTISING ─────────────────────────────────────────────────── -->
+  <div class="sg-section">
+    <div class="sg-section-head">
+      <div class="sg-section-num">5</div>
+      <h2>Advertising — Google AdSense</h2>
+    </div>
+    <p class="sg-desc">Six ad placement zones are reserved throughout the page. All are built to Google AdSense standard sizes. Placeholders will be swapped for <code style="background:#f0f0f0;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;font-size:13px;">&lt;ins class="adsbygoogle"&gt;</code> tags when AdSense goes live.</p>
+
+    <table class="ad-table">
+      <thead><tr><th>#</th><th>Placement</th><th>Size</th><th>CSS Class</th><th>Position / Rationale</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="ad-zone-num">1</span></td>
+          <td><strong>Top Leaderboard</strong></td>
+          <td><span class="ad-size-pill">728 × 90</span></td>
+          <td class="ad-cls">.ad-leaderboard-top</td>
+          <td style="color:var(--text-secondary);font-size:12px;">Above everything — 100% of visitors see this. Highest CPM placement.</td>
+        </tr>
+        <tr>
+          <td><span class="ad-zone-num">2</span></td>
+          <td><strong>Billboard Banner</strong></td>
+          <td><span class="ad-size-pill">970 × 90</span></td>
+          <td class="ad-cls">.ad-slot (banner wrap)</td>
+          <td style="color:var(--text-secondary);font-size:12px;">Below header, above nav. Maximum above-fold presence.</td>
+        </tr>
+        <tr>
+          <td><span class="ad-zone-num">3</span></td>
+          <td><strong>In-Feed Leaderboard</strong></td>
+          <td><span class="ad-size-pill">728 × 90</span></td>
+          <td class="ad-cls">.ad-slot (infeed wrap)</td>
+          <td style="color:var(--text-secondary);font-size:12px;">Between article sections. Captures engaged mid-page readers.</td>
+        </tr>
+        <tr>
+          <td><span class="ad-zone-num">4</span></td>
+          <td><strong>Sidebar Medium Rect 1</strong></td>
+          <td><span class="ad-size-pill">300 × 250</span></td>
+          <td class="ad-cls">.ad-sidebar</td>
+          <td style="color:var(--text-secondary);font-size:12px;">Top of right sidebar. Highest sidebar viewability.</td>
+        </tr>
+        <tr>
+          <td><span class="ad-zone-num">5</span></td>
+          <td><strong>Sidebar Medium Rect 2</strong></td>
+          <td><span class="ad-size-pill">300 × 250</span></td>
+          <td class="ad-cls">.ad-sidebar</td>
+          <td style="color:var(--text-secondary);font-size:12px;">Mid-sidebar. Second impression for engaged readers.</td>
+        </tr>
+        <tr>
+          <td><span class="ad-zone-num">6</span></td>
+          <td><strong>Pre-Footer Billboard</strong></td>
+          <td><span class="ad-size-pill">970 × 90</span></td>
+          <td class="ad-cls">.ad-slot (prefooter wrap)</td>
+          <td style="color:var(--text-secondary);font-size:12px;">Bottom of page. Captures scroll-through readers before exit.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── 6. DO / DON'T ──────────────────────────────────────────────────── -->
+  <div class="sg-section">
+    <div class="sg-section-head">
+      <div class="sg-section-num">6</div>
+      <h2>Do's &amp; Don'ts</h2>
+    </div>
+    <div class="dos-grid">
+      <div class="do-col">
+        <div class="do-col-head">✓ Do</div>
+        <ul class="rule-list">
+          <li>Use #CFB87C for all gold elements</li>
+          <li>Use Playfair Display for editorial headlines only</li>
+          <li>Use Inter for all UI, nav, and body text</li>
+          <li>Keep accent colors at small sizes (pills, dots, badges)</li>
+          <li>Pin featured stories with a gold left border + #fffdf5 background</li>
+          <li>Link every article card to the original source</li>
+          <li>Update the hero story when a major story breaks</li>
+          <li>Use the existing CSS variable names throughout</li>
+          <li>Test layout at 320px, 768px, and 1200px widths</li>
+          <li>Keep AdSense slots at exactly the defined 6 positions</li>
+        </ul>
+      </div>
+      <div class="dont-col">
+        <div class="dont-col-head">✗ Don't</div>
+        <ul class="rule-list">
+          <li>Substitute CU Gold with yellow or amber</li>
+          <li>Use Playfair Display for UI labels or buttons</li>
+          <li>Mix in additional fonts beyond Inter and Playfair</li>
+          <li>Use accent colors for large background areas</li>
+          <li>Use bold/italic randomly to draw attention</li>
+          <li>Use placeholder # links in production</li>
+          <li>Leave a stale hero story for more than 24 hours</li>
+          <li>Hard-code hex values directly in HTML (use variables)</li>
+          <li>Build only for desktop</li>
+          <li>Add ad slots without reviewing AdSense policy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="sg-footer">
+  <div>
+    <div class="brand">The Buff Report</div>
+    <p>Style Guide v1.0 &nbsp;·&nbsp; CU Boulder &nbsp;·&nbsp; 2025–2026</p>
+  </div>
+  <a href="index.html">← Back to Site</a>
+</div>
+
+</body>
+</html>

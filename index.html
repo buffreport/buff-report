@@ -195,8 +195,8 @@
   }
   .hero .tag {
     display: inline-block;
-    background: var(--accent-red); color: white;
-    font-size: 10px; font-weight: 700;
+    background: var(--primary); color: #000;
+    font-size: 10px; font-weight: 800;
     padding: 3px 10px; border-radius: 4px;
     letter-spacing: 1px; text-transform: uppercase;
     margin-bottom: 12px;
@@ -664,10 +664,10 @@
     <!-- ══ HERO ══ -->
     <div class="tab-section" data-tabs="latest">
       <div class="hero">
-        <span class="tag">March Madness</span>
-        <h2><a href="https://247sports.com/college/colorado/article/cu-buffs-ncaa-womens-basketball-tournament-illinois-march-madness-277846730/" target="_blank">CU Women Punch NCAA Tournament Ticket — No. 10 Seed vs. Illinois</a></h2>
-        <p>JR Payne's Buffaloes earn a 22-11 record and an NCAA bid for the first time since 2013. Jade Masogayo and several teammates experience March Madness for the first time.</p>
-        <div class="meta">Today · <a href="https://247sports.com/college/colorado/" target="_blank" style="color:rgba(255,255,255,0.6)">247Sports</a> / <a href="https://www.dailycamera.com/sports/college-sports/buffzone/" target="_blank" style="color:rgba(255,255,255,0.6)">Daily Camera</a> / <a href="https://www.espn.com/womens-college-basketball/" target="_blank" style="color:rgba(255,255,255,0.6)">ESPN</a></div>
+        <span class="tag">🏆 Campus Recognition</span>
+        <h2><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">CU Boulder Named 3rd Most Beautiful College Campus in America</a></h2>
+        <p>Travel + Leisure ranks the University of Colorado Boulder among the nation's most stunning campuses, citing the iconic Flatirons backdrop, historic sandstone architecture, and unmatched mountain setting as defining features.</p>
+        <div class="meta">March 2026 · <a href="https://www.travelandleisure.com" target="_blank" style="color:rgba(255,255,255,0.6)">Travel + Leisure</a></div>
       </div>
     </div>
 
@@ -998,6 +998,14 @@
         <span>Research · Rankings · Innovation · Student Life</span>
       </div>
       <div class="headlines">
+        <div class="hl-card" style="border-left: 3px solid #CFB87C; background: #fffdf5;">
+          <span class="accent-dot dot-campus"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">🏆 CU Boulder Named 3rd Most Beautiful College Campus in America</a></h4>
+            <div class="hl-sub">Travel + Leisure ranks CU among the nation's most stunning campuses, citing the Flatirons backdrop, sandstone architecture, and mountain setting as defining features.</div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>Travel + Leisure</span><span>Mar 2026</span></div>
+          </div>
+        </div>
         <div class="hl-card">
           <span class="accent-dot dot-campus"></span>
           <div class="hl-body">
@@ -1319,6 +1327,7 @@
 
     <div class="widget">
       <div class="widget-header blue">Off the Field</div>
+      <div class="otf-item" style="border-left: 3px solid #CFB87C; padding-left: 8px; background: #fffdf5;"><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank" style="font-weight:700;">🏆 CU Boulder ranked 3rd Most Beautiful Campus in America</a><div class="otf-src">Travel + Leisure</div></div>
       <div class="otf-item"><a href="https://connections.cu.edu/stories/innovation-real-time-2026-cu-ie-awards-spotlight-smart-solutions" target="_blank">No. 2 in nation for startups launched</a><div class="otf-src">CU Connections</div></div>
       <div class="otf-item"><a href="https://www.cpr.org/2026/03/09/cu-ai-rollout/" target="_blank">Faculty push back against university AI rollout</a><div class="otf-src">Colorado Public Radio</div></div>
       <div class="otf-item"><a href="https://www.coloradohometownweekly.com/2025/12/16/cu-boulder-award-research-project-seed-grant-program-2026/" target="_blank">$872K in research seed grants awarded</a><div class="otf-src">CO Hometown Weekly</div></div>
@@ -1381,6 +1390,7 @@
     <a href="#">Subscribe</a>
     <a href="#">Privacy</a>
     <a href="#">Tips</a>
+    <a href="style-guide.html">Style Guide</a>
   </div>
 </footer>
 
@@ -1459,6 +1469,17 @@ const SOURCE_NAMES = {
   'boulderreportinglab.org':{ name:'Boulder Reporting Lab', cls:'src-brl'     },
   'cbssports.com':          { name:'CBS Sports',            cls:'src-cbs'     },
   'coloradodaily.com':      { name:'Colorado Daily',        cls:'src-camera'  },
+  'travelandleisure.com':   { name:'Travel + Leisure',      cls:'src-default' },
+  'usnews.com':             { name:'U.S. News',             cls:'src-default' },
+  'niche.com':              { name:'Niche',                 cls:'src-default' },
+  'bestcolleges.com':       { name:'Best Colleges',         cls:'src-default' },
+  'collegemagazine.com':    { name:'College Magazine',      cls:'src-default' },
+  'studybreaks.com':        { name:'Study Breaks',          cls:'src-default' },
+  'theknowledgereview.com': { name:'Knowledge Review',      cls:'src-default' },
+  'reddit.com':             { name:'Reddit',                cls:'src-default' },
+  'patch.com':              { name:'Patch',                 cls:'src-default' },
+  'boulderbeat.news':       { name:'Boulder Beat',          cls:'src-default' },
+  'boulderwire.com':        { name:'Boulder Wire',          cls:'src-default' },
 };
 
 function getSrc(url, author) {
@@ -1529,19 +1550,25 @@ function renderLiveFeed(id, items, limit) {
 const GN = q => 'https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=' + encodeURIComponent(q);
 
 async function loadLiveFeeds() {
-  const [fbItems, bbItems, recItems, campItems, allItems] = await Promise.all([
+  const [fbItems, bbItems, recItems, campItems, lifestyleItems, allItems] = await Promise.all([
     fetchRSS(GN('Colorado Buffs football Deion Sanders spring 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com')),
     fetchRSS(GN('Colorado Buffs basketball NCAA tournament Big 12 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com')),
     fetchRSS(GN('Colorado Buffs recruiting transfer portal 2026 2027 site:247sports.com OR site:on3.com OR site:si.com')),
     fetchRSS('https://www.colorado.edu/today/rss.xml'),
+    fetchRSS(GN('"CU Boulder" OR "University of Colorado Boulder" ranking OR ranked OR beautiful OR best OR top OR award OR recognition OR campus life OR research OR innovation')),
     fetchRSS(GN('"CU Boulder" OR "Colorado Buffs" news 2026')),
   ]);
 
-  renderLiveFeed('live-football',   fbItems,   8);
-  renderLiveFeed('live-basketball', bbItems,   8);
-  renderLiveFeed('live-recruiting', recItems,  8);
-  renderLiveFeed('live-campus',     campItems, 8);
-  renderLiveFeed('live-all',        allItems, 12);
+  // Merge lifestyle/recognition items into campus feed so they surface automatically
+  const mergedCampus = [...(lifestyleItems || []), ...(campItems || [])]
+    .filter((item, i, arr) => arr.findIndex(x => x.link === item.link) === i)
+    .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+  renderLiveFeed('live-football',   fbItems,      8);
+  renderLiveFeed('live-basketball', bbItems,      8);
+  renderLiveFeed('live-recruiting', recItems,     8);
+  renderLiveFeed('live-campus',     mergedCampus, 10);
+  renderLiveFeed('live-all',        allItems,     12);
 
   // Refresh timestamp
   document.getElementById('refreshTime').textContent =
