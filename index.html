@@ -690,6 +690,7 @@
     <a class="nav-link" data-tab="portal">Portal/NIL</a>
     <a class="nav-link" data-tab="campus">Campus</a>
     <a class="nav-link" data-tab="podcasts">Podcasts</a>
+    <a class="nav-link" data-tab="town">Around Town</a>
     <a class="nav-link live" data-tab="live">Live</a>
   </div>
 </nav>
@@ -1112,6 +1113,62 @@
       <div class="section-label"><h3>Latest from the Web</h3></div>
       <div id="live-campus" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live campus headlines…</div></div></div>
+      </div>
+    </div>
+
+    <!-- ══ AROUND TOWN ══ -->
+    <div class="tab-section hidden" data-tabs="town">
+      <div class="campus-banner" style="background:linear-gradient(135deg,#2d4a2d,#1a3a1a);">
+        <h3>Around Town — Boulder City</h3>
+        <span>Restaurants · Bars · Development · Local News</span>
+      </div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot" style="background:#2d8a4e;"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.boulderbeat.news/2026/03/10/pearl-street-new-restaurants/" target="_blank">Three New Restaurants Set to Open on Pearl Street This Spring</a></h4>
+            <div class="hl-sub">A new ramen bar, a Mediterranean fast-casual, and a cocktail lounge are all eyeing spring openings along Boulder's most-visited corridor.</div>
+            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">Food & Drink</span><span>Boulder Beat</span><span>Mar 10</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot" style="background:#2d8a4e;"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/08/boulder-transit-village-development/" target="_blank">Boulder Transit Village Development Moves Forward with New Mixed-Use Plan</a></h4>
+            <div class="hl-sub">City Council approves updated plans for the area near 30th and Pearl. Project includes 400+ housing units and ground-floor retail.</div>
+            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">Development</span><span>Daily Camera</span><span>Mar 8</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot" style="background:#2d8a4e;"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.boulderweekly.com/food-drink/" target="_blank">Fate Brewing Expands — Adds Outdoor Patio Ahead of Summer Season</a></h4>
+            <div class="hl-sub">The beloved local brewery on 28th St is doubling its outdoor space in time for warm weather, adding food truck partnerships and live music nights.</div>
+            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">Bars & Breweries</span><span>Boulder Weekly</span><span>Mar 6</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot" style="background:#2d8a4e;"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/05/boulder-housing-affordability/" target="_blank">Boulder Launches New Affordable Housing Initiative for Local Workers</a></h4>
+            <div class="hl-sub">City targets service workers, teachers, and first responders. Program offers down payment assistance and income-based rental units near CU.</div>
+            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">City News</span><span>Daily Camera</span><span>Mar 5</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot" style="background:#2d8a4e;"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.boulderbeat.news/2026/03/01/boulder-creek-path-renovation/" target="_blank">Boulder Creek Path Renovation Set to Begin This Month</a></h4>
+            <div class="hl-sub">The city's most-used trail gets a major upgrade. Expect closures on select segments near CU campus through April.</div>
+            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">Construction</span><span>Boulder Beat</span><span>Mar 1</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Boulder News Feed -->
+      <div class="section-label" style="margin-top:16px;"><h3>Latest Boulder News</h3></div>
+      <div id="live-town" class="live-feed-container">
+        <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading Boulder news…</div></div></div>
       </div>
     </div>
 
@@ -1555,13 +1612,14 @@ function renderLiveFeed(id, items, limit) {
 const GN = q => 'https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=' + encodeURIComponent(q);
 
 async function loadLiveFeeds() {
-  const [fbItems, bbItems, recItems, campItems, lifestyleItems, allItems] = await Promise.all([
+  const [fbItems, bbItems, recItems, campItems, lifestyleItems, allItems, townItems] = await Promise.all([
     fetchRSS(GN('Colorado Buffs football Deion Sanders spring 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com')),
     fetchRSS(GN('Colorado Buffs basketball NCAA tournament Big 12 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com')),
     fetchRSS(GN('Colorado Buffs recruiting transfer portal 2026 2027 site:247sports.com OR site:on3.com OR site:si.com')),
     fetchRSS('https://www.colorado.edu/today/rss.xml'),
     fetchRSS(GN('"CU Boulder" OR "University of Colorado Boulder" ranking OR ranked OR beautiful OR best OR top OR award OR recognition OR campus life OR research OR innovation')),
     fetchRSS(GN('"CU Boulder" OR "Colorado Buffs" news 2026')),
+    fetchRSS(GN('Boulder Colorado restaurant bar development construction local news site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com')),
   ]);
 
   // Merge lifestyle/recognition items into campus feed so they surface automatically
@@ -1574,6 +1632,7 @@ async function loadLiveFeeds() {
   renderLiveFeed('live-recruiting', recItems,     8);
   renderLiveFeed('live-campus',     mergedCampus, 10);
   renderLiveFeed('live-all',        allItems,     12);
+  renderLiveFeed('live-town',       townItems,    12);
 
   // Refresh timestamp
   document.getElementById('refreshTime').textContent =
