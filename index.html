@@ -646,7 +646,7 @@
     <div class="email-mini">
       <span style="font-weight:700;">THE DAILY BUFF</span>
       <input type="email" placeholder="your@email.com">
-      <button class="btn-sub" onclick="openNewsletter()">Subscribe</button>
+      <button class="btn-sub" onclick="openNewsletter(this.previousElementSibling.value)">Subscribe</button>
     </div>
   </div>
 </div>
@@ -1564,7 +1564,7 @@ activateTab('latest');
     <h2 style="font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:white; margin:0 0 6px;">Stay in the know.</h2>
     <p style="color:#bbb; font-size:13px; font-family:'Merriweather Sans',sans-serif; margin:0 0 16px; line-height:1.5;">CU Buffs news — athletics, academics, and everything Boulder — straight to your inbox.</p>
     <!-- Beehiiv embed -->
-    <iframe src="https://subscribe-forms.beehiiv.com/1dbc9ea7-e231-4c4e-a25c-bcc96b6a0dab" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width:100%; height:291px; border-radius:6px; background-color:transparent; box-shadow:none; max-width:100%;"></iframe>
+    <iframe id="beehiiv-iframe" src="https://subscribe-forms.beehiiv.com/1dbc9ea7-e231-4c4e-a25c-bcc96b6a0dab" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width:100%; height:291px; border-radius:6px; background-color:transparent; box-shadow:none; max-width:100%;"></iframe>
   </div>
 </div>
 
@@ -1582,7 +1582,14 @@ activateTab('latest');
     if (e.target === this) closeNewsletter();
   });
 
-  function openNewsletter() {
+  function openNewsletter(email) {
+    const base = 'https://subscribe-forms.beehiiv.com/1dbc9ea7-e231-4c4e-a25c-bcc96b6a0dab';
+    const iframe = document.getElementById('beehiiv-iframe');
+    if (email && email.trim()) {
+      iframe.src = base + '?email=' + encodeURIComponent(email.trim());
+    } else {
+      iframe.src = base;
+    }
     document.getElementById('newsletter-overlay').style.display = 'flex';
   }
 
