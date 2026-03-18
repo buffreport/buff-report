@@ -133,12 +133,13 @@
   .btn-sub:hover { background: #333; }
 
   /* NAV */
+  nav { overflow: hidden; }
   .nav-bar {
     background: white;
     border-bottom: 1px solid var(--border);
     max-width: 1200px; margin: 0 auto;
     padding: 0 24px;
-    display: flex; gap: 0; overflow-x: hidden;
+    display: flex; gap: 0; overflow: hidden;
   }
   .nav-link {
     font-size: 11px; font-weight: 700;
@@ -1332,9 +1333,6 @@
       </div>
     </div>
 
-    <div style="text-align:center; padding: 10px; font-size: 10px; color: var(--text-muted);">
-      Visitors today: <span class="visitor-count" id="visitorCount">14,896</span>
-    </div>
 
   </aside>
 </div>
@@ -1372,12 +1370,6 @@ document.getElementById('dateline').innerHTML =
 document.getElementById('refreshTime').textContent =
   now.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', second:'2-digit' });
 
-// ── VISITOR COUNTER ──────────────────────────────────────────────────────
-let count = 14892;
-setInterval(() => {
-  count += Math.floor(Math.random() * 3) + 1;
-  document.getElementById('visitorCount').textContent = count.toLocaleString();
-}, 8000);
 
 setInterval(() => {
   const t = new Date();
