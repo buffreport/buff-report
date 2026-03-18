@@ -1607,17 +1607,18 @@ activateTab('latest');
 </div>
 
 <script>
-  // Show popup after 2 seconds, but only once per session
-  if (!sessionStorage.getItem('newsletter-dismissed')) {
+  // Show popup after 2 seconds — once per day
+  const lastSeen = localStorage.getItem('newsletter-last-seen');
+  const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
+  if (!lastSeen || parseInt(lastSeen) < oneDayAgo) {
     setTimeout(() => {
-      const overlay = document.getElementById('newsletter-overlay');
-      overlay.style.display = 'flex';
+      document.getElementById('newsletter-overlay').style.display = 'block';
     }, 2000);
   }
 
   // Close on overlay background click
   document.getElementById('newsletter-overlay').addEventListener('click', function(e) {
-    if (e.target === this) closeNewsletter();
+    if (e.target === this || e.target.parentElement === this) closeNewsletter();
   });
 
   function openNewsletter(email) {
@@ -1628,12 +1629,12 @@ activateTab('latest');
     } else {
       iframe.src = base;
     }
-    document.getElementById('newsletter-overlay').style.display = 'flex';
+    document.getElementById('newsletter-overlay').style.display = 'block';
   }
 
   function closeNewsletter() {
     document.getElementById('newsletter-overlay').style.display = 'none';
-    sessionStorage.setItem('newsletter-dismissed', '1');
+    localStorage.setItem('newsletter-last-seen', Date.now().toString());
   }
 </script>
 </body>
