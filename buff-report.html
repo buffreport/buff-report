@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE BUFF REPORT - All Things CU Boulder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #CFB87C;
+    --primary-dark: #b8a265;
+    --secondary: #000000;
+    --secondary-light: #1a1a1a;
+    --bg: #fafaf7;
+    --bg-card: #ffffff;
+    --text: #111111;
+    --text-secondary: #666666;
+    --text-muted: #999999;
+    --border: #e8e8e4;
+    --border-light: #f0f0ec;
+    --link: #111111;
+    --link-hover: #CFB87C;
+    --academic: #2563EB;
+    --accent-red: #DC2626;
+    --accent-green: #16A34A;
+    --accent-orange: #EA580C;
+    --radius: 8px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--link); text-decoration: none; transition: color 0.15s; }
+  a:hover { color: var(--link-hover); }
+
+  /* BREAKING BAR */
+  .breaking-bar {
+    background: var(--secondary);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.3px;
+  }
+  .breaking-bar .badge {
+    background: var(--accent-red);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    animation: pulse-badge 2s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse-badge { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+  .breaking-bar a { color: var(--primary); font-weight: 700; }
+
+  /* HEADER */
+  .site-header {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo-mark {
+    width: 44px; height: 44px;
+    background: var(--secondary);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 900;
+    color: var(--primary);
+  }
+  .logo-text { display: flex; flex-direction: column; }
+  .logo-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 900;
+    color: var(--secondary);
+    line-height: 1; letter-spacing: -0.5px;
+  }
+  .logo-text span {
+    font-size: 11px; color: var(--text-muted);
+    letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 600; margin-top: 2px;
+  }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .header-right .dateline {
+    font-size: 11px; color: var(--text-muted);
+    text-align: right; line-height: 1.4;
+  }
+  .btn-sub {
+    background: var(--secondary); color: var(--primary);
+    padding: 8px 18px; border-radius: 6px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    cursor: pointer; border: none; transition: all 0.15s;
+  }
+  .btn-sub:hover { background: #333; }
+
+  /* NAV */
+  .nav-bar {
+    background: white;
+    border-bottom: 3px solid var(--primary);
+    max-width: 1200px; margin: 0 auto;
+    padding: 0 24px;
+    display: flex; gap: 0; overflow-x: auto;
+  }
+  .nav-link {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted);
+    padding: 12px 16px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s; white-space: nowrap;
+    cursor: pointer; margin-bottom: -3px;
+  }
+  .nav-link:hover, .nav-link.active { color: var(--secondary); border-bottom-color: var(--primary); }
+  .nav-link.live { color: var(--accent-red); }
+  .nav-link.live::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--accent-red); border-radius: 50%;
+    display: inline-block; margin-right: 5px;
+    animation: pulse-badge 1.5s infinite;
+  }
+
+  /* STATUS BAR */
+  .status-bar {
+    max-width: 1200px; margin: 0 auto;
+    padding: 8px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 10px; color: var(--text-muted); letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-light);
+    background: white;
+  }
+  .status-bar .live-dot {
+    width: 5px; height: 5px;
+    background: var(--accent-green); border-radius: 50%;
+    display: inline-block; margin-right: 4px;
+    animation: pulse-badge 2s infinite;
+  }
+  .email-mini { display: flex; align-items: center; gap: 6px; }
+  .email-mini input {
+    padding: 4px 10px; border: 1px solid var(--border);
+    border-radius: 4px; font-size: 11px; width: 180px;
+    outline: none; font-family: 'Inter', sans-serif;
+  }
+  .email-mini button {
+    background: var(--primary); color: var(--secondary);
+    border: none; padding: 5px 12px; border-radius: 4px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer;
+  }
+
+  /* MAIN LAYOUT */
+  .main-wrap {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 320px;
+    gap: 24px; padding: 20px 24px;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--secondary);
+    border-radius: var(--radius);
+    padding: 28px 32px; margin-bottom: 20px;
+    position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute;
+    right: -20px; top: -20px;
+    width: 200px; height: 200px;
+    background: rgba(207,184,124,0.06); border-radius: 50%;
+  }
+  .hero .tag {
+    display: inline-block;
+    background: var(--accent-red); color: white;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 10px; border-radius: 4px;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px; font-weight: 900;
+    color: white; line-height: 1.15;
+    margin-bottom: 10px; letter-spacing: -0.5px;
+  }
+  .hero h2 a { color: white; }
+  .hero h2 a:hover { color: var(--primary); }
+  .hero p { font-size: 14px; color: rgba(255,255,255,0.65); max-width: 600px; line-height: 1.6; }
+  .hero .meta { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 12px; }
+
+  /* SECTION LABEL */
+  .section-label {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px; margin-top: 4px;
+  }
+  .section-label h3 {
+    font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-muted);
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .section-label.gold h3 { color: var(--primary-dark); }
+  .section-label.academic h3 { color: var(--academic); }
+  .section-label.purple h3 { color: #6366F1; }
+
+  /* HEADLINE CARDS */
+  .headlines { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .hl-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex; align-items: flex-start; gap: 12px;
+    transition: all 0.15s; cursor: pointer;
+  }
+  .hl-card:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+  }
+  .hl-card .accent-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+  }
+  .dot-football { background: var(--secondary); }
+  .dot-basketball { background: var(--accent-orange); }
+  .dot-recruiting { background: var(--accent-green); }
+  .dot-portal { background: #8B5CF6; }
+  .dot-campus { background: var(--academic); }
+  .dot-lacrosse { background: #E11D48; }
+  .dot-podcast { background: #6366F1; }
+  .dot-wbb { background: #D946EF; }
+
+  .hl-card .hl-body { flex: 1; }
+  .hl-card h4 { font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 3px; }
+  .hl-card h4 a { color: var(--text); }
+  .hl-card h4 a:hover { color: var(--primary-dark); }
+  .hl-card .hl-sub { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+  .hl-card .hl-meta {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 6px; font-size: 10px; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .hl-card .sport-pill {
+    padding: 2px 8px; border-radius: 4px;
+    font-weight: 700; font-size: 9px; letter-spacing: 0.5px;
+  }
+  .pill-football { background: #f0f0f0; color: #333; }
+  .pill-basketball { background: #FFF7ED; color: var(--accent-orange); }
+  .pill-wbb { background: #FDF4FF; color: #D946EF; }
+  .pill-recruiting { background: #F0FDF4; color: var(--accent-green); }
+  .pill-portal { background: #F5F3FF; color: #8B5CF6; }
+  .pill-campus { background: #EFF6FF; color: var(--academic); }
+  .pill-lacrosse { background: #FFF1F2; color: #E11D48; }
+  .pill-podcast { background: #EEF2FF; color: #6366F1; }
+  .pill-live { background: #FEF2F2; color: var(--accent-red); }
+
+  /* LINK CLUSTER (dense Drudge-style) */
+  .link-cluster { margin-bottom: 20px; }
+  .link-item {
+    display: flex; align-items: baseline; gap: 8px;
+    padding: 5px 0; border-bottom: 1px solid var(--border-light);
+    font-size: 13px; font-weight: 600;
+  }
+  .link-item:last-child { border-bottom: none; }
+  .link-item a { color: var(--text); }
+  .link-item a:hover { color: var(--primary-dark); text-decoration: underline; }
+  .link-item .src {
+    font-size: 9px; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    flex-shrink: 0; font-weight: 500;
+  }
+
+  /* SIDEBAR */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .widget {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .widget-header {
+    padding: 10px 14px;
+    font-size: 10px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 2px;
+    border-bottom: 1px solid var(--border-light);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .widget-header.dark { background: var(--secondary); color: var(--primary); border-bottom: none; }
+  .widget-header.gold { background: var(--primary); color: var(--secondary); border-bottom: none; }
+  .widget-header.blue { background: var(--academic); color: white; border-bottom: none; }
+  .widget-header.purple { background: #6366F1; color: white; border-bottom: none; }
+  .widget-header.green { background: #16A34A; color: white; border-bottom: none; }
+
+  /* Score widget */
+  .score-game { padding: 10px 14px; border-bottom: 1px solid var(--border-light); }
+  .score-game:last-child { border-bottom: none; }
+  .score-game .game-label {
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .game-label.live { color: var(--accent-red); }
+  .game-label.final { color: var(--text-muted); }
+  .game-label.upcoming { color: var(--academic); }
+  .score-line {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 3px 0; font-size: 13px;
+  }
+  .score-line .team { font-weight: 700; }
+  .score-line .team.cu { color: var(--primary-dark); }
+  .score-line .pts { font-weight: 800; font-size: 16px; }
+  .score-line .pts.winner { color: var(--primary-dark); }
+
+  /* Schedule widget */
+  .sched-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px; border-bottom: 1px solid var(--border-light); font-size: 12px;
+  }
+  .sched-row:last-child { border-bottom: none; }
+  .sched-date {
+    background: var(--secondary); color: var(--primary);
+    border-radius: 6px; padding: 4px 8px;
+    text-align: center; min-width: 44px;
+    font-weight: 800; font-size: 10px; letter-spacing: 0.5px;
+  }
+  .sched-info { flex: 1; }
+  .sched-info strong { display: block; font-size: 12px; }
+  .sched-info span { font-size: 10px; color: var(--text-muted); }
+  .sched-result {
+    font-size: 10px; font-weight: 800;
+    padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+  }
+  .sched-result.win { background: #ecfdf5; color: #059669; }
+  .sched-result.loss { background: #fef2f2; color: #dc2626; }
+  .sched-result.tbd { background: #f5f5f5; color: #999; font-weight: 600; }
+  .sched-ha { font-size: 9px; color: var(--text-muted); font-weight: 700;
+    background: #f0f0f0; padding: 1px 5px; border-radius: 3px; }
+
+  /* AD PLACEHOLDERS */
+  .ad-slot {
+    background: #e8e8e8;
+    border: 1.5px dashed #bbb;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #999;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+  }
+  .ad-slot .ad-label { font-size: 9px; color: #bbb; letter-spacing: 1.5px; }
+  .ad-slot .ad-size { font-size: 13px; color: #aaa; font-weight: 700; }
+
+  /* Leaderboard — below breaking bar, above header */
+  .ad-leaderboard-top {
+    width: 100%; max-width: 728px; height: 90px;
+    margin: 0 auto; display: block;
+  }
+  /* Full-width banner — between nav and content */
+  .ad-banner-wrap {
+    background: #f5f5f5;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    display: flex; justify-content: center;
+  }
+  .ad-banner-wrap .ad-slot { width: 100%; max-width: 970px; height: 90px; }
+  /* Sidebar rectangle */
+  .ad-sidebar { width: 100%; height: 250px; }
+  /* In-feed leaderboard */
+  .ad-infeed-wrap {
+    margin: 16px 0;
+    display: flex; justify-content: center;
+  }
+  .ad-infeed-wrap .ad-slot { width: 100%; max-width: 728px; height: 90px; }
+  /* Pre-footer billboard */
+  .ad-prefooter-wrap {
+    background: #f5f5f5;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+    display: flex; justify-content: center;
+  }
+  .ad-prefooter-wrap .ad-slot { width: 100%; max-width: 970px; height: 90px; }
+
+  /* Off the Field widget */
+  .otf-item { padding: 8px 14px; border-bottom: 1px solid var(--border-light); font-size: 12px; }
+  .otf-item:last-child { border-bottom: none; }
+  .otf-item a { font-weight: 600; color: var(--text); }
+  .otf-item a:hover { color: var(--academic); }
+  .otf-item .otf-src {
+    font-size: 9px; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px;
+  }
+
+  /* Recruiting widget */
+  .rec-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px; border-bottom: 1px solid var(--border-light);
+  }
+  .rec-item:last-child { border-bottom: none; }
+  .rec-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary), #333);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; color: var(--primary); flex-shrink: 0;
+  }
+  .rec-info { font-size: 12px; }
+  .rec-info .name { font-weight: 700; }
+  .rec-info .detail { color: var(--text-muted); font-size: 10px; }
+  .rec-info .status { font-size: 10px; font-weight: 700; }
+  .status-committed { color: var(--accent-green); }
+  .status-target { color: var(--accent-orange); }
+  .stars { color: var(--primary); font-size: 10px; }
+
+  /* Poll */
+  .poll-body { padding: 14px; }
+  .poll-q { font-weight: 700; font-size: 13px; margin-bottom: 10px; }
+  .poll-opt { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; cursor: pointer; }
+  .poll-opt input { accent-color: var(--primary); }
+  .poll-vote {
+    background: var(--secondary); color: var(--primary);
+    border: none; padding: 6px 16px; border-radius: 4px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; cursor: pointer; margin-top: 8px;
+  }
+
+  /* Trending */
+  .trend-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 14px; border-bottom: 1px solid var(--border-light);
+  }
+  .trend-item:last-child { border-bottom: none; }
+  .trend-num { font-size: 18px; font-weight: 900; color: var(--primary); min-width: 24px; line-height: 1; }
+  .trend-item h4 { font-size: 12px; font-weight: 600; line-height: 1.3; }
+  .trend-item .tm { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Campus banner */
+  .campus-banner {
+    background: linear-gradient(135deg, #1E40AF, #3B82F6);
+    border-radius: var(--radius); padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .campus-banner h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: white; }
+  .campus-banner span { font-size: 10px; color: rgba(255,255,255,0.6); letter-spacing: 1px; }
+
+  /* Podcast card */
+  .podcast-card {
+    background: var(--bg-card); border: 1px solid var(--border-light);
+    border-radius: var(--radius); padding: 16px;
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 8px; transition: all 0.15s;
+  }
+  .podcast-card:hover { border-color: #6366F1; box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+  .podcast-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; flex-shrink: 0;
+  }
+  .podcast-card .pc-body { flex: 1; }
+  .podcast-card .pc-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+  .podcast-card .pc-title a { color: var(--text); }
+  .podcast-card .pc-title a:hover { color: #6366F1; }
+  .podcast-card .pc-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+  .podcast-card .pc-meta { font-size: 9px; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Live section */
+  .live-banner {
+    background: linear-gradient(135deg, #991B1B, #DC2626);
+    border-radius: var(--radius); padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .live-banner h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: white; }
+  .live-banner .live-pulse { width: 8px; height: 8px; background: white; border-radius: 50%; animation: pulse-badge 1.5s infinite; }
+  .live-game-card { background: var(--bg-card); border: 2px solid var(--accent-red); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; }
+  .live-game-card .lgc-status { font-size: 10px; font-weight: 800; color: var(--accent-red); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .live-game-card .lgc-status::before { content: ''; width: 6px; height: 6px; background: var(--accent-red); border-radius: 50%; animation: pulse-badge 1.5s infinite; }
+  .live-game-card .lgc-teams { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .live-game-card .lgc-team { font-weight: 800; font-size: 16px; }
+  .live-game-card .lgc-team.cu { color: var(--primary-dark); }
+  .live-game-card .lgc-score { font-weight: 900; font-size: 24px; }
+  .live-game-card .lgc-info { font-size: 10px; color: var(--text-muted); margin-top: 6px; }
+  .no-live { padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
+  .no-live strong { display: block; margin-bottom: 4px; color: var(--text-secondary); }
+
+  /* Live feed cards (RSS) */
+  .live-feed-item {
+    background: var(--bg-card); border: 1px solid var(--border-light);
+    border-radius: var(--radius); padding: 12px 14px;
+    margin-bottom: 6px; display: flex; align-items: flex-start; gap: 10px;
+    transition: all 0.15s; cursor: pointer;
+  }
+  .live-feed-item:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+  .live-feed-item .lf-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-green); margin-top: 5px; flex-shrink: 0; animation: pulse-badge 2s infinite; }
+  .live-feed-item .lf-body { flex: 1; }
+  .live-feed-item .lf-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 3px; }
+  .live-feed-item:hover .lf-title { color: var(--primary-dark); }
+  .live-feed-item .lf-meta { font-size: 9.5px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 3px; }
+  .lf-src {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    padding: 1px 6px; border-radius: 3px; color: white; letter-spacing: 0.3px;
+  }
+  .src-cubuffs   { background: #CFB87C; color: #000 !important; }
+  .src-camera    { background: #1a5276; }
+  .src-post      { background: #c0392b; }
+  .src-247       { background: #e67e22; }
+  .src-on3       { background: #2980b9; }
+  .src-espn      { background: #cc0000; }
+  .src-si        { background: #003087; }
+  .src-cpr       { background: #5b2c6f; }
+  .src-cuindep   { background: #1b4332; }
+  .src-cutoday   { background: #2c3e50; }
+  .src-brl       { background: #117a65; }
+  .src-cbs       { background: #003087; }
+  .src-default   { background: #888; }
+
+  /* Tab filtering */
+  .tab-section { display: block; }
+  .tab-section.hidden { display: none; }
+
+  /* Footer */
+  .site-footer {
+    max-width: 1200px; margin: 0 auto;
+    border-top: 3px solid var(--primary);
+    padding: 24px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--text-muted);
+  }
+  .footer-links a {
+    color: var(--text-muted); font-weight: 600;
+    padding: 0 10px; text-transform: uppercase;
+    letter-spacing: 1px; font-size: 10px;
+  }
+  .footer-links a:hover { color: var(--primary-dark); }
+
+  /* Visitor counter */
+  .visitor-count {
+    font-family: 'Courier New', monospace; font-weight: 700;
+    color: var(--secondary); background: var(--border-light);
+    padding: 2px 8px; border-radius: 4px; font-size: 12px; letter-spacing: 1px;
+  }
+
+  @media (max-width: 900px) {
+    .main-wrap { grid-template-columns: 1fr; }
+    .site-header { flex-wrap: wrap; gap: 10px; }
+    .hero h2 { font-size: 24px; }
+    .breaking-bar { font-size: 11px; flex-wrap: wrap; text-align: center; }
+    .site-footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BREAKING BAR -->
+<div class="breaking-bar">
+  <span class="badge">Developing</span>
+  CU Women's Basketball earns No. 10 seed in NCAA Tournament — will face Illinois in first round
+  <a href="https://247sports.com/college/colorado/article/cu-buffs-ncaa-womens-basketball-tournament-illinois-march-madness-277846730/" target="_blank">Full Story</a>
+</div>
+
+<!-- AD 1: TOP LEADERBOARD — Max visibility, seen by 100% of visitors -->
+<div style="background:#f0f0f0; padding: 8px 0; display:flex; justify-content:center; border-bottom: 1px solid var(--border);">
+  <div class="ad-slot ad-leaderboard-top">
+    <span class="ad-size">728 × 90</span>
+    <span class="ad-label">Advertisement Goes Here — Leaderboard</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header style="background:white; border-bottom: 1px solid var(--border);">
+  <div class="site-header">
+        <div class="logo">
+      <div class="logo-mark">BR</div>
+      <div class="logo-text">
+        <h1>The Buff Report</h1>
+        <span>Athletics. Academics. Every Headline. One Page.</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="dateline" id="dateline">Tuesday, March 17, 2026<br>1:56 PM MT</div>
+      <button class="btn-sub">Subscribe</button>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav style="background:white;">
+  <div class="nav-bar">
+    <a class="nav-link active" data-tab="latest">Latest</a>
+    <a class="nav-link" data-tab="football">Football</a>
+    <a class="nav-link" data-tab="basketball">Basketball</a>
+    <a class="nav-link" data-tab="recruiting">Recruiting</a>
+    <a class="nav-link" data-tab="portal">Portal/NIL</a>
+    <a class="nav-link" data-tab="campus">Campus</a>
+    <a class="nav-link" data-tab="podcasts">Podcasts</a>
+    <a class="nav-link live" data-tab="live">Live</a>
+  </div>
+</nav>
+
+<!-- STATUS BAR -->
+<div style="background:white;">
+  <div class="status-bar">
+    <span><span class="live-dot"></span> Auto-updating — Last refresh: <span id="refreshTime">—</span></span>
+    <div class="email-mini">
+      <span style="font-weight:700;">THE DAILY BUFF</span>
+      <input type="email" placeholder="your@email.com">
+      <button>GO</button>
+    </div>
+  </div>
+</div>
+
+<!-- AD 2: ABOVE-THE-FOLD BANNER — Premium slot, just before all content -->
+<div class="ad-banner-wrap">
+  <div class="ad-slot">
+    <span class="ad-size">970 × 90</span>
+    <span class="ad-label">Advertisement Goes Here — Billboard Banner</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap">
+  <main>
+
+    <!-- ══ HERO ══ -->
+    <div class="tab-section" data-tabs="latest">
+      <div class="hero">
+        <span class="tag">March Madness</span>
+        <h2><a href="https://247sports.com/college/colorado/article/cu-buffs-ncaa-womens-basketball-tournament-illinois-march-madness-277846730/" target="_blank">CU Women Punch NCAA Tournament Ticket — No. 10 Seed vs. Illinois</a></h2>
+        <p>JR Payne's Buffaloes earn a 22-11 record and an NCAA bid for the first time since 2013. Jade Masogayo and several teammates experience March Madness for the first time.</p>
+        <div class="meta">Today · <a href="https://247sports.com/college/colorado/" target="_blank" style="color:rgba(255,255,255,0.6)">247Sports</a> / <a href="https://www.dailycamera.com/sports/college-sports/buffzone/" target="_blank" style="color:rgba(255,255,255,0.6)">Daily Camera</a> / <a href="https://www.espn.com/womens-college-basketball/" target="_blank" style="color:rgba(255,255,255,0.6)">ESPN</a></div>
+      </div>
+    </div>
+
+    <!-- ══ FOOTBALL ══ -->
+    <div class="tab-section" data-tabs="latest football">
+      <div class="section-label gold"><h3>Football</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-football"></span>
+          <div class="hl-body">
+            <h4><a href="https://cubuffs.com/news/2026/3/6/football-buffs-open-spring-with-energy-emotion-and-purpose" target="_blank">Buffs Open Spring Practice With Heavy Hearts — Honor Dominiq Ponder</a></h4>
+            <div class="hl-sub">Team decided unanimously to practice despite tragedy. Senior safety Ben Finneseth: 'Dom wouldn't miss a day.'</div>
+            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>CUBuffs.com</span><span>Mar 6</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-football"></span>
+          <div class="hl-body">
+            <h4><a href="https://heavy.com/sports/college-football/colorado-buffaloes/deion-sanders-colorado-buffaloes-2026-roster-extreme-makeover-now-complete/" target="_blank">Deion Sanders' 'Extreme Makeover' Complete — 59 New Players on 95-Man Roster</a></h4>
+            <div class="hl-sub">Only 22 scholarship players return. Just 5 on defense. Sanders: 'We got all the negative energy out the building.'</div>
+            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Heavy.com</span><span>Mar 4</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-football"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/17/colorado-buffaloes-football-naeten-mitchell/" target="_blank">Transfer Naeten Mitchell Making Plays in Early Spring Reps</a></h4>
+            <div class="hl-sub">New addition drawing early praise from coaches. Mitchell's versatility gives offensive line coach options.</div>
+            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Daily Camera</span><span>Mar 17</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-football"></span>
+          <div class="hl-body">
+            <h4><a href="https://cubuffs.com/news/2026/2/17/football-from-returning-talent-to-new-additions-colorados-quarterbacks-take-shape" target="_blank">JuJu Lewis Clear QB1 as Quarterback Room Takes Shape</a></h4>
+            <div class="hl-sub">Redshirt freshman commands new-look offense. OC Brendan Marion installing system around Lewis's dual-threat ability.</div>
+            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>CUBuffs.com</span><span>Feb 17</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-football"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/11/colorado-buffaloes-football-kam-perry/" target="_blank">Kam Perry Brings Speed and Talent — 'Impact Could Be Huge'</a></h4>
+            <div class="hl-sub">5-9 WR transfer drawing early praise in spring workouts from new WR coach.</div>
+            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Daily Camera</span><span>Mar 11</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Football extra -->
+    <div class="tab-section hidden" data-tabs="football">
+      <div class="section-label"><h3>More Football</h3></div>
+      <div class="link-cluster">
+        <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-new-coaching-staff-officially-announced-deion-sanders" target="_blank">12 New Coaches: CU Officially Announces Revamped Staff Under Sanders</a><span class="src">SI</span></div>
+        <div class="link-item"><a href="https://www.dailycamera.com/2026/02/24/cu-buffs-dante-carter-defensive-line-coach/" target="_blank">Dante' Carter promoted to DL coach after Peko leaves for Steelers</a><span class="src">Daily Camera</span></div>
+        <div class="link-item"><a href="https://www.si.com/college/colorado/football/deion-sanders-revamp-colorado-coaching-staff-hire-fire-brennan-marion" target="_blank">Every move Sanders made to revamp coaching staff</a><span class="src">SI</span></div>
+        <div class="link-item"><a href="https://clutchpoints.com/ncaa-football/colorado-football-news-deion-sanders-hires-ex-saints-bengals-safety-assistant-coach" target="_blank">Vonn Bell (ex-Saints, Bengals) joins staff as safeties coach</a><span class="src">Clutch Points</span></div>
+        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/01/colorado-buffs-football-spring-preview/" target="_blank">Overhauled roster, staff: Complete spring preview</a><span class="src">Daily Camera</span></div>
+        <div class="link-item"><a href="https://cubuffs.com/news/2026/2/19/football-at-t-black-gold-day-slated-for-april-11" target="_blank">AT&amp;T Black &amp; Gold Day Spring Game — April 11 — Free Admission</a><span class="src">CUBuffs.com</span></div>
+        <div class="link-item"><a href="https://cubuffs.com/news/2026/3/13/football-buffs-reload-wide-receiver-room-with-speed-and-explosive-talent" target="_blank">Buffs Reload Wide Receiver Room With Speed and Explosive Talent</a><span class="src">CUBuffs.com</span></div>
+        <div class="link-item"><a href="https://www.axios.com/local/boulder/2026/03/02/colorado-football-spring-practice-dominiq-ponder-crash" target="_blank">Dominiq Ponder remembered as spring football begins</a><span class="src">Axios Boulder</span></div>
+        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/13/colorado-buffaloes-football-richard-young/" target="_blank">Buffaloes' Richard Young enjoying fresh start in Boulder</a><span class="src">Daily Camera</span></div>
+        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/08/colorado-buffs-football-danny-scudero-2/" target="_blank">Danny Scudero excited to join Colorado Buffs football</a><span class="src">Daily Camera</span></div>
+      </div>
+
+      <!-- 2025 Season Schedule -->
+      <div class="section-label"><h3>2025 Season Schedule &amp; Results <span style="font-size:11px;font-weight:400;color:var(--text-muted)">— Final: 3-9 (1-8 Big 12)</span></h3></div>
+      <div class="widget" style="padding:0;">
+        <div class="sched-row"><div class="sched-date">AUG<br>29</div><div class="sched-info"><strong>Georgia Tech</strong><span><span class="sched-ha">HOME</span> · Fri Night Opener</span></div><span class="sched-result loss">L 20–27</span></div>
+        <div class="sched-row"><div class="sched-date">SEP<br>6</div><div class="sched-info"><strong>Delaware</strong><span><span class="sched-ha">HOME</span> · Non-Conference</span></div><span class="sched-result win">W 31–7</span></div>
+        <div class="sched-row"><div class="sched-date">SEP<br>13</div><div class="sched-info"><strong>at Houston</strong><span><span class="sched-ha">AWAY</span> · Big 12 Opener · Fri</span></div><span class="sched-result loss">L 20–36</span></div>
+        <div class="sched-row"><div class="sched-date">SEP<br>20</div><div class="sched-info"><strong>Wyoming</strong><span><span class="sched-ha">HOME</span> · Non-Conference</span></div><span class="sched-result win">W 37–20</span></div>
+        <div class="sched-row"><div class="sched-date">SEP<br>27</div><div class="sched-info"><strong>BYU</strong><span><span class="sched-ha">HOME</span> · Big 12 · Alamo Bowl Rematch</span></div><span class="sched-result loss">L 21–24</span></div>
+        <div class="sched-row"><div class="sched-date">OCT<br>4</div><div class="sched-info"><strong>at TCU</strong><span><span class="sched-ha">AWAY</span> · Big 12</span></div><span class="sched-result loss">L 21–35</span></div>
+        <div class="sched-row"><div class="sched-date">OCT<br>11</div><div class="sched-info"><strong>Iowa State</strong><span><span class="sched-ha">HOME</span> · Big 12</span></div><span class="sched-result win">W 24–17</span></div>
+        <div class="sched-row" style="opacity:.5"><div class="sched-date" style="background:#ccc;color:#fff;">OCT<br>18</div><div class="sched-info"><strong>BYE WEEK</strong><span>—</span></div><span class="sched-result tbd">BYE</span></div>
+        <div class="sched-row"><div class="sched-date">OCT<br>25</div><div class="sched-info"><strong>at Utah</strong><span><span class="sched-ha">AWAY</span> · Big 12</span></div><span class="sched-result loss">L 7–53</span></div>
+        <div class="sched-row"><div class="sched-date">NOV<br>1</div><div class="sched-info"><strong>Arizona</strong><span><span class="sched-ha">HOME</span> · Big 12</span></div><span class="sched-result loss">L 17–52</span></div>
+        <div class="sched-row"><div class="sched-date">NOV<br>8</div><div class="sched-info"><strong>at West Virginia</strong><span><span class="sched-ha">AWAY</span> · Big 12 · Mil. Appreciation</span></div><span class="sched-result loss">L 22–29</span></div>
+        <div class="sched-row" style="opacity:.5"><div class="sched-date" style="background:#ccc;color:#fff;">NOV<br>15</div><div class="sched-info"><strong>BYE WEEK</strong><span>—</span></div><span class="sched-result tbd">BYE</span></div>
+        <div class="sched-row"><div class="sched-date">NOV<br>22</div><div class="sched-info"><strong>Arizona State</strong><span><span class="sched-ha">HOME</span> · Big 12</span></div><span class="sched-result loss">L 17–42</span></div>
+        <div class="sched-row"><div class="sched-date">NOV<br>29</div><div class="sched-info"><strong>at Kansas State</strong><span><span class="sched-ha">AWAY</span> · Big 12 Finale</span></div><span class="sched-result loss">L 14–24</span></div>
+      </div>
+
+      <!-- Live Football Feed -->
+      <div class="section-label"><h3>Latest from the Web</h3></div>
+      <div id="live-football" class="live-feed-container">
+        <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live football headlines…</div></div></div>
+      </div>
+    </div>
+
+    <!-- AD 5: IN-FEED LEADERBOARD — High engagement, between Football & Basketball sections -->
+    <div class="tab-section" data-tabs="latest">
+      <div class="ad-infeed-wrap">
+        <div class="ad-slot">
+          <span class="ad-size">728 × 90</span>
+          <span class="ad-label">Advertisement Goes Here — In-Feed Leaderboard</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MEN'S BASKETBALL ══ -->
+    <div class="tab-section" data-tabs="latest basketball">
+      <div class="section-label"><h3>Men's Basketball</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-basketball"></span>
+          <div class="hl-body">
+            <h4><a href="https://cubuffs.com/news/2026/3/16/mens-basketball-buffs-return-to-college-basketball-crown" target="_blank">Buffs Accept Bid to College Basketball Crown Tournament</a></h4>
+            <div class="hl-sub">Colorado (17-15, 7-11 Big 12) headed to Las Vegas for CBC. Will face Oklahoma in quarterfinals April 1.</div>
+            <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>CUBuffs.com</span><span>Today</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-basketball"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/16/colorado-buffaloes-college-basketball-crown/" target="_blank">CU Buffs to Compete in College Basketball Crown</a></h4>
+            <div class="hl-sub">NIL-driven, FOX-backed postseason tournament. Buffs vs. Oklahoma at MGM Grand, April 1, 6 PM MT.</div>
+            <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>Daily Camera</span><span>Today</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-basketball"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/11/colorado-buffaloes-basketball-oklahoma-state-season-ending/" target="_blank">Big 12 Tournament Ends Early — Oklahoma State Ousts Buffs</a></h4>
+            <div class="hl-sub">Colorado's run in Kansas City ends in the second round. Season alive thanks to CBC bid.</div>
+            <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>Daily Camera</span><span>Mar 11</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-basketball"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.si.com/college/colorado/basketball/colorado-buffaloes-ncaa-tournament-seed-projection-jr-payne-march-madness" target="_blank">Boyle's Squad Falls Short of NCAA Tourney — Where Things Stand</a></h4>
+            <div class="hl-sub">Buffs needed deeper Big 12 run. 7-11 conference record not enough for at-large consideration.</div>
+            <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>Sports Illustrated</span><span>Mar 15</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ WBB ══ -->
+    <div class="tab-section" data-tabs="latest basketball">
+      <div class="section-label"><h3>Women's Basketball</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-wbb"></span>
+          <div class="hl-body">
+            <h4><a href="https://247sports.com/college/colorado/article/cu-buffs-ncaa-womens-basketball-tournament-illinois-march-madness-277846730/" target="_blank">No. 10 CU vs. No. 7 Illinois — NCAA First Round Matchup Set</a></h4>
+            <div class="hl-sub">Buffaloes (22-11) earn first NCAA bid since 2013. Multiple players experiencing March Madness for the first time.</div>
+            <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>247Sports</span><span>Today</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-wbb"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/15/colorado-buffs-womens-basketball-ncaa-tournament/" target="_blank">Colorado Buffs Women's Basketball Earns No. 10 Seed in NCAA Tournament</a></h4>
+            <div class="hl-sub">Lowest-ever seed for CU in the NCAA Tournament. 17th all-time NCAA appearance.</div>
+            <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>Daily Camera</span><span>Today</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-wbb"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/16/colorado-buffs-womens-basketball-jade-masogayo-3/" target="_blank">Jade Masogayo, Teammates Experience March Madness for First Time</a></h4>
+            <div class="hl-sub">'This is what we've worked for all year.' JR Payne's program reaches new heights.</div>
+            <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>Daily Camera</span><span>Today</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-wbb"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.si.com/college/colorado/basketball/colorado-buffaloes-illinois-fighting-illini-ncaa-tournament-betting-odds-released" target="_blank">Betting Odds Released for CU vs. Illinois — Buffs a Slight Underdog</a></h4>
+            <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>Sports Illustrated</span><span>Today</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Basketball extra / Lacrosse -->
+    <div class="tab-section hidden" data-tabs="basketball">
+      <div class="section-label"><h3>More Basketball</h3></div>
+      <div class="link-cluster">
+        <div class="link-item"><a href="https://www.timescall.com/2026/03/16/colorado-buffaloes-college-basketball-crown/" target="_blank">MBB season continues at College Basketball Crown in Las Vegas</a><span class="src">Times Call</span></div>
+        <div class="link-item"><a href="https://www.espn.com/mens-college-basketball/story/_/id/48209506/arizona-gets-revenge-tops-houston-win-big-12-championship" target="_blank">Arizona tops Houston for Big 12 title — Eight teams to NCAA Tourney</a><span class="src">ESPN</span></div>
+        <div class="link-item"><a href="https://www.yardbarker.com/college_basketball/articles/colorado_buffaloes_big_12_tournament_hub_with_full_schedule_bracket/s1_17284_43572871" target="_blank">Full Big 12 Tournament hub: Schedule, bracket, results</a><span class="src">Yardbarker</span></div>
+      </div>
+
+      <div class="section-label"><h3>Lacrosse</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-lacrosse"></span>
+          <div class="hl-body">
+            <h4><a href="https://cubuffs.com/news/2026/3/15/lacrosse-no-13-colorado-tramples-stetson" target="_blank">No. 13 Buffs Trample Stetson — Stay Perfect at Home</a></h4>
+            <div class="hl-sub">Colorado improves to 5-2 overall, 3-0 at home. Held Hatters scoreless in first quarter.</div>
+            <div class="hl-meta"><span class="sport-pill pill-lacrosse">Lacrosse</span><span>CUBuffs.com</span><span>Mar 15</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-lacrosse"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/08/colorado-buffaloes-lacrosse-vs-michigan-wolverines/" target="_blank">No. 8 Michigan Uses Big 4th Quarter to Top No. 14 CU 8-7</a></h4>
+            <div class="hl-sub">Wolverines rally in final frame to hand Buffs second loss of the season.</div>
+            <div class="hl-meta"><span class="sport-pill pill-lacrosse">Lacrosse</span><span>Daily Camera</span><span>Mar 8</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-lacrosse"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/13/colorado-buffs-track-ncaa-indoor-championships/" target="_blank">CU Track Has Frustrating Finale at NCAA Indoor Championships</a></h4>
+            <div class="hl-sub">Top-seed Isaiah Givens narrowly misses advancing out of one-mile preliminary.</div>
+            <div class="hl-meta"><span class="sport-pill pill-lacrosse">Track</span><span>Daily Camera</span><span>Mar 13</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2025-26 Season Schedule -->
+      <div class="section-label"><h3>2025–26 Season Schedule <span style="font-size:11px;font-weight:400;color:var(--text-muted)">— 17-13 (7-10 Big 12) · College Basketball Crown</span></h3></div>
+      <div class="widget" style="padding:0;">
+        <div class="sched-row" style="background:#fafaf8;"><div class="sched-date" style="background:#888;font-size:9px;">NON-CONF</div><div class="sched-info" style="font-size:10px;font-weight:700;color:var(--text-muted);">NON-CONFERENCE</div></div>
+        <div class="sched-row"><div class="sched-date">NOV<br>3</div><div class="sched-info"><strong>Montana State</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 84–78</span></div>
+        <div class="sched-row"><div class="sched-date">NOV<br>8</div><div class="sched-info"><strong>Eastern Washington</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 102–97</span></div>
+        <div class="sched-row"><div class="sched-date">NOV</div><div class="sched-info"><strong>Providence</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 97–88</span></div>
+        <div class="sched-row"><div class="sched-date">NOV</div><div class="sched-info"><strong>Alabama State</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 94–66</span></div>
+        <div class="sched-row"><div class="sched-date">DEC<br>13</div><div class="sched-info"><strong>UTSA</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">DEC<br>17</div><div class="sched-info"><strong>Portland State</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">DEC<br>20</div><div class="sched-info"><strong>Stanford</strong><span><span class="sched-ha">NEUTRAL</span> · Naismith HoF Series · Phoenix</span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">DEC<br>28</div><div class="sched-info"><strong>Northern Colorado</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row" style="background:#fafaf8;"><div class="sched-date" style="background:#888;font-size:9px;">BIG 12</div><div class="sched-info" style="font-size:10px;font-weight:700;color:var(--text-muted);">BIG 12 CONFERENCE</div></div>
+        <div class="sched-row"><div class="sched-date">JAN<br>3</div><div class="sched-info"><strong>at Arizona State</strong><span><span class="sched-ha">AWAY</span> · Big 12 Opener</span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">JAN<br>7</div><div class="sched-info"><strong>Utah</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 92–78</span></div>
+        <div class="sched-row"><div class="sched-date">JAN<br>14</div><div class="sched-info"><strong>at Cincinnati</strong><span><span class="sched-ha">AWAY</span> · 1st visit since 1981</span></div><span class="sched-result loss">L 68–77</span></div>
+        <div class="sched-row"><div class="sched-date">JAN<br>17</div><div class="sched-info"><strong>at West Virginia</strong><span><span class="sched-ha">AWAY</span></span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">JAN<br>20</div><div class="sched-info"><strong>Kansas</strong><span><span class="sched-ha">HOME</span> · ESPN · 9 PM</span></div><span class="sched-result loss">L</span></div>
+        <div class="sched-row"><div class="sched-date">FEB<br>1</div><div class="sched-info"><strong>TCU</strong><span><span class="sched-ha">HOME</span> · TNT/truTV · 12 PM</span></div><span class="sched-result win">W</span></div>
+        <div class="sched-row"><div class="sched-date">FEB<br>4</div><div class="sched-info"><strong>at Baylor</strong><span><span class="sched-ha">AWAY</span> · Peacock · 6 PM</span></div><span class="sched-result loss">L</span></div>
+        <div class="sched-row"><div class="sched-date">FEB<br>21</div><div class="sched-info"><strong>Oklahoma State</strong><span><span class="sched-ha">HOME</span> · 1st home visit since '10-11</span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">FEB<br>25</div><div class="sched-info"><strong>Kansas State</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 79–70</span></div>
+        <div class="sched-row"><div class="sched-date">MAR<br>7</div><div class="sched-info"><strong>Arizona</strong><span><span class="sched-ha">HOME</span> · Senior Day</span></div><span class="sched-result loss">L 79–89</span></div>
+        <div class="sched-row"><div class="sched-date">MAR</div><div class="sched-info"><strong>College Basketball Crown</strong><span><span class="sched-ha">LAS VEGAS</span> · vs. Oklahoma (QF)</span></div><span class="sched-result tbd">IN PROGRESS</span></div>
+      </div>
+
+      <!-- Live Basketball Feed -->
+      <div class="section-label"><h3>Latest from the Web</h3></div>
+      <div id="live-basketball" class="live-feed-container">
+        <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live basketball headlines…</div></div></div>
+      </div>
+    </div>
+
+    <!-- ══ RECRUITING ══ -->
+    <div class="tab-section" data-tabs="latest recruiting">
+      <div class="section-label"><h3>Recruiting</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-recruiting"></span>
+          <div class="hl-body">
+            <h4><a href="https://247sports.com/college/colorado/season/2026-football/commits/" target="_blank">2027 Class Building: 13 Commits and Counting for CU Football</a></h4>
+            <div class="hl-sub">Xavier Payne (OL, Miami), Preston Ashley (CB, Brandon MS), Maurice Williams Jr. (CB, NOLA), Domata Peko Jr. (Edge), Gavin Mueller (TE) among commits.</div>
+            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>247Sports</span><span>Updated</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-recruiting"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.si.com/college/colorado/football/where-colorado-recruiting-class-ranks-nationally-new-commitments-big-12-xavier-mcdonald" target="_blank">Where CU's Recruiting Class Ranks Nationally After Latest Commitments</a></h4>
+            <div class="hl-sub">Sanders building momentum in Big 12 recruiting wars. Class trending upward.</div>
+            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>Sports Illustrated</span><span>Recent</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-recruiting"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.si.com/college/colorado/recruiting" target="_blank">4-Star RB KJ Edwards (Texas) Among Top 2027 Targets</a></h4>
+            <div class="hl-sub">Also targeting 4-star WR Jase Mathews (Mississippi). Sanders casting wide net for next cycle.</div>
+            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>Sports Illustrated</span><span>Recent</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recruiting extra -->
+    <div class="tab-section hidden" data-tabs="recruiting">
+      <div class="section-label"><h3>More Recruiting</h3></div>
+      <div class="link-cluster">
+        <div class="link-item"><a href="https://247sports.com/college/colorado/season/2026-football/offers/" target="_blank">Full list of 2027 offers extended by CU</a><span class="src">247Sports</span></div>
+        <div class="link-item"><a href="https://www.on3.com/college/colorado-buffaloes/football/2026/transfers/" target="_blank">On3 recruiting tracker — every CU move</a><span class="src">On3</span></div>
+        <div class="link-item"><a href="https://www.espn.com/college-sports/football/recruiting/school/_/id/38/class/2026" target="_blank">ESPN recruiting class breakdown</a><span class="src">ESPN</span></div>
+        <div class="link-item"><a href="https://allbuffs.com/forums/colorado-football-recruiting-central.14/" target="_blank">Fan discussion: Recruiting central thread</a><span class="src">AllBuffs</span></div>
+      </div>
+
+      <div class="section-label"><h3>Basketball Recruiting</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-recruiting"></span>
+          <div class="hl-body">
+            <h4><a href="https://cubuffs.com/sports/mens-basketball/roster" target="_blank">Tad Boyle's 2025-26 Recruiting Class Ranked No. 23 Nationally</a></h4>
+            <div class="hl-sub">Holland, Ifaola, Inman, Johnson, and Sanders form strong freshman class. Boyle already eyeing 2027 targets.</div>
+            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>CUBuffs.com</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Recruiting Feed -->
+      <div class="section-label"><h3>Latest from the Web</h3></div>
+      <div id="live-recruiting" class="live-feed-container">
+        <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live recruiting headlines…</div></div></div>
+      </div>
+    </div>
+
+    <!-- ══ PORTAL / NIL ══ -->
+    <div class="tab-section" data-tabs="latest portal">
+      <div class="section-label"><h3>Transfer Portal / NIL</h3></div>
+      <div class="link-cluster">
+        <div class="link-item"><a href="https://247sports.com/college/colorado/season/2026-football/transferportal/" target="_blank">COMPLETE: CU Transfer Portal Tracker — 40+ In, 36 Out</a><span class="src">247Sports</span></div>
+        <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-deion-sanders-updated-transfer-portal-rankings" target="_blank">Portal rankings updated — No. 21 transfer class nationally</a><span class="src">Sports Illustrated</span></div>
+        <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-transfer-portal-exodus-raises-questions-deion-sanders-roster" target="_blank">Transfer portal exodus raises questions for Sanders' roster strategy</a><span class="src">Sports Illustrated</span></div>
+        <div class="link-item"><a href="https://www.skobuffssports.com/post/colorado-buffaloes-2026-transfer-portal-overview" target="_blank">Full portal overview: Grading every addition by position</a><span class="src">Sko Buffs</span></div>
+        <div class="link-item"><a href="https://glorycolorado.com/who-s-leaving-and-who-s-joining-colorado-football-s-2026-transfer-portal-tracker" target="_blank">Who's Leaving and Who's Joining: Complete Portal Tracker</a><span class="src">Glory Colorado</span></div>
+        <div class="link-item"><a href="https://www.on3.com/college/colorado-buffaloes/transfer-portal/wire/football/" target="_blank">DeAndre Moore Jr. (ex-Texas) Headlines Portal Additions</a><span class="src">On3</span></div>
+        <div class="link-item"><a href="https://sports.yahoo.com/articles/tracking-colorado-footballs-transfer-portal-120431777.html" target="_blank">Yahoo Sports: Tracking Colorado's portal movement</a><span class="src">Yahoo Sports</span></div>
+      </div>
+    </div>
+
+    <!-- ══ CAMPUS / ACADEMICS ══ -->
+    <div class="tab-section" data-tabs="latest campus">
+      <div class="campus-banner">
+        <h3>Off the Field — Campus &amp; Academics</h3>
+        <span>Research · Rankings · Innovation · Student Life</span>
+      </div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-campus"></span>
+          <div class="hl-body">
+            <h4><a href="https://connections.cu.edu/stories/innovation-real-time-2026-cu-ie-awards-spotlight-smart-solutions" target="_blank">CU Ranks No. 2 in Nation for Startups Launched in a Single Year</a></h4>
+            <div class="hl-sub">Mana Battery, Flari Tech, Mesa Quantum among breakout ventures. I&amp;E Awards spotlight smart solutions.</div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Connections</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-campus"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.cpr.org/2026/03/09/cu-ai-rollout/" target="_blank">CU Faculty, Staff and Students Push Back Against University-Controlled AI Rollout</a></h4>
+            <div class="hl-sub">Hundreds sign letter of dissent against $2M OpenAI/ChatGPT Edu deal. Concerns over privacy, academic integrity, environmental impact.</div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>Colorado Public Radio</span><span>Mar 9</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-campus"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.colorado.edu/today/2026/03/11/3-takeaways-second-nature-higher-education-climate-leadership-summit" target="_blank">3 Takeaways from the Higher Education Climate Leadership Summit</a></h4>
+            <div class="hl-sub">Chancellor Schwartz on opening plenary panel in Chicago. CU hosts inaugural Carnegie Sustainability Classification.</div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Boulder Today</span><span>Mar 11</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-campus"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.axios.com/local/boulder/2025/09/23/cu-boulder-top-100-best-colleges-us-news" target="_blank">CU Boulder No. 97 in U.S. News Best Colleges — Rises One Spot</a></h4>
+            <div class="hl-sub">Engineering No. 15 among publics. Aerospace No. 6. Civil No. 10. Computer Science No. 14.</div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>Axios Boulder</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campus extra -->
+    <div class="tab-section hidden" data-tabs="campus">
+      <div class="section-label academic"><h3>More Campus &amp; Research</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-campus"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.colorado.edu/today/2026/03/05/bfa-announces-2026-excellence-awards-winners-celebratory-ceremony-april-7" target="_blank">Faculty Assembly Announces 2026 Excellence Award Winners</a></h4>
+            <div class="hl-sub">Awards ceremony April 7. $5,000 prize in teaching, leadership, and research categories.</div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Boulder Today</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-campus"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.colorado.edu/today/2026/03/03/big-ideas-initiative-surpasses-400-submissions-working-group-invites-campus-idea-sessions" target="_blank">Big Ideas Initiative Surpasses 400 Submissions — Campus Idea Sessions Announced</a></h4>
+            <div class="hl-sub">Working group invites campus to open idea sessions to shape CU's future priorities.</div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Boulder Today</span><span>Mar 3</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-campus"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.coloradohometownweekly.com/2025/12/16/cu-boulder-award-research-project-seed-grant-program-2026/" target="_blank">CU Boulder Awards $872K Across 16 Research Projects — Record 122 Proposals</a></h4>
+            <div class="hl-sub">Topics include weather, water quality, AI, folk religion, and violence reduction.</div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CO Hometown Weekly</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-campus"></span>
+          <div class="hl-body">
+            <h4><a href="https://kdvr.com/news/local/us-news-releases-top-universities-in-nation-heres-where-colorado-schools-rank/" target="_blank">CU Boulder Ranked 5th Nationally for Free-Speech Climate</a></h4>
+            <div class="hl-sub">Highest in Colorado. Based on survey of 68,000+ students.</div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>KDVR / Fox31</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="link-cluster">
+        <div class="link-item"><a href="https://www.cu.edu/news/cu-boulder-ranked-no-46-global-list-us-news-world-report" target="_blank">CU ranked No. 46 globally by U.S. News &amp; World Report</a><span class="src">CU System</span></div>
+        <div class="link-item"><a href="https://bizwest.com/2025/09/23/university-of-colorado-cracks-u-s-news-top-100-ranking/" target="_blank">BizWest: University of Colorado cracks U.S. News top 100</a><span class="src">BizWest</span></div>
+        <div class="link-item"><a href="https://www.colorado.edu/today/2025/12/12/prioritizing-research-and-innovation-look-back-and-ahead-massimo-ruzzene" target="_blank">Research VP Massimo Ruzzene: A Look Back and Ahead</a><span class="src">CU Boulder Today</span></div>
+        <div class="link-item"><a href="https://www.colorado.edu/researchinnovation/2026/02/26/march-25-virtual-event-pilot-cohort-explore-how-cu-boulder-innovators-are-using-ai-win" target="_blank">Mar 25 Virtual Event: How CU Innovators Are Using AI to Win Major Grants</a><span class="src">CU Research &amp; Innovation</span></div>
+      </div>
+
+      <!-- Live Campus Feed -->
+      <div class="section-label"><h3>Latest from the Web</h3></div>
+      <div id="live-campus" class="live-feed-container">
+        <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live campus headlines…</div></div></div>
+      </div>
+    </div>
+
+    <!-- ══ PODCASTS ══ -->
+    <div class="tab-section hidden" data-tabs="podcasts">
+      <div class="section-label purple"><h3>CU Buffs Podcasts</h3></div>
+
+      <div class="podcast-card">
+        <div class="podcast-icon" style="background:linear-gradient(135deg,#1a1a1a,#333);color:#CFB87C;">DN</div>
+        <div class="pc-body">
+          <div class="pc-title"><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR CU Buffs Podcast</a></div>
+          <div class="pc-desc">The most-listened-to CU Buffs podcast. Ryan Koenigsberg, Jake Schwanitz and Scott Procter deliver insider access to Coach Prime, the Buffs and the Big 12.</div>
+          <div class="pc-meta">Daily — Apple Podcasts / Spotify / DNVR App</div>
+        </div>
+      </div>
+      <div class="podcast-card">
+        <div class="podcast-icon" style="background:linear-gradient(135deg,#1E3A5F,#3B82F6);color:white;">LO</div>
+        <div class="pc-body">
+          <div class="pc-title"><a href="https://podcasts.apple.com/us/podcast/locked-on-buffs-daily-podcast-on-colorado-football/id1641365043" target="_blank">Locked On Buffs</a></div>
+          <div class="pc-desc">Hosted by Kevin Borba of Athlon Sports. Daily expert opinions, film reviews, interviews, recaps, and local analysis on all things Colorado Buffaloes.</div>
+          <div class="pc-meta">Daily — Apple Podcasts / Spotify</div>
+        </div>
+      </div>
+      <div class="podcast-card">
+        <div class="podcast-icon" style="background:linear-gradient(135deg,#7C3AED,#A78BFA);color:white;">BS</div>
+        <div class="pc-body">
+          <div class="pc-title"><a href="https://buffstampede.podbean.com/" target="_blank">BuffStampede Podcast</a></div>
+          <div class="pc-desc">Publisher Adam Munsterteiger and staff provide in-depth coverage of CU football and basketball. Film breakdowns, recruiting analysis, and insider scoops.</div>
+          <div class="pc-meta">Weekly — Podbean / Apple Podcasts</div>
+        </div>
+      </div>
+      <div class="podcast-card">
+        <div class="podcast-icon" style="background:linear-gradient(135deg,#B91C1C,#EF4444);color:white;">RR</div>
+        <div class="pc-body">
+          <div class="pc-title"><a href="https://www.ralphiereport.com/ralphie-report-radio" target="_blank">Ralphie Report Radio</a></div>
+          <div class="pc-desc">The editors of RalphieReport.com break down the Buffs, Big 12, and college football and basketball at large. Gameday previews and postgame analysis.</div>
+          <div class="pc-meta">Weekly — Apple Podcasts / Spotify</div>
+        </div>
+      </div>
+      <div class="podcast-card">
+        <div class="podcast-icon" style="background:linear-gradient(135deg,#0369A1,#38BDF8);color:white;">KO</div>
+        <div class="pc-body">
+          <div class="pc-title"><a href="https://koacolorado.iheart.com/featured/cu-buffs/" target="_blank">KOA Colorado — Voice of the Buffs</a></div>
+          <div class="pc-desc">Official Buffs radio. Mark Johnson and Gary Barnett for football. Mark Johnson and Scott Wilke for men's basketball. Game broadcasts and weekly shows.</div>
+          <div class="pc-meta">Game Days + Weekly — 850 AM / 94.1 FM / iHeart</div>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:20px;"><h3>Latest Episodes</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-podcast"></span>
+          <div class="hl-body">
+            <h4><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR: Spring Practice Day 3 Recap — Who Stood Out in Full Pads?</a></h4>
+            <div class="hl-sub">JuJu Lewis looked sharp. New DL showing early promise. Plus: WBB earns NCAA bid.</div>
+            <div class="hl-meta"><span class="sport-pill pill-podcast">Podcast</span><span>DNVR</span><span>Today</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-podcast"></span>
+          <div class="hl-body">
+            <h4><a href="https://podcasts.apple.com/us/podcast/locked-on-buffs-daily-podcast-on-colorado-football/id1641365043" target="_blank">Locked On: Breaking Down the Rebuilt Coaching Staff</a></h4>
+            <div class="hl-sub">Chris Marve as DC, Vonn Bell coaching safeties, and Brendan Marion's offense. What it all means.</div>
+            <div class="hl-meta"><span class="sport-pill pill-podcast">Podcast</span><span>Locked On Buffs</span><span>Yesterday</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-podcast"></span>
+          <div class="hl-body">
+            <h4><a href="https://buffstampede.podbean.com/" target="_blank">BuffStampede: Transfer Portal Report Card — Grading Every Position</a></h4>
+            <div class="hl-sub">40 incoming transfers evaluated. Which positions are set and where are the question marks?</div>
+            <div class="hl-meta"><span class="sport-pill pill-podcast">Podcast</span><span>BuffStampede</span><span>3 days ago</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ LIVE ══ -->
+    <div class="tab-section hidden" data-tabs="live">
+      <div class="live-banner">
+        <h3>Live Games &amp; Scores</h3>
+        <div class="live-pulse"></div>
+      </div>
+      <div id="live-games-container">
+        <div class="no-live">
+          <strong>No games currently live</strong>
+          Next up: WBB NCAA Tournament vs. Illinois (date TBA)<br>
+          <span style="font-size:11px;margin-top:6px;display:block;">Check back during game times for live scores and play-by-play updates.</span>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:16px;"><h3>Recent Results</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-lacrosse"></span>
+          <div class="hl-body">
+            <h4><a href="https://cubuffs.com/news/2026/3/15/lacrosse-no-13-colorado-tramples-stetson" target="_blank">W — Lacrosse: No. 13 Colorado def. Stetson</a></h4>
+            <div class="hl-sub">Buffs stay perfect at home (3-0), improve to 5-2 overall.</div>
+            <div class="hl-meta"><span class="sport-pill pill-lacrosse">Lacrosse</span><span>CUBuffs.com</span><span>Mar 15</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-basketball"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/11/colorado-buffaloes-basketball-oklahoma-state-season-ending/" target="_blank">L — MBB: Oklahoma State def. Colorado (Big 12 Tourney)</a></h4>
+            <div class="hl-sub">Season extended via CBC bid. Buffs to face Oklahoma April 1 in Las Vegas.</div>
+            <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>Daily Camera</span><span>Mar 11</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-lacrosse"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.dailycamera.com/2026/03/08/colorado-buffaloes-lacrosse-vs-michigan-wolverines/" target="_blank">L — Lacrosse: No. 8 Michigan 8, No. 14 Colorado 7</a></h4>
+            <div class="hl-sub">Wolverines rallied in 4th quarter to hand Buffs a close loss.</div>
+            <div class="hl-meta"><span class="sport-pill pill-lacrosse">Lacrosse</span><span>Daily Camera</span><span>Mar 8</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:16px;"><h3>Upcoming Schedule</h3></div>
+      <div class="headlines">
+        <div class="hl-card">
+          <span class="accent-dot dot-wbb"></span>
+          <div class="hl-body">
+            <h4>NCAA Tournament First Round: No. 10 Colorado vs. No. 7 Illinois (WBB)</h4>
+            <div class="hl-sub">Date/time TBA. First NCAA appearance since 2013.</div>
+            <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>This Week</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-basketball"></span>
+          <div class="hl-body">
+            <h4>College Basketball Crown QF: Colorado vs. Oklahoma (MBB)</h4>
+            <div class="hl-sub">April 1 — Las Vegas. Winner faces Baylor/Minnesota in semis.</div>
+            <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>Apr 1</span></div>
+          </div>
+        </div>
+        <div class="hl-card">
+          <span class="accent-dot dot-football"></span>
+          <div class="hl-body">
+            <h4>AT&amp;T Black &amp; Gold Day Spring Game (Football)</h4>
+            <div class="hl-sub">April 11 — Folsom Field. Free admission. Claim tickets at app.cubuffs.com/blackandgold2026.</div>
+            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Apr 11</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live web feed for Live tab -->
+      <div class="section-label" style="margin-top:16px;"><h3>Breaking Now — from the Web</h3></div>
+      <div id="live-all" class="live-feed-container">
+        <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading latest headlines…</div></div></div>
+      </div>
+    </div>
+
+    <!-- ══ AROUND THE BIG 12 ══ -->
+    <div class="tab-section" data-tabs="latest">
+      <div class="section-label"><h3>Around the Big 12</h3></div>
+      <div class="link-cluster">
+        <div class="link-item"><a href="https://www.espn.com/mens-college-basketball/story/_/id/48209506/arizona-gets-revenge-tops-houston-win-big-12-championship" target="_blank">Arizona tops Houston for Big 12 basketball title</a><span class="src">ESPN</span></div>
+        <div class="link-item"><a href="https://www.heartlandcollegesports.com/2026/03/15/eight-big-12-basketball-teams-will-play-in-march-madness/" target="_blank">Eight Big 12 teams headed to March Madness — conference record</a><span class="src">Heartland CS</span></div>
+        <div class="link-item"><a href="https://www.foxsports.com/college-football/colorado-buffaloes-team" target="_blank">Big 12 spring practice tracker: Who's turning heads across the conference</a><span class="src">FOX Sports</span></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
+
+    <!-- AD 3: SIDEBAR TOP — 300×250 Medium Rectangle, highest CPM sidebar spot -->
+    <div class="ad-slot ad-sidebar">
+      <span class="ad-size">300 × 250</span>
+      <span class="ad-label">Advertisement Goes Here — Medium Rectangle</span>
+    </div>
+
+    <div class="widget">
+      <div class="widget-header dark">CU Scoreboard <span class="live-dot" style="margin-left:auto;"></span></div>
+      <div class="score-game">
+        <div class="game-label upcoming">NCAA Tourney — WBB vs Illinois</div>
+        <div class="score-line"><span class="team cu">#10 Colorado</span><span class="pts" style="font-size:12px;color:var(--academic);">TBA</span></div>
+        <div class="score-line"><span class="team">#7 Illinois</span><span class="pts" style="font-size:12px;color:var(--academic);">TBA</span></div>
+      </div>
+      <div class="score-game">
+        <div class="game-label final">Final — LAX vs Stetson</div>
+        <div class="score-line"><span class="team cu">#13 Colorado</span><span class="pts winner">W</span></div>
+        <div class="score-line"><span class="team">Stetson</span><span class="pts">L</span></div>
+      </div>
+      <div class="score-game">
+        <div class="game-label final">Final — MBB Big 12 Tourney</div>
+        <div class="score-line"><span class="team">Oklahoma State</span><span class="pts winner">W</span></div>
+        <div class="score-line"><span class="team cu">Colorado</span><span class="pts">L</span></div>
+      </div>
+    </div>
+
+    <div class="widget">
+      <div class="widget-header gold">Upcoming</div>
+      <div class="sched-row">
+        <span class="sched-date">MAR</span>
+        <div class="sched-info"><strong>NCAA R1: vs Illinois (WBB)</strong><span>Date/Time TBA</span></div>
+      </div>
+      <div class="sched-row">
+        <span class="sched-date">APR 1</span>
+        <div class="sched-info"><strong>CBC QF: vs Oklahoma (MBB)</strong><span>Las Vegas — TBA</span></div>
+      </div>
+      <div class="sched-row">
+        <span class="sched-date">APR 11</span>
+        <div class="sched-info"><strong>Spring Game (FB)</strong><span>Folsom Field — Free</span></div>
+      </div>
+    </div>
+
+    <div class="widget">
+      <div class="widget-header" style="color:var(--accent-green);">Recruiting Wire</div>
+      <div class="rec-item">
+        <div class="rec-avatar">XP</div>
+        <div class="rec-info"><div class="name">Xavier Payne</div><div class="stars">★★★</div><div class="detail">OL — Miami, FL (2027)</div><div class="status status-committed">Committed</div></div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-avatar">PA</div>
+        <div class="rec-info"><div class="name">Preston Ashley</div><div class="stars">★★★</div><div class="detail">CB — Brandon, MS (2027)</div><div class="status status-committed">Committed</div></div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-avatar">KE</div>
+        <div class="rec-info"><div class="name">KJ Edwards</div><div class="stars">★★★★</div><div class="detail">RB — Carthage, TX (2027)</div><div class="status status-target">Target</div></div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-avatar">KT</div>
+        <div class="rec-info"><div class="name">Khing Thibodeaux</div><div class="stars">★★★★</div><div class="detail">DL — TX (2028)</div><div class="status status-target">Visit Scheduled</div></div>
+      </div>
+    </div>
+
+    <!-- AD 4: SIDEBAR MID — 300×250 Medium Rectangle, mid-scroll engagement spot -->
+    <div class="ad-slot ad-sidebar">
+      <span class="ad-size">300 × 250</span>
+      <span class="ad-label">Advertisement Goes Here — Medium Rectangle</span>
+    </div>
+
+    <div class="widget">
+      <div class="widget-header blue">Off the Field</div>
+      <div class="otf-item"><a href="https://connections.cu.edu/stories/innovation-real-time-2026-cu-ie-awards-spotlight-smart-solutions" target="_blank">No. 2 in nation for startups launched</a><div class="otf-src">CU Connections</div></div>
+      <div class="otf-item"><a href="https://www.cpr.org/2026/03/09/cu-ai-rollout/" target="_blank">Faculty push back against university AI rollout</a><div class="otf-src">Colorado Public Radio</div></div>
+      <div class="otf-item"><a href="https://www.coloradohometownweekly.com/2025/12/16/cu-boulder-award-research-project-seed-grant-program-2026/" target="_blank">$872K in research seed grants awarded</a><div class="otf-src">CO Hometown Weekly</div></div>
+      <div class="otf-item"><a href="https://www.colorado.edu/today/2026/03/05/bfa-announces-2026-excellence-awards-winners-celebratory-ceremony-april-7" target="_blank">Faculty Excellence Award winners named</a><div class="otf-src">CU Boulder Today</div></div>
+      <div class="otf-item"><a href="https://www.colorado.edu/today/2025/12/12/prioritizing-research-and-innovation-look-back-and-ahead-massimo-ruzzene" target="_blank">Research VP: A look back and ahead</a><div class="otf-src">CU Boulder Today</div></div>
+    </div>
+
+    <div class="widget">
+      <div class="widget-header purple">Latest Pods</div>
+      <div class="otf-item"><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR: Spring Practice Day 3 Recap</a><div class="otf-src">DNVR Buffs — Today</div></div>
+      <div class="otf-item"><a href="https://podcasts.apple.com/us/podcast/locked-on-buffs-daily-podcast-on-colorado-football/id1641365043" target="_blank">Locked On: Rebuilt Coaching Staff Breakdown</a><div class="otf-src">Locked On Buffs — Yesterday</div></div>
+      <div class="otf-item"><a href="https://buffstampede.podbean.com/" target="_blank">BuffStampede: Portal Report Card</a><div class="otf-src">BuffStampede — 3 days ago</div></div>
+    </div>
+
+    <div class="widget">
+      <div class="widget-header">Trending Now</div>
+      <div class="trend-item"><span class="trend-num">1</span><div><h4>WBB earns NCAA Tournament bid vs. Illinois</h4><div class="tm">3.2K discussions</div></div></div>
+      <div class="trend-item"><span class="trend-num">2</span><div><h4>JuJu Lewis QB1 — spring practice impressions</h4><div class="tm">2.1K discussions</div></div></div>
+      <div class="trend-item"><span class="trend-num">3</span><div><h4>Remembering Dominiq Ponder</h4><div class="tm">1.8K discussions</div></div></div>
+      <div class="trend-item"><span class="trend-num">4</span><div><h4>59 new players — can this roster gel?</h4><div class="tm">1.4K discussions</div></div></div>
+      <div class="trend-item"><span class="trend-num">5</span><div><h4>MBB heads to CBC vs. Oklahoma</h4><div class="tm">890 discussions</div></div></div>
+    </div>
+
+    <div class="widget">
+      <div class="widget-header">Quick Vote</div>
+      <div class="poll-body">
+        <div class="poll-q">How far will CU WBB go in March Madness?</div>
+        <label class="poll-opt"><input type="radio" name="poll"> Sweet 16 — this team is special</label>
+        <label class="poll-opt"><input type="radio" name="poll"> Win Round 1, lose Round 2</label>
+        <label class="poll-opt"><input type="radio" name="poll"> One and done — tough draw</label>
+        <button class="poll-vote" onclick="alert('Thanks for voting! Go Buffs!')">VOTE</button>
+      </div>
+    </div>
+
+    <div style="text-align:center; padding: 10px; font-size: 10px; color: var(--text-muted);">
+      Visitors today: <span class="visitor-count" id="visitorCount">14,896</span>
+    </div>
+
+  </aside>
+</div>
+
+<!-- AD 6: PRE-FOOTER BILLBOARD — Last impression before user leaves page -->
+<div class="ad-prefooter-wrap">
+  <div class="ad-slot">
+    <span class="ad-size">970 × 90</span>
+    <span class="ad-label">Advertisement Goes Here — Pre-Footer Billboard</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div>
+    © 2026 The Buff Report — buffreport.com<br>
+    Athletics. Academics. Everything CU. Not affiliated with the University of Colorado.
+  </div>
+  <div class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#">Advertise</a>
+    <a href="#">Subscribe</a>
+    <a href="#">Privacy</a>
+    <a href="#">Tips</a>
+  </div>
+</footer>
+
+<script>
+// ── DATE & TIME ──────────────────────────────────────────────────────────
+const now = new Date();
+document.getElementById('dateline').innerHTML =
+  now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' }) +
+  '<br>' + now.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' }) + ' MT';
+document.getElementById('refreshTime').textContent =
+  now.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', second:'2-digit' });
+
+// ── VISITOR COUNTER ──────────────────────────────────────────────────────
+let count = 14892;
+setInterval(() => {
+  count += Math.floor(Math.random() * 3) + 1;
+  document.getElementById('visitorCount').textContent = count.toLocaleString();
+}, 8000);
+
+setInterval(() => {
+  const t = new Date();
+  document.getElementById('refreshTime').textContent =
+    t.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', second:'2-digit' });
+}, 30000);
+
+// ── TAB FILTERING ────────────────────────────────────────────────────────
+const navLinks = document.querySelectorAll('.nav-link');
+const tabSections = document.querySelectorAll('.tab-section');
+
+function activateTab(tabName) {
+  navLinks.forEach(link => link.classList.toggle('active', link.dataset.tab === tabName));
+  tabSections.forEach(section => {
+    const tabs = (section.dataset.tabs || '').split(' ');
+    section.classList.toggle('hidden', !tabs.includes(tabName));
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+navLinks.forEach(link => {
+  link.addEventListener('click', e => { e.preventDefault(); activateTab(link.dataset.tab); });
+});
+
+// ── LIVE SECTION ─────────────────────────────────────────────────────────
+function updateLiveSection() {
+  const container = document.getElementById('live-games-container');
+  const isGameTime = false;
+  if (isGameTime) {
+    container.innerHTML = `<div class="live-game-card">
+      <div class="lgc-status">LIVE - 2nd Half</div>
+      <div class="lgc-teams"><span class="lgc-team cu">Colorado</span><span class="lgc-score" style="color:var(--primary-dark);">42</span></div>
+      <div class="lgc-teams"><span class="lgc-team">Opponent</span><span class="lgc-score">38</span></div>
+      <div class="lgc-info">Big 12 - Folsom Field - ESPN2</div></div>`;
+  } else {
+    container.innerHTML = `<div class="no-live">
+      <strong>No games currently live</strong>
+      Next up: WBB NCAA Tournament vs. Illinois (date TBA)<br>
+      <span style="font-size:11px;margin-top:6px;display:block;">Check back during game times for live scores and play-by-play updates.</span>
+    </div>`;
+  }
+}
+updateLiveSection();
+
+// ── LIVE RSS FEEDS ───────────────────────────────────────────────────────
+const SOURCE_NAMES = {
+  'cubuffs.com':            { name:'CU Buffs Official',    cls:'src-cubuffs' },
+  'dailycamera.com':        { name:'Daily Camera',          cls:'src-camera'  },
+  'denverpost.com':         { name:'Denver Post',           cls:'src-post'    },
+  '247sports.com':          { name:'247Sports',             cls:'src-247'     },
+  'on3.com':                { name:'On3',                   cls:'src-on3'     },
+  'espn.com':               { name:'ESPN',                  cls:'src-espn'    },
+  'si.com':                 { name:'Sports Illustrated',    cls:'src-si'      },
+  'cpr.org':                { name:'Colorado Public Radio', cls:'src-cpr'     },
+  'cuindependent.org':      { name:'CU Independent',        cls:'src-cuindep' },
+  'cuindependent.com':      { name:'CU Independent',        cls:'src-cuindep' },
+  'colorado.edu':           { name:'CU Boulder Today',      cls:'src-cutoday' },
+  'boulderreportinglab.org':{ name:'Boulder Reporting Lab', cls:'src-brl'     },
+  'cbssports.com':          { name:'CBS Sports',            cls:'src-cbs'     },
+  'coloradodaily.com':      { name:'Colorado Daily',        cls:'src-camera'  },
+};
+
+function getSrc(url, author) {
+  if (author && author.trim() && !author.includes('@') && author.length < 60)
+    return { name: author.trim(), cls: 'src-default' };
+  try {
+    const h = new URL(url).hostname.replace(/^www\./, '');
+    for (const [k, v] of Object.entries(SOURCE_NAMES)) {
+      if (h.includes(k)) return v;
+    }
+    return { name: h.split('.')[0].toUpperCase(), cls: 'src-default' };
+  } catch(e) { return { name: 'Source', cls: 'src-default' }; }
+}
+
+function timeAgo(s) {
+  if (!s) return '';
+  const d = Math.floor((Date.now() - new Date(s)) / 1000);
+  if (d < 60) return d + 's ago';
+  if (d < 3600) return Math.floor(d / 60) + 'm ago';
+  if (d < 86400) return Math.floor(d / 3600) + 'h ago';
+  return Math.floor(d / 86400) + 'd ago';
+}
+
+function clean(s) {
+  return (s || '').replace(/<[^>]*>/g, '').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim();
+}
+
+async function fetchRSS(url) {
+  const api = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(url) + '&count=15';
+  try {
+    const r = await fetch(api, { signal: AbortSignal.timeout(13000) });
+    if (!r.ok) return null;
+    const d = await r.json();
+    return (d.status === 'ok' && d.items?.length) ? d.items : null;
+  } catch(e) { return null; }
+}
+
+function renderLiveFeed(id, items, limit) {
+  const el = document.getElementById(id);
+  if (!el || !items?.length) return;
+  const seen = new Set();
+  const unique = items.filter(i => {
+    const k = clean(i.title||'').substring(0,40).toLowerCase();
+    if (seen.has(k)) return false; seen.add(k); return true;
+  });
+  el.innerHTML = unique.slice(0, limit).map((item, idx) => {
+    const title = clean(item.title);
+    const link  = item.link || '#';
+    const pub   = item.pubDate || '';
+    const src   = getSrc(link, item.author);
+    const sport = item.title?.toLowerCase().includes('basketball') ? 'pill-basketball' :
+                  item.title?.toLowerCase().includes('lacrosse')   ? 'pill-lacrosse'   :
+                  item.title?.toLowerCase().includes('recruit')    ? 'pill-recruiting'  :
+                  'pill-football';
+    return `<div class="live-feed-item" onclick="window.open('${link}','_blank','noopener')">
+      <div class="lf-dot"></div>
+      <div class="lf-body">
+        <div class="lf-title">${title}</div>
+        <div class="lf-meta">
+          <span class="lf-src ${src.cls}">${src.name}</span>
+          ${pub ? '<span>' + timeAgo(pub) + '</span>' : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+const GN = q => 'https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=' + encodeURIComponent(q);
+
+async function loadLiveFeeds() {
+  const [fbItems, bbItems, recItems, campItems, allItems] = await Promise.all([
+    fetchRSS(GN('Colorado Buffs football Deion Sanders spring 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com')),
+    fetchRSS(GN('Colorado Buffs basketball NCAA tournament Big 12 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com')),
+    fetchRSS(GN('Colorado Buffs recruiting transfer portal 2026 2027 site:247sports.com OR site:on3.com OR site:si.com')),
+    fetchRSS('https://www.colorado.edu/today/rss.xml'),
+    fetchRSS(GN('"CU Boulder" OR "Colorado Buffs" news 2026')),
+  ]);
+
+  renderLiveFeed('live-football',   fbItems,   8);
+  renderLiveFeed('live-basketball', bbItems,   8);
+  renderLiveFeed('live-recruiting', recItems,  8);
+  renderLiveFeed('live-campus',     campItems, 8);
+  renderLiveFeed('live-all',        allItems, 12);
+
+  // Refresh timestamp
+  document.getElementById('refreshTime').textContent =
+    new Date().toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', second:'2-digit' });
+}
+
+loadLiveFeeds();
+setInterval(loadLiveFeeds, 15 * 60 * 1000);
+
+activateTab('latest');
+</script>
+</body>
+</html>
