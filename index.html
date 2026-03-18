@@ -1364,15 +1364,18 @@ function renderHlCards(id, items, limit, dotClass, pillClass, pillLabel) {
 }
 
 async function loadLiveFeeds() {
-  const [fbItems, bbItems, wbbItems, recItems, campItems, lifestyleItems, allItems] = await Promise.all([
+  const [fbItems, bbItems, recItems, campItems, lifestyleItems, allItems] = await Promise.all([
     fetchRSS(GN('Colorado Buffs football Deion Sanders spring 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com')),
-    fetchRSS(GN('Colorado Buffs men\'s basketball 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com')),
-    fetchRSS(GN('Colorado Buffs women\'s basketball NCAA tournament March Madness 2026 site:dailycamera.com OR site:247sports.com OR site:espn.com')),
+    fetchRSS(GN('Colorado Buffs basketball 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com OR site:247sports.com')),
     fetchRSS(GN('Colorado Buffs recruiting transfer portal 2026 2027 site:247sports.com OR site:on3.com OR site:si.com')),
     fetchRSS('https://www.colorado.edu/today/rss.xml'),
     fetchRSS(GN('"CU Boulder" OR "University of Colorado Boulder" ranking OR ranked OR beautiful OR best OR top OR award OR recognition OR campus life OR research OR innovation')),
     fetchRSS(GN('"CU Boulder" OR "Colorado Buffs" news 2026')),
   ]);
+
+  // Split basketball feed into MBB and WBB by keyword
+  const mbbItems = (bbItems || []).filter(i => !/(women|wbb|ncaa women)/i.test(i.title));
+  const wbbItems = (bbItems || []).filter(i =>  /(women|wbb|ncaa women)/i.test(i.title));
 
   // Merge lifestyle/recognition items into campus feed so they surface automatically
   const mergedCampus = [...(lifestyleItems || []), ...(campItems || [])]
@@ -1387,8 +1390,8 @@ async function loadLiveFeeds() {
 
   // Populate main featured headline cards
   renderHlCards('hl-football',   fbItems,      5, 'dot-football',   'pill-football',   'Football');
-  renderHlCards('hl-mbb',        bbItems,      4, 'dot-basketball', 'pill-basketball', 'MBB');
-  renderHlCards('hl-wbb',        wbbItems,     4, 'dot-wbb',        'pill-wbb',        'WBB');
+  renderHlCards('hl-mbb',        mbbItems.length ? mbbItems : bbItems, 4, 'dot-basketball', 'pill-basketball', 'MBB');
+  renderHlCards('hl-wbb',        wbbItems.length ? wbbItems : bbItems, 4, 'dot-wbb',        'pill-wbb',        'WBB');
   renderHlCards('hl-recruiting', recItems,     4, 'dot-recruiting', 'pill-recruiting', 'Recruiting');
   renderHlCards('hl-campus',     mergedCampus, 4, 'dot-campus',     'pill-campus',     'Campus');
 
