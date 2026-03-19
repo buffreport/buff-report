@@ -440,6 +440,51 @@
   }
   .ad-prefooter-wrap .ad-slot { width: 100%; max-width: 970px; height: 90px; }
 
+  /* ── HOUSE ADS ───────────────────────────────────────────────────────── */
+  .house-ad {
+    background: #111;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px; gap: 20px;
+    width: 100%; height: 100%;
+    border-radius: 6px; overflow: hidden;
+    position: relative; box-sizing: border-box;
+  }
+  .house-ad::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: #CFA82C;
+  }
+  .ha-left { flex: 1; min-width: 0; }
+  .ha-eyebrow {
+    font-size: 9px; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: #CFA82C; margin-bottom: 4px;
+  }
+  .ha-headline {
+    font-size: 15px; font-weight: 800; color: white;
+    line-height: 1.2; font-family: 'Playfair Display', serif;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ha-sub { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+  .ha-btn {
+    background: #CFA82C; color: #000; font-weight: 800; font-size: 12px;
+    padding: 10px 22px; border-radius: 5px; border: none; cursor: pointer;
+    white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px;
+    flex-shrink: 0; font-family: 'Merriweather Sans', sans-serif;
+    transition: background 0.15s;
+  }
+  .ha-btn:hover { background: #b8a265; }
+  /* Mobile house ad — stack vertically and expand height */
+  @media (max-width: 600px) {
+    .ad-infeed-wrap .ad-slot,
+    .ad-prefooter-wrap .ad-slot { height: auto; min-height: 90px; }
+    .house-ad {
+      flex-direction: column; align-items: flex-start;
+      padding: 14px 16px 14px 20px; gap: 10px;
+    }
+    .ha-headline { white-space: normal; font-size: 13px; }
+    .ha-sub { font-size: 10px; }
+    .ha-btn { width: 100%; text-align: center; padding: 10px; }
+  }
+
   /* Off the Field widget */
   .otf-item { padding: 8px 14px; border-bottom: 1px solid var(--border-light); font-size: 12px; }
   .otf-item:last-child { border-bottom: none; }
@@ -750,11 +795,17 @@
   <a href="https://247sports.com/college/colorado/article/cu-buffs-ncaa-womens-basketball-tournament-illinois-march-madness-277846730/" target="_blank">Full Story</a>
 </div>
 
-<!-- AD 1: TOP LEADERBOARD — Max visibility, seen by 100% of visitors -->
-<div style="background:#f0f0f0; padding: 8px 0; display:flex; justify-content:center; border-bottom: 1px solid var(--border);">
-  <div class="ad-slot ad-leaderboard-top">
-    <span class="ad-size">970 × 90</span>
-    <span class="ad-label">Your Ad Here</span>
+<!-- AD 1: TOP LEADERBOARD -->
+<div style="background:#111; padding: 8px 16px; display:flex; justify-content:center; border-bottom: 1px solid #222;">
+  <div class="ad-slot ad-leaderboard-top" data-ad-slot="leaderboard-1" style="background:none; border:none; padding:0;">
+    <div class="house-ad">
+      <div class="ha-left">
+        <div class="ha-eyebrow">The Buff Brief</div>
+        <div class="ha-headline">Get the Buff Brief — Daily CU news straight to your inbox</div>
+        <div class="ha-sub">Free newsletter. No spam. Unsubscribe anytime.</div>
+      </div>
+      <button class="ha-btn" onclick="openNewsletter('')">Subscribe Free →</button>
+    </div>
   </div>
 </div>
 
@@ -906,12 +957,18 @@
       <p class="lf-timestamp" id="live-football-ts"></p>
     </div>
 
-    <!-- AD 5: IN-FEED LEADERBOARD — High engagement, between Football & Basketball sections -->
+    <!-- AD 5: IN-FEED LEADERBOARD -->
     <div class="tab-section" data-tabs="latest">
       <div class="ad-infeed-wrap">
-        <div class="ad-slot">
-          <span class="ad-size">728 × 90</span>
-          <span class="ad-label">Your Ad Here</span>
+        <div class="ad-slot" data-ad-slot="infeed-1" style="background:none; border:none; padding:0;">
+          <div class="house-ad">
+            <div class="ha-left">
+              <div class="ha-eyebrow">The Buff Brief</div>
+              <div class="ha-headline">Never miss a Buffs story — join thousands of CU fans</div>
+              <div class="ha-sub">Free newsletter. No spam. Unsubscribe anytime.</div>
+            </div>
+            <button class="ha-btn" onclick="openNewsletter('')">Get it Free →</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1538,11 +1595,17 @@
   </aside>
 </div>
 
-<!-- AD 6: PRE-FOOTER BILLBOARD — Last impression before user leaves page -->
-<div class="ad-prefooter-wrap">
-  <div class="ad-slot">
-    <span class="ad-size">970 × 90</span>
-    <span class="ad-label">Your Ad Here</span>
+<!-- AD 6: PRE-FOOTER BILLBOARD -->
+<div class="ad-prefooter-wrap" style="background:#111; border-color:#222;">
+  <div class="ad-slot" data-ad-slot="prefooter-1" style="background:none; border:none; padding:0; width:100%; max-width:970px;">
+    <div class="house-ad">
+      <div class="ha-left">
+        <div class="ha-eyebrow">The Buff Brief</div>
+        <div class="ha-headline">Before you go — get CU Buffs news delivered daily, for free</div>
+        <div class="ha-sub">Join thousands of Buffs fans. No spam. Unsubscribe anytime.</div>
+      </div>
+      <button class="ha-btn" onclick="openNewsletter('')">Subscribe Free →</button>
+    </div>
   </div>
 </div>
 
@@ -1818,6 +1881,21 @@ async function loadLiveFeeds() {
 
 loadLiveFeeds();
 setInterval(loadLiveFeeds, 15 * 60 * 1000);
+
+// ── PAID AD SWAP ──────────────────────────────────────────────────────────
+// Call this when you have a paying advertiser ready.
+// slotId matches the data-ad-slot attribute (e.g. 'leaderboard-1', 'infeed-1', 'prefooter-1')
+// Example: loadPaidAd('leaderboard-1', 'https://example.com/banner.jpg', 'https://advertiser.com', 'Advertiser Name')
+function loadPaidAd(slotId, imageUrl, linkUrl, altText) {
+  const slot = document.querySelector(`[data-ad-slot="${slotId}"]`);
+  if (!slot) { console.warn('loadPaidAd: slot not found —', slotId); return; }
+  slot.innerHTML = `
+    <a href="${linkUrl}" target="_blank" rel="noopener sponsored"
+       style="display:block; width:100%; height:100%; border-radius:6px; overflow:hidden;">
+      <img src="${imageUrl}" alt="${altText || 'Advertisement'}"
+           style="width:100%; height:100%; object-fit:cover; display:block;">
+    </a>`;
+}
 
 activateTab('latest');
 </script>
