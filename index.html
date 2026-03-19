@@ -516,6 +516,20 @@
   .no-live { padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
   .no-live strong { display: block; margin-bottom: 4px; color: var(--text-secondary); }
 
+  /* Live feed fallback + timestamp */
+  .lf-fallback {
+    padding: 14px 16px; background: var(--bg-card);
+    border: 1px solid var(--border-light); border-radius: 6px;
+    font-size: 13px; color: var(--text-secondary);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .lf-fallback a { color: var(--primary-dark); font-weight: 600; text-decoration: none; }
+  .lf-fallback a:hover { text-decoration: underline; }
+  .lf-timestamp {
+    font-size: 10px; color: var(--text-muted); text-align: right;
+    margin-top: 4px; margin-bottom: 4px; letter-spacing: 0.3px; font-style: italic;
+  }
+
   /* Live feed cards (RSS) */
   .live-feed-item {
     background: var(--bg-card); border: 1px solid var(--border-light);
@@ -809,6 +823,7 @@
       <div id="live-football" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live football headlines…</div></div></div>
       </div>
+      <p class="lf-timestamp" id="live-football-ts"></p>
     </div>
 
     <!-- AD 5: IN-FEED LEADERBOARD — High engagement, between Football & Basketball sections -->
@@ -966,6 +981,7 @@
       <div id="live-basketball" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live basketball headlines…</div></div></div>
       </div>
+      <p class="lf-timestamp" id="live-basketball-ts"></p>
     </div>
 
     <!-- ══ RECRUITING ══ -->
@@ -1026,6 +1042,7 @@
       <div id="live-recruiting" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live recruiting headlines…</div></div></div>
       </div>
+      <p class="lf-timestamp" id="live-recruiting-ts"></p>
     </div>
 
     <!-- ══ PORTAL / NIL ══ -->
@@ -1114,6 +1131,7 @@
       <div id="live-campus" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live campus headlines…</div></div></div>
       </div>
+      <p class="lf-timestamp" id="live-campus-ts"></p>
     </div>
 
     <!-- ══ AROUND TOWN ══ -->
@@ -1170,6 +1188,7 @@
       <div id="live-town" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading Boulder news…</div></div></div>
       </div>
+      <p class="lf-timestamp" id="live-town-ts"></p>
     </div>
 
     <!-- ══ PODCASTS ══ -->
@@ -1321,6 +1340,7 @@
       <div id="live-all" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading latest headlines…</div></div></div>
       </div>
+      <p class="lf-timestamp" id="live-all-ts"></p>
     </div>
 
     <!-- ══ AROUND THE BIG 12 ══ -->
@@ -1572,22 +1592,54 @@ function clean(s) {
 async function fetchRSS(url) {
   const api = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(url) + '&count=15';
   try {
-    const r = await fetch(api, { signal: AbortSignal.timeout(13000) });
+    const r = await fetch(api, { signal: AbortSignal.timeout(5000) });
     if (!r.ok) return null;
     const d = await r.json();
     return (d.status === 'ok' && d.items?.length) ? d.items : null;
   } catch(e) { return null; }
 }
 
-function renderLiveFeed(id, items, limit) {
+// Per-section "last updated" tracker — stores interval IDs so we can clear on refresh
+const _tsIntervals = {};
+
+function setFeedTimestamp(id) {
+  const ts = document.getElementById(id + '-ts');
+  if (!ts) return;
+  // Clear any existing tick for this section
+  if (_tsIntervals[id]) clearInterval(_tsIntervals[id]);
+  let mins = 0;
+  ts.textContent = 'Updated just now';
+  _tsIntervals[id] = setInterval(() => {
+    mins++;
+    ts.textContent = 'Updated ' + mins + ' min ago';
+    if (mins >= 120) { clearInterval(_tsIntervals[id]); ts.textContent = 'Updated over 2 hrs ago'; }
+  }, 60000);
+}
+
+function showFallback(id, sourceUrl, sourceName) {
   const el = document.getElementById(id);
-  if (!el || !items?.length) return;
+  if (!el) return;
+  const ts = document.getElementById(id + '-ts');
+  if (ts) ts.textContent = '';
+  el.innerHTML = `<div class="lf-fallback">
+    <span>⚠ Live headlines unavailable right now.</span>
+    <a href="${sourceUrl}" target="_blank" rel="noopener">Visit ${sourceName} for the latest →</a>
+  </div>`;
+}
+
+function renderLiveFeed(id, items, limit, fallbackUrl, fallbackName) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (!items?.length) {
+    showFallback(id, fallbackUrl || 'https://news.google.com', fallbackName || 'Google News');
+    return;
+  }
   const seen = new Set();
   const unique = items.filter(i => {
     const k = clean(i.title||'').substring(0,40).toLowerCase();
     if (seen.has(k)) return false; seen.add(k); return true;
   });
-  el.innerHTML = unique.slice(0, limit).map((item, idx) => {
+  el.innerHTML = unique.slice(0, limit).map((item) => {
     const title = clean(item.title);
     const link  = item.link || '#';
     const pub   = item.pubDate || '';
@@ -1607,6 +1659,7 @@ function renderLiveFeed(id, items, limit) {
       </div>
     </div>`;
   }).join('');
+  setFeedTimestamp(id);
 }
 
 const GN = q => 'https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=' + encodeURIComponent(q);
@@ -1627,12 +1680,12 @@ async function loadLiveFeeds() {
     .filter((item, i, arr) => arr.findIndex(x => x.link === item.link) === i)
     .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 
-  renderLiveFeed('live-football',   fbItems,      8);
-  renderLiveFeed('live-basketball', bbItems,      8);
-  renderLiveFeed('live-recruiting', recItems,     8);
-  renderLiveFeed('live-campus',     mergedCampus, 10);
-  renderLiveFeed('live-all',        allItems,     12);
-  renderLiveFeed('live-town',       townItems,    12);
+  renderLiveFeed('live-football',   fbItems,      8,  'https://www.espn.com/college-football/team/_/id/38/colorado-buffaloes', 'ESPN');
+  renderLiveFeed('live-basketball', bbItems,      8,  'https://www.espn.com/mens-college-basketball/team/_/id/38/colorado-buffaloes', 'ESPN');
+  renderLiveFeed('live-recruiting', recItems,     8,  'https://247sports.com/college/colorado/', '247Sports');
+  renderLiveFeed('live-campus',     mergedCampus, 10, 'https://www.colorado.edu/today/', 'CU Boulder Today');
+  renderLiveFeed('live-all',        allItems,     12, 'https://news.google.com/search?q=CU+Buffs', 'Google News');
+  renderLiveFeed('live-town',       townItems,    12, 'https://www.dailycamera.com', 'Daily Camera');
 
   // Refresh timestamp
   document.getElementById('refreshTime').textContent =
