@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CU Buffs Transfer Portal Tracker 2026 — Incoming &amp; Outgoing | The Buff Report</title>
+<meta name="description" content="Full CU Buffs transfer portal tracker for 2026. Track every incoming and outgoing transfer — position, previous school, status, and star rating. Updated weekly.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://buffreport.com/transfer-portal">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CU Buffs Transfer Portal Tracker 2026 | The Buff Report">
+<meta property="og:description" content="Every CU Buffs transfer portal move — incoming and outgoing. Updated weekly.">
+<meta property="og:image" content="https://buffreport.com/Gold.PNG">
+<meta property="og:url" content="https://buffreport.com/transfer-portal">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CU Buffs Transfer Portal Tracker 2026 | The Buff Report">
+<meta name="twitter:image" content="https://buffreport.com/Gold.PNG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Merriweather+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #CFB87C; --primary-dark: #b8a265; --secondary: #000;
+    --bg: #fafaf7; --bg-card: #fff; --text: #111; --text-secondary: #666;
+    --text-muted: #999; --border: #e8e8e4; --border-light: #f0f0ec;
+    --radius: 8px; --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Merriweather Sans', Georgia, serif; background: var(--bg); color: var(--text); font-size: 14px; }
+  a { color: inherit; text-decoration: none; }
+
+  .site-header { display: flex; align-items: center; gap: 14px; padding: 16px 32px; background: white; border-bottom: 1px solid var(--border); }
+  .logo-mark { width: 260px; height: 140px; background: none; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .logo-mark img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transform: scale(1.7); transform-origin: center; }
+  .logo-text h1 { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 900; color: #000; line-height: 1; }
+  .logo-text span { font-size: 13px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-top: 6px; display: block; }
+
+  nav { background: white; border-bottom: 2px solid var(--primary); }
+  .nav-bar { display: flex; align-items: center; padding: 0 32px; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .nav-bar::-webkit-scrollbar { display: none; }
+  .nav-link { padding: 12px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-secondary); white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.15s; }
+  .nav-link:hover { color: var(--text); }
+  .nav-link.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+  .page-wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 60px; }
+  .page-header { margin-bottom: 32px; }
+  .page-header h1 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; margin-bottom: 8px; }
+  .page-header p { color: var(--text-secondary); font-size: 13px; }
+  .updated-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+
+  .section-head { display: flex; align-items: center; gap: 12px; margin: 36px 0 12px; }
+  .section-head h2 { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-in  { background: #16A34A; color: white; padding: 3px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
+  .badge-out { background: #DC2626; color: white; padding: 3px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  .portal-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .portal-table thead th { padding: 10px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; }
+  .portal-table.in thead { background: #16A34A; color: white; }
+  .portal-table.out thead { background: #DC2626; color: white; }
+  .portal-table tbody tr { border-bottom: 1px solid var(--border-light); transition: background 0.1s; }
+  .portal-table tbody tr:hover { background: #fafaf0; }
+  .portal-table tbody td { padding: 11px 14px; font-size: 13px; vertical-align: middle; }
+  .td-name { font-weight: 700; }
+  .td-pos { font-size: 11px; font-weight: 800; background: #1a1a1a; color: white; padding: 2px 7px; border-radius: 3px; display: inline-block; }
+  .td-school { color: var(--text-secondary); font-size: 12px; }
+  .stars { color: var(--primary); font-size: 13px; letter-spacing: 1px; }
+  .status-committed  { background: #dcfce7; color: #166534; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; display: inline-block; }
+  .status-enrolled   { background: #dbeafe; color: #1e40af; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; display: inline-block; }
+  .status-entered    { background: #fef9c3; color: #854d0e; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; display: inline-block; }
+  .status-transferred { background: #fee2e2; color: #991b1b; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; display: inline-block; }
+  .empty-row td { text-align: center; color: var(--text-muted); font-style: italic; padding: 20px; }
+
+  /* Sort controls */
+  .sort-bar { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .sort-btn { padding: 5px 12px; font-size: 11px; font-weight: 700; border: 1px solid var(--border); border-radius: 4px; background: white; cursor: pointer; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+  .sort-btn:hover, .sort-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
+
+  .site-footer { background: #111; color: #aaa; font-size: 12px; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 60px; }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { color: #aaa; }
+  .footer-links a:hover { color: var(--primary); }
+
+  @media (max-width: 600px) {
+    .site-header { padding: 12px 16px; }
+    .logo-mark { width: 80px; height: 80px; }
+    .logo-text h1 { font-size: 26px; }
+    .nav-bar { padding: 0 12px; }
+    .page-wrap { padding: 20px 12px 40px; }
+    .page-header h1 { font-size: 24px; }
+    .td-school { display: none; }
+    .site-footer { flex-direction: column; text-align: center; padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site-header">
+    <div class="logo-mark">
+      <img src="Gold.PNG" alt="The Buff Report">
+    </div>
+    <div class="logo-text">
+      <h1><a href="/">The Buff Report</a></h1>
+      <span>Athletics. Academics. Every Headline. One Page.</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-bar">
+    <a class="nav-link" href="/">Latest</a>
+    <a class="nav-link" href="/#football">Football</a>
+    <a class="nav-link" href="/#basketball">Basketball</a>
+    <a class="nav-link" href="/#recruiting">Recruiting</a>
+    <a class="nav-link" href="/#portal">Portal/NIL</a>
+    <a class="nav-link" href="/schedule">Schedule</a>
+    <a class="nav-link active" href="/transfer-portal">Transfer Portal</a>
+    <a class="nav-link" href="/recruiting">Recruiting Class</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <h1>CU Buffs Transfer Portal Tracker 2026 — Incoming &amp; Outgoing</h1>
+    <p>Every transfer portal move for the CU Buffs. Sort by position, school, or status. Updated weekly throughout the portal window.</p>
+    <p class="updated-note">Last updated: March 19, 2026 — update this page weekly as players enter/commit.</p>
+  </div>
+
+  <!-- INCOMING -->
+  <div class="section-head">
+    <span class="badge-in">Incoming</span>
+    <h2>Transfers In — 2026 Class</h2>
+  </div>
+  <div class="sort-bar">
+    <button class="sort-btn active" onclick="sortTable('in-table', 0)">Name</button>
+    <button class="sort-btn" onclick="sortTable('in-table', 1)">Position</button>
+    <button class="sort-btn" onclick="sortTable('in-table', 2)">From</button>
+    <button class="sort-btn" onclick="sortTable('in-table', 4)">Stars</button>
+  </div>
+  <table class="portal-table in" id="in-table">
+    <thead>
+      <tr><th>Name</th><th>Pos</th><th>From</th><th>Status</th><th>Stars</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <!-- ADD INCOMING TRANSFERS BELOW — copy a row and update the fields -->
+      <tr>
+        <td class="td-name">Player Name</td>
+        <td><span class="td-pos">QB</span></td>
+        <td class="td-school">Previous School</td>
+        <td><span class="status-enrolled">Enrolled</span></td>
+        <td><span class="stars">★★★★</span></td>
+        <td style="font-size:12px;color:#666;">Add notes here</td>
+      </tr>
+      <tr class="empty-row"><td colspan="6">— Add more incoming transfers here. Copy the row above and update each field. —</td></tr>
+    </tbody>
+  </table>
+
+  <!-- OUTGOING -->
+  <div class="section-head">
+    <span class="badge-out">Outgoing</span>
+    <h2>Transfers Out — 2026</h2>
+  </div>
+  <div class="sort-bar">
+    <button class="sort-btn active" onclick="sortTable('out-table', 0)">Name</button>
+    <button class="sort-btn" onclick="sortTable('out-table', 1)">Position</button>
+    <button class="sort-btn" onclick="sortTable('out-table', 2)">To</button>
+  </div>
+  <table class="portal-table out" id="out-table">
+    <thead>
+      <tr><th>Name</th><th>Pos</th><th>To</th><th>Status</th><th>Stars</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <!-- ADD OUTGOING TRANSFERS BELOW — copy a row and update the fields -->
+      <tr>
+        <td class="td-name">Player Name</td>
+        <td><span class="td-pos">WR</span></td>
+        <td class="td-school">Destination School</td>
+        <td><span class="status-transferred">Transferred</span></td>
+        <td><span class="stars">★★★</span></td>
+        <td style="font-size:12px;color:#666;">Add notes here</td>
+      </tr>
+      <tr class="empty-row"><td colspan="6">— Add more outgoing transfers here. Copy the row above and update each field. —</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer class="site-footer">
+  <div>© 2026 The Buff Report — buffreport.com · Not affiliated with the University of Colorado.</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/schedule">Schedule</a>
+    <a href="/transfer-portal">Transfer Portal</a>
+    <a href="/recruiting">Recruiting</a>
+  </div>
+</footer>
+
+<script>
+function sortTable(tableId, col) {
+  const table = document.getElementById(tableId);
+  const tbody = table.querySelector('tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr:not(.empty-row)'));
+  rows.sort((a, b) => {
+    const aText = a.cells[col]?.textContent.trim().toLowerCase() || '';
+    const bText = b.cells[col]?.textContent.trim().toLowerCase() || '';
+    return aText.localeCompare(bText);
+  });
+  const emptyRow = tbody.querySelector('.empty-row');
+  rows.forEach(r => tbody.appendChild(r));
+  if (emptyRow) tbody.appendChild(emptyRow);
+  // Update active button
+  const bar = table.previousElementSibling;
+  bar.querySelectorAll('.sort-btn').forEach((btn, i) => btn.classList.toggle('active', btn.onclick?.toString().includes(col)));
+}
+</script>
+</body>
+</html>

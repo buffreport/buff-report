@@ -3,7 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE BUFF REPORT - All Things CU Boulder</title>
+<title>The Buff Report — CU Buffs Athletics, Academics & Boulder News</title>
+<meta name="description" content="The Buff Report is your one-stop source for CU Buffs football, basketball, recruiting, transfer portal, campus news, and Boulder local coverage. Every headline, one page.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://buffreport.com/">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Buff Report">
+<meta property="og:title" content="The Buff Report — CU Buffs Athletics, Academics & Boulder News">
+<meta property="og:description" content="Your one-stop source for CU Buffs football, basketball, recruiting, transfer portal, campus news, and Boulder local coverage.">
+<meta property="og:image" content="https://buffreport.com/Gold.PNG">
+<meta property="og:url" content="https://buffreport.com/">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Buff Report — CU Buffs Athletics, Academics & Boulder News">
+<meta name="twitter:description" content="Your one-stop source for CU Buffs football, basketball, recruiting, transfer portal, campus news, and Boulder local coverage.">
+<meta name="twitter:image" content="https://buffreport.com/Gold.PNG">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Merriweather+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <style>
@@ -660,6 +675,71 @@
 
   }
 </style>
+
+<!-- ── JSON-LD STRUCTURED DATA ─────────────────────────────────────────── -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "The Buff Report",
+    "url": "https://buffreport.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://buffreport.com/Gold.PNG"
+    },
+    "description": "Independent CU Buffs news covering football, basketball, recruiting, transfer portal, campus life, and Boulder local news.",
+    "sameAs": [
+      "https://twitter.com/buffreport",
+      "https://instagram.com/buffreport",
+      "https://buffreport.com"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Trending Now on The Buff Report",
+    "url": "https://buffreport.com",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Spring Practice — Sanders installs new offensive system" },
+      { "@type": "ListItem", "position": 2, "name": "JuJu Lewis QB1 — spring practice impressions" },
+      { "@type": "ListItem", "position": 3, "name": "Remembering Dominiq Ponder" },
+      { "@type": "ListItem", "position": 4, "name": "59 new players — can this roster gel?" },
+      { "@type": "ListItem", "position": 5, "name": "MBB heads to CBC vs. Oklahoma" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "name": "Colorado Buffaloes vs Georgia Tech",
+    "startDate": "2025-08-29",
+    "location": { "@type": "Place", "name": "Folsom Field, Boulder, CO" },
+    "homeTeam": { "@type": "SportsTeam", "name": "Colorado Buffaloes" },
+    "awayTeam": { "@type": "SportsTeam", "name": "Georgia Tech Yellow Jackets" },
+    "url": "https://buffreport.com"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "name": "Colorado Buffaloes vs BYU",
+    "startDate": "2025-09-27",
+    "location": { "@type": "Place", "name": "Folsom Field, Boulder, CO" },
+    "homeTeam": { "@type": "SportsTeam", "name": "Colorado Buffaloes" },
+    "awayTeam": { "@type": "SportsTeam", "name": "BYU Cougars" },
+    "url": "https://buffreport.com"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "name": "Colorado Buffaloes at Utah",
+    "startDate": "2025-10-25",
+    "location": { "@type": "Place", "name": "Rice-Eccles Stadium, Salt Lake City, UT" },
+    "homeTeam": { "@type": "SportsTeam", "name": "Utah Utes" },
+    "awayTeam": { "@type": "SportsTeam", "name": "Colorado Buffaloes" },
+    "url": "https://buffreport.com"
+  }
+]
+</script>
 </head>
 <body>
 
@@ -1498,12 +1578,44 @@ setInterval(() => {
     t.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', second:'2-digit' });
 }, 30000);
 
+// ── DYNAMIC META TAGS ────────────────────────────────────────────────────
+const META = {
+  latest:     { title: 'The Buff Report — CU Buffs Latest News', desc: 'Every CU Buffs headline in one place. Football, basketball, recruiting, campus news, and Boulder coverage updated live.' },
+  football:   { title: 'CU Buffs Football 2026 | The Buff Report', desc: 'CU Buffs football news, scores, roster moves, spring practice updates, and Deion Sanders coverage.' },
+  basketball: { title: 'CU Buffs Basketball 2026 | The Buff Report', desc: "CU men's and women's basketball scores, standings, roster news, and March Madness coverage." },
+  recruiting: { title: 'CU Buffs Recruiting 2026–27 | The Buff Report', desc: "Full CU Buffs recruiting class tracker, commit list, star ratings, and 2027 targets. Updated weekly." },
+  portal:     { title: 'CU Buffs Transfer Portal & NIL 2026 | The Buff Report', desc: 'Track every CU Buffs transfer portal move — incoming and outgoing — plus NIL deals and valuations.' },
+  campus:     { title: 'CU Boulder Campus News 2026 | The Buff Report', desc: 'CU Boulder academics, research breakthroughs, campus life, rankings, and university announcements.' },
+  town:       { title: 'Boulder Colorado Local News | The Buff Report', desc: 'Boulder city news covering restaurants, bars, development, construction, housing, and local events.' },
+  podcasts:   { title: 'CU Buffs Podcasts | The Buff Report', desc: 'The best CU Buffs podcasts covering football, basketball, recruiting, and campus life.' },
+  live:       { title: 'CU Buffs Breaking News | The Buff Report', desc: 'Live breaking CU Buffs news feed — updated continuously from top sources.' },
+};
+const BASE_URL = 'https://buffreport.com';
+const OG_IMAGE = 'https://buffreport.com/Gold.PNG';
+
+function setMeta(tab) {
+  const m = META[tab] || META.latest;
+  const url = tab === 'latest' ? BASE_URL + '/' : BASE_URL + '/#' + tab;
+  const setTag = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
+  document.title = m.title;
+  setTag('meta[name="description"]',        'content', m.desc);
+  setTag('meta[property="og:title"]',       'content', m.title);
+  setTag('meta[property="og:description"]', 'content', m.desc);
+  setTag('meta[property="og:image"]',       'content', OG_IMAGE);
+  setTag('meta[property="og:url"]',         'content', url);
+  setTag('meta[name="twitter:title"]',      'content', m.title);
+  setTag('meta[name="twitter:description"]','content', m.desc);
+  setTag('meta[name="twitter:image"]',      'content', OG_IMAGE);
+  setTag('link[rel="canonical"]',           'href',    url);
+}
+
 // ── TAB FILTERING ────────────────────────────────────────────────────────
 const navLinks = document.querySelectorAll('.nav-link');
 const tabSections = document.querySelectorAll('.tab-section');
 
 function activateTab(tabName) {
   navLinks.forEach(link => link.classList.toggle('active', link.dataset.tab === tabName));
+  setMeta(tabName);
   tabSections.forEach(section => {
     const tabs = (section.dataset.tabs || '').split(' ');
     section.classList.toggle('hidden', !tabs.includes(tabName));
