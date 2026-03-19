@@ -1589,7 +1589,21 @@ function clean(s) {
   return (s || '').replace(/<[^>]*>/g, '').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim();
 }
 
+// Cloudflare Worker proxy — no CORS issues, no rate limits, no API key
+const PROXY = 'https://buff-report.kerstiensrrk.workers.dev';
+
+async function fetchViaProxy(query, count = 15) {
+  const url = `${PROXY}?q=${encodeURIComponent(query)}&count=${count}`;
+  try {
+    const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
+    if (!r.ok) return null;
+    const d = await r.json();
+    return (d.status === 'ok' && d.items?.length) ? d.items : null;
+  } catch(e) { return null; }
+}
+
 async function fetchRSS(url) {
+  // Used for direct RSS URLs (e.g. colorado.edu/today/rss.xml) still via rss2json
   const api = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(url) + '&count=15';
   try {
     const r = await fetch(api, { signal: AbortSignal.timeout(5000) });
@@ -1662,17 +1676,15 @@ function renderLiveFeed(id, items, limit, fallbackUrl, fallbackName) {
   setFeedTimestamp(id);
 }
 
-const GN = q => 'https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=' + encodeURIComponent(q);
-
 async function loadLiveFeeds() {
   const [fbItems, bbItems, recItems, campItems, lifestyleItems, allItems, townItems] = await Promise.all([
-    fetchRSS(GN('Colorado Buffs football Deion Sanders spring 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com')),
-    fetchRSS(GN('Colorado Buffs basketball NCAA tournament Big 12 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com')),
-    fetchRSS(GN('Colorado Buffs recruiting transfer portal 2026 2027 site:247sports.com OR site:on3.com OR site:si.com')),
+    fetchViaProxy('Colorado Buffs football Deion Sanders spring 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com'),
+    fetchViaProxy('Colorado Buffs basketball NCAA tournament Big 12 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com'),
+    fetchViaProxy('Colorado Buffs recruiting transfer portal 2026 2027 site:247sports.com OR site:on3.com OR site:si.com'),
     fetchRSS('https://www.colorado.edu/today/rss.xml'),
-    fetchRSS(GN('"CU Boulder" OR "University of Colorado Boulder" ranking OR ranked OR beautiful OR best OR top OR award OR recognition OR campus life OR research OR innovation')),
-    fetchRSS(GN('"CU Boulder" OR "Colorado Buffs" news 2026')),
-    fetchRSS(GN('Boulder Colorado restaurant bar development construction local news site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com')),
+    fetchViaProxy('"CU Boulder" OR "University of Colorado Boulder" ranking OR ranked OR beautiful OR best OR top OR award OR recognition OR campus life OR research OR innovation'),
+    fetchViaProxy('"CU Boulder" OR "Colorado Buffs" news 2026'),
+    fetchViaProxy('Boulder Colorado restaurant bar development construction local news site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com'),
   ]);
 
   // Merge lifestyle/recognition items into campus feed so they surface automatically
