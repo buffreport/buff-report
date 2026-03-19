@@ -1,0 +1,14 @@
+# Environment variables — NEVER commit these
+newsletter/.env
+.env
+
+# Generated newsletter output — review locally, don't commit
+newsletter/output/
+
+# Node modules
+newsletter/node_modules/
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db

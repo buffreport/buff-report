@@ -1,0 +1,32 @@
+{
+  "_instructions": "Add upcoming games here. Date format: YYYY-MM-DD. Update weekly.",
+  "games": [
+    {
+      "date": "2026-03-18",
+      "sport": "MBB",
+      "opponent": "Oklahoma",
+      "home_away": "neutral",
+      "location": "MGM Grand Garden Arena, Las Vegas, NV",
+      "time": "6:00 PM MT",
+      "tv": "FOX",
+      "series_note": "College Basketball Crown",
+      "key_player": "Fill in manually before cron runs"
+    },
+    {
+      "date": "2026-03-22",
+      "sport": "WBB",
+      "opponent": "No. 7 Illinois",
+      "home_away": "neutral",
+      "location": "TBD",
+      "time": "TBD",
+      "tv": "ESPN",
+      "series_note": "NCAA Tournament First Round — No. 10 seed",
+      "key_player": "Fill in manually before cron runs"
+    }
+  ],
+  "recent_results": [
+    { "date": "Mar 14", "opponent": "Texas Tech", "result": "W 71-65", "sport": "MBB" },
+    { "date": "Mar 12", "opponent": "West Virginia", "result": "L 62-70", "sport": "MBB" },
+    { "date": "Mar 8",  "opponent": "Oklahoma State", "result": "W 68-55", "sport": "WBB" }
+  ]
+}

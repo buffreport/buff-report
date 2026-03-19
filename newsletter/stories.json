@@ -1,0 +1,50 @@
+{
+  "_instructions": "Fill this file out each week before running: node digest.js. Then run: node create-draft.js to push to Beehiiv.",
+  "week_label": "Week of March 17, 2026",
+  "top_story": {
+    "headline": "CU Women's Basketball Earns No. 10 NCAA Tournament Seed — First Bid Since 2013",
+    "summary": "The Buffs drew Illinois in the first round. Tip-off is Saturday, March 22. Coach JR Payne's squad finished 22-11, earning the program's first NCAA Tournament appearance in over a decade.",
+    "url": "https://247sports.com/college/colorado/article/cu-buffs-ncaa-womens-basketball-tournament-illinois-march-madness-277846730/",
+    "source": "247Sports",
+    "image_url": ""
+  },
+  "football": [
+    {
+      "headline": "Spring Practice Underway — Sanders Installs New Offensive System",
+      "summary": "59 new players hit Folsom Field as Deion Sanders begins installing his revamped offense. JuJu Lewis looks sharp at QB1.",
+      "url": "https://www.dailycamera.com",
+      "source": "Daily Camera"
+    },
+    {
+      "headline": "CU Lands Top Transfer Portal Addition",
+      "summary": "Update this with the latest portal news before sending.",
+      "url": "https://247sports.com/college/colorado/",
+      "source": "247Sports"
+    }
+  ],
+  "basketball": [
+    {
+      "headline": "MBB Heads to College Basketball Crown vs. Oklahoma",
+      "summary": "The Buffs play Oklahoma in Las Vegas on March 18. A win could keep postseason hopes alive.",
+      "url": "https://www.espn.com/mens-college-basketball/team/_/id/38",
+      "source": "ESPN"
+    }
+  ],
+  "around_town": [
+    {
+      "headline": "Last Call at the Dark Horse — Boulder's Famous Dive Bar Closes After 51 Years",
+      "summary": "The beloved University Ave institution shut its doors for good. Developers plan a mixed-use project on the site.",
+      "url": "https://www.denverpost.com/2026/03/12/last-call-at-the-dark-horse-boulders-world-famous-dive-bar-and-burger-joint/",
+      "source": "Denver Post"
+    }
+  ],
+  "sponsor": {
+    "is_house_ad": true,
+    "name": "The Buff Report",
+    "headline": "Know a fellow Buffs fan?",
+    "body": "Forward this email — they can subscribe free at buffreport.com",
+    "cta_text": "Subscribe at buffreport.com",
+    "cta_url": "https://buffreport.com",
+    "logo_url": "https://buffreport.com/Gold.PNG"
+  }
+}
