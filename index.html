@@ -1952,7 +1952,7 @@ activateTab('latest');
     msg.style.color = '';
 
     try {
-      const resp = await fetch('https://buff-report.kerstiensrrk.workers.dev/subscribe', {
+      const resp = await fetch('https://buff-subscribe.kerstiensrrk.workers.dev/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
