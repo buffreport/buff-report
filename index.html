@@ -20,7 +20,12 @@
 <meta name="twitter:description" content="Your one-stop source for CU Buffs football, basketball, recruiting, transfer portal, campus news, and Boulder local coverage.">
 <meta name="twitter:image" content="https://buffreport.com/Gold.PNG">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Merriweather+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Non-render-blocking font load with font-display:swap -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Merriweather+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700;900&display=swap&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Merriweather+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"></noscript>
+<!-- Service Worker registration -->
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{});});}</script>
 <style>
   :root {
     --primary: #CFB87C;
@@ -388,29 +393,32 @@
   .sched-ha { font-size: 9px; color: var(--text-muted); font-weight: 700;
     background: #f0f0f0; padding: 1px 5px; border-radius: 3px; }
 
-  /* AD PLACEHOLDERS */
+  /* AD PLACEHOLDERS — explicit dimensions prevent CLS */
   .ad-slot {
-    background: #e8e8e8;
-    border: 1.5px dashed #bbb;
+    background: #efefef;
+    border: 1.5px dashed #ddd;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
-    color: #999;
+    color: #bbb;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     font-family: 'Merriweather Sans', sans-serif;
+    /* CLS fix: always reserve space before content loads */
+    contain: layout style;
   }
-  .ad-slot .ad-label { font-size: 9px; color: #bbb; letter-spacing: 1.5px; }
-  .ad-slot .ad-size { font-size: 13px; color: #aaa; font-weight: 700; }
+  .ad-slot .ad-label { font-size: 9px; color: #ccc; letter-spacing: 1.5px; }
+  .ad-slot .ad-size { font-size: 13px; color: #bbb; font-weight: 700; }
 
   /* Leaderboard — below breaking bar, above header */
   .ad-leaderboard-top {
-    width: 100%; max-width: 728px; height: 90px;
+    width: 100%; max-width: 728px;
+    min-height: 90px; height: 90px;  /* CLS: explicit height */
     margin: 0 auto; display: block;
   }
   /* Full-width banner — between nav and content */
@@ -420,16 +428,18 @@
     border-bottom: 1px solid var(--border);
     padding: 10px 0;
     display: flex; justify-content: center;
+    min-height: 110px; /* CLS: reserve space before ad loads */
   }
-  .ad-banner-wrap .ad-slot { width: 100%; max-width: 970px; height: 90px; }
+  .ad-banner-wrap .ad-slot { width: 100%; max-width: 970px; min-height: 90px; height: 90px; }
   /* Sidebar rectangle */
-  .ad-sidebar { width: 100%; height: 250px; }
+  .ad-sidebar { width: 100%; min-height: 250px; height: 250px; } /* CLS: explicit */
   /* In-feed leaderboard */
   .ad-infeed-wrap {
     margin: 16px 0;
     display: flex; justify-content: center;
+    min-height: 110px; /* CLS: reserve space */
   }
-  .ad-infeed-wrap .ad-slot { width: 100%; max-width: 728px; height: 90px; }
+  .ad-infeed-wrap .ad-slot { width: 100%; max-width: 728px; min-height: 90px; height: 90px; }
   /* Pre-footer billboard */
   .ad-prefooter-wrap {
     background: #f5f5f5;
@@ -437,8 +447,14 @@
     border-bottom: 1px solid var(--border);
     padding: 14px 0;
     display: flex; justify-content: center;
+    min-height: 118px; /* CLS: reserve space */
   }
-  .ad-prefooter-wrap .ad-slot { width: 100%; max-width: 970px; height: 90px; }
+  .ad-prefooter-wrap .ad-slot { width: 100%; max-width: 970px; min-height: 90px; height: 90px; }
+
+  /* CLS fix: sidebar widgets and scoreboard reserve space before JS populates */
+  .widget { min-height: 120px; }
+  #live-games-container { min-height: 200px; background: #fafaf7; }
+  .sidebar > .widget:first-of-type { min-height: 200px; } /* scoreboard */
 
   /* ── HOUSE ADS ───────────────────────────────────────────────────────── */
   .house-ad {
@@ -814,7 +830,10 @@
   <div class="site-header">
         <div class="logo">
       <div class="logo-mark" style="background:none; padding:0; overflow:hidden;">
-        <img src="Gold.PNG" alt="The Buff Report" style="width:100%; height:100%; object-fit:contain; display:block; mix-blend-mode:multiply; transform:scale(1.7); transform-origin:center center;">
+        <picture>
+          <source srcset="Gold.webp" type="image/webp">
+          <img src="Gold.PNG" alt="The Buff Report" style="width:100%; height:100%; object-fit:contain; display:block; mix-blend-mode:multiply; transform:scale(1.7); transform-origin:center center;" fetchpriority="high">
+        </picture>
       </div>
       <div class="logo-text">
         <h1>The Buff Report</h1>
@@ -1273,7 +1292,7 @@
     </div>
 
     <!-- ══ AROUND TOWN ══ -->
-    <div class="tab-section hidden" data-tabs="town">
+    <div class="tab-section hidden" data-tabs="town" data-lazy-section="town">
       <div class="campus-banner" style="background:linear-gradient(135deg,#2d4a2d,#1a3a1a);">
         <h3>Around Town — Boulder City</h3>
         <span>Restaurants · Bars · Development · Local News</span>
@@ -1330,7 +1349,7 @@
     </div>
 
     <!-- ══ PODCASTS ══ -->
-    <div class="tab-section hidden" data-tabs="podcasts">
+    <div class="tab-section hidden" data-tabs="podcasts" data-lazy-section="podcasts">
       <div class="section-label purple"><h3>CU Buffs Podcasts</h3></div>
 
       <div class="podcast-card">
@@ -1404,7 +1423,7 @@
     </div>
 
     <!-- ══ LIVE ══ -->
-    <div class="tab-section hidden" data-tabs="live">
+    <div class="tab-section hidden" data-tabs="live" data-lazy-section="live">
       <div class="live-banner">
         <h3>Live Games &amp; Scores</h3>
         <div class="live-pulse"></div>
@@ -1499,7 +1518,10 @@
     <!-- AD 3: SIDEBAR TOP — 300×250 Medium Rectangle, highest CPM sidebar spot -->
     <div class="ad-slot ad-sidebar" style="padding:0; border:none; background:none; overflow:hidden; position:relative;">
       <a href="https://tallowlskincare.com" target="_blank">
-        <img src="Tallow.png" alt="Tallow — Vanilla Orange Whipped Tallow" style="width:100%; height:100%; object-fit:cover; display:block;">
+        <picture>
+          <source srcset="Tallow.webp" type="image/webp">
+          <img src="Tallow.png" alt="Tallow — Vanilla Orange Whipped Tallow" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+        </picture>
       </a>
       <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px;">AD</div>
     </div>
@@ -1562,7 +1584,10 @@
     <!-- AD 4: SIDEBAR MID — 300×250 Medium Rectangle, mid-scroll engagement spot -->
     <div class="ad-slot ad-sidebar" style="padding:0; border:none; background:none; overflow:hidden; position:relative;">
       <a href="https://tallowlskincare.com/collections/all/products/eye-serum" target="_blank">
-        <img src="Eyeserum.png" alt="Tallow Eye Serum" style="width:100%; height:100%; object-fit:cover; display:block;">
+        <picture>
+          <source srcset="Eyeserum.webp" type="image/webp">
+          <img src="Eyeserum.png" alt="Tallow Eye Serum" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+        </picture>
       </a>
       <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px;">AD</div>
     </div>
@@ -1852,36 +1877,64 @@ function renderLiveFeed(id, items, limit, fallbackUrl, fallbackName) {
   setFeedTimestamp(id);
 }
 
-async function loadLiveFeeds() {
-  const [fbItems, bbItems, recItems, campItems, lifestyleItems, allItems, townItems] = await Promise.all([
-    fetchViaProxy('Colorado Buffs football Deion Sanders spring 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com'),
-    fetchViaProxy('Colorado Buffs basketball NCAA tournament Big 12 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com'),
-    fetchViaProxy('Colorado Buffs recruiting transfer portal 2026 2027 site:247sports.com OR site:on3.com OR site:si.com'),
-    fetchRSS('https://www.colorado.edu/today/rss.xml'),
-    fetchViaProxy('"CU Boulder" OR "University of Colorado Boulder" ranking OR ranked OR beautiful OR best OR top OR award OR recognition OR campus life OR research OR innovation'),
-    fetchViaProxy('"CU Boulder" OR "Colorado Buffs" news 2026'),
-    fetchViaProxy('Boulder Colorado restaurant bar development construction local news site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com'),
-  ]);
+// Track which lazy sections have loaded
+const _lazyLoaded = {};
 
-  // Merge lifestyle/recognition items into campus feed so they surface automatically
-  const mergedCampus = [...(lifestyleItems || []), ...(campItems || [])]
-    .filter((item, i, arr) => arr.findIndex(x => x.link === item.link) === i)
-    .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+async function loadLiveFeeds(sections = ['football','basketball','recruiting','campus','all']) {
+  const loads = {};
 
-  renderLiveFeed('live-football',   fbItems,      8,  'https://www.espn.com/college-football/team/_/id/38/colorado-buffaloes', 'ESPN');
-  renderLiveFeed('live-basketball', bbItems,      8,  'https://www.espn.com/mens-college-basketball/team/_/id/38/colorado-buffaloes', 'ESPN');
-  renderLiveFeed('live-recruiting', recItems,     8,  'https://247sports.com/college/colorado/', '247Sports');
-  renderLiveFeed('live-campus',     mergedCampus, 10, 'https://www.colorado.edu/today/', 'CU Boulder Today');
-  renderLiveFeed('live-all',        allItems,     12, 'https://news.google.com/search?q=CU+Buffs', 'Google News');
-  renderLiveFeed('live-town',       townItems,    12, 'https://www.dailycamera.com', 'Daily Camera');
+  if (sections.includes('football'))    loads.fb        = fetchViaProxy('Colorado Buffs football Deion Sanders spring 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com');
+  if (sections.includes('basketball'))  loads.bb        = fetchViaProxy('Colorado Buffs basketball NCAA tournament Big 12 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com');
+  if (sections.includes('recruiting'))  loads.rec       = fetchViaProxy('Colorado Buffs recruiting transfer portal 2026 2027 site:247sports.com OR site:on3.com OR site:si.com');
+  if (sections.includes('campus'))      loads.camp      = fetchRSS('https://www.colorado.edu/today/rss.xml');
+  if (sections.includes('campus'))      loads.lifestyle = fetchViaProxy('"CU Boulder" OR "University of Colorado Boulder" ranking OR ranked OR beautiful OR best OR top OR award OR recognition OR campus life OR research OR innovation');
+  if (sections.includes('all'))         loads.all       = fetchViaProxy('"CU Boulder" OR "Colorado Buffs" news 2026');
+  if (sections.includes('town'))        loads.town      = fetchViaProxy('Boulder Colorado restaurant bar development construction local news site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com');
 
-  // Refresh timestamp
+  const results = {};
+  await Promise.all(Object.entries(loads).map(async ([k,p]) => { results[k] = await p; }));
+
+  if (results.camp || results.lifestyle) {
+    const mergedCampus = [...(results.lifestyle || []), ...(results.camp || [])]
+      .filter((item, i, arr) => arr.findIndex(x => x.link === item.link) === i)
+      .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+    renderLiveFeed('live-campus', mergedCampus, 10, 'https://www.colorado.edu/today/', 'CU Boulder Today');
+  }
+  if (results.fb)   renderLiveFeed('live-football',   results.fb,  8,  'https://www.espn.com/college-football/team/_/id/38/colorado-buffaloes', 'ESPN');
+  if (results.bb)   renderLiveFeed('live-basketball', results.bb,  8,  'https://www.espn.com/mens-college-basketball/team/_/id/38/colorado-buffaloes', 'ESPN');
+  if (results.rec)  renderLiveFeed('live-recruiting', results.rec, 8,  'https://247sports.com/college/colorado/', '247Sports');
+  if (results.all)  renderLiveFeed('live-all',        results.all, 12, 'https://news.google.com/search?q=CU+Buffs', 'Google News');
+  if (results.town) renderLiveFeed('live-town',       results.town,12, 'https://www.dailycamera.com', 'Daily Camera');
+
   document.getElementById('refreshTime').textContent =
     new Date().toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', second:'2-digit' });
 }
 
-loadLiveFeeds();
-setInterval(loadLiveFeeds, 15 * 60 * 1000);
+// ── INTERSECTION OBSERVER LAZY LOADING ───────────────────────────────────
+// Load core feeds immediately on page load
+loadLiveFeeds(['football','basketball','recruiting','campus','all']);
+setInterval(() => loadLiveFeeds(['football','basketball','recruiting','campus','all']), 15 * 60 * 1000);
+
+// Lazy-load Around Town, Podcasts, and Live sections when scrolled into view
+if ('IntersectionObserver' in window) {
+  const lazyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const section = entry.target.dataset.lazySection;
+      if (!section || _lazyLoaded[section]) return;
+      _lazyLoaded[section] = true;
+      lazyObserver.unobserve(entry.target);
+      if (section === 'town') loadLiveFeeds(['town']);
+      // Live and podcasts sections are static HTML — no fetch needed,
+      // but mark as loaded so we don't re-trigger
+    });
+  }, { rootMargin: '200px' }); // start 200px before visible
+
+  document.querySelectorAll('[data-lazy-section]').forEach(el => lazyObserver.observe(el));
+} else {
+  // Fallback for browsers without IntersectionObserver
+  loadLiveFeeds(['town']);
+}
 
 // ── PAID AD SWAP ──────────────────────────────────────────────────────────
 // Call this when you have a paying advertiser ready.
