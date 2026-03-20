@@ -388,55 +388,6 @@
   .sched-ha { font-size: 9px; color: var(--text-muted); font-weight: 700;
     background: #f0f0f0; padding: 1px 5px; border-radius: 3px; }
 
-  /* AFFILIATE STYLES */
-  .ticket-btn {
-    display: inline-block; font-size: 9px; font-weight: 800;
-    background: #CFA82C; color: #000; border: none; border-radius: 4px;
-    padding: 3px 8px; cursor: pointer; text-decoration: none;
-    letter-spacing: 0.3px; white-space: nowrap; flex-shrink: 0;
-  }
-  .ticket-btn:hover { background: #b8921f; color: #000; }
-  .amazon-aff { font-size: 10px; color: #999; margin-left: 5px; text-decoration: none; }
-  .amazon-aff:hover { color: #CFA82C; }
-  /* MerchBanner */
-  .merch-banner {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-    border: 1px solid #CFA82C; border-radius: 10px;
-    padding: 16px 18px; margin: 16px 0; position: relative;
-  }
-  .merch-banner-close {
-    position: absolute; top: 10px; right: 12px;
-    background: none; border: none; color: #999; font-size: 18px;
-    cursor: pointer; line-height: 1; padding: 0;
-  }
-  .merch-banner-close:hover { color: #fff; }
-  .merch-banner-title {
-    font-family: 'Merriweather Sans', sans-serif; font-size: 13px;
-    font-weight: 800; color: #fff; margin-bottom: 4px;
-  }
-  .merch-banner-divider {
-    width: 32px; height: 2px; background: #CFA82C; margin-bottom: 12px;
-  }
-  .merch-banner-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
-  }
-  .merch-item {
-    background: #333; border-radius: 6px; overflow: hidden;
-    text-decoration: none; display: block;
-    transition: transform 0.15s;
-  }
-  .merch-item:hover { transform: translateY(-2px); }
-  .merch-item-img {
-    width: 100%; aspect-ratio: 1; object-fit: cover;
-    background: #444; display: flex; align-items: center;
-    justify-content: center; font-size: 22px;
-  }
-  .merch-item-label {
-    font-size: 9px; font-weight: 700; color: #ccc;
-    text-align: center; padding: 4px 2px;
-    font-family: 'Merriweather Sans', sans-serif;
-  }
-
   /* AD PLACEHOLDERS */
   .ad-slot {
     background: #e8e8e8;
@@ -1023,31 +974,6 @@
       </div>
     </div>
 
-    <!-- ══ MERCH BANNER ══ -->
-    <div id="merch-banner" class="merch-banner tab-section" data-tabs="latest football basketball">
-      <button class="merch-banner-close" onclick="dismissMerchBanner()" aria-label="Close">×</button>
-      <div class="merch-banner-title">🛒 Shop Official CU Buffs Gear</div>
-      <div class="merch-banner-divider"></div>
-      <div class="merch-banner-grid">
-        <a class="merch-item aff-fanatics" href="https://www.fanatics.com/colorado-buffaloes/d-7562938+z-8328-2847234614?aff=ENTER_YOUR_AFF_ID" target="_blank" rel="noopener sponsored" data-aff="fanatics" data-label="Jerseys">
-          <div class="merch-item-img">👕</div>
-          <div class="merch-item-label">Jerseys</div>
-        </a>
-        <a class="merch-item aff-fanatics" href="https://www.fanatics.com/colorado-buffaloes/d-7562938+z-8328-2847234614?aff=ENTER_YOUR_AFF_ID" target="_blank" rel="noopener sponsored" data-aff="fanatics" data-label="Hats">
-          <div class="merch-item-img">🧢</div>
-          <div class="merch-item-label">Hats</div>
-        </a>
-        <a class="merch-item aff-fanatics" href="https://www.fanatics.com/colorado-buffaloes/d-7562938+z-8328-2847234614?aff=ENTER_YOUR_AFF_ID" target="_blank" rel="noopener sponsored" data-aff="fanatics" data-label="Hoodies">
-          <div class="merch-item-img">🧥</div>
-          <div class="merch-item-label">Hoodies</div>
-        </a>
-        <a class="merch-item aff-fanatics" href="https://www.fanatics.com/colorado-buffaloes/d-7562938+z-8328-2847234614?aff=ENTER_YOUR_AFF_ID" target="_blank" rel="noopener sponsored" data-aff="fanatics" data-label="Accessories">
-          <div class="merch-item-img">🎽</div>
-          <div class="merch-item-label">Accessories</div>
-        </a>
-      </div>
-    </div>
-
     <!-- ══ MEN'S BASKETBALL ══ -->
     <div class="tab-section" data-tabs="latest basketball">
       <div class="section-label"><h3>Men's Basketball</h3></div>
@@ -1602,17 +1528,14 @@
       <div class="sched-row">
         <span class="sched-date">MAR</span>
         <div class="sched-info"><strong>NCAA R1: vs Illinois (WBB)</strong><span>Date/Time TBA</span></div>
-        <a class="ticket-btn aff-vivid" href="https://www.vividseats.com/colorado-buffaloes-tickets?wsUser=ENTER_YOUR_TAG" target="_blank" rel="noopener sponsored" data-aff="vivid-seats" data-label="NCAA R1 vs Illinois WBB">Get Tickets</a>
       </div>
       <div class="sched-row">
         <span class="sched-date">APR 1</span>
         <div class="sched-info"><strong>CBC QF: vs Oklahoma (MBB)</strong><span>Las Vegas — TBA</span></div>
-        <a class="ticket-btn aff-vivid" href="https://www.vividseats.com/colorado-buffaloes-tickets?wsUser=ENTER_YOUR_TAG" target="_blank" rel="noopener sponsored" data-aff="vivid-seats" data-label="CBC QF vs Oklahoma MBB">Get Tickets</a>
       </div>
       <div class="sched-row">
         <span class="sched-date">APR 11</span>
         <div class="sched-info"><strong>Spring Game (FB)</strong><span>Folsom Field — Free</span></div>
-        <!-- Free admission — no ticket button -->
       </div>
     </div>
 
@@ -2075,79 +1998,6 @@ activateTab('latest');
     document.getElementById('newsletter-overlay').style.display = 'none';
     localStorage.setItem('newsletter-last-seen', Date.now().toString());
   }
-
-  // ── PART B: MERCH BANNER DISMISS ────────────────────────────────────────
-  (function() {
-    const banner = document.getElementById('merch-banner');
-    if (!banner) return;
-    const lastDismissed = localStorage.getItem('merch-banner-dismissed');
-    const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
-    if (lastDismissed && parseInt(lastDismissed) > oneDayAgo) {
-      banner.style.display = 'none';
-    }
-  })();
-
-  function dismissMerchBanner() {
-    const banner = document.getElementById('merch-banner');
-    if (banner) banner.style.display = 'none';
-    localStorage.setItem('merch-banner-dismissed', Date.now().toString());
-  }
-
-  // ── PART C: AMAZON AFFILIATE KEYWORD INJECTION ──────────────────────────
-  const AFF_AMAZON_TAG = 'ENTER_YOUR_TAG';
-  const AFF_KEYWORDS   = ['jersey', 'gear', 'merchandise', 'apparel', 'shoes', 'helmet', 'equipment', 'uniform', 'hoodie'];
-
-  function injectAmazonLinks() {
-    // Target headline titles in live feed items and hl-title elements
-    const selectors = '.lf-title, .hl-title, .link-item a';
-    document.querySelectorAll(selectors).forEach(el => {
-      if (el.dataset.affScanned) return; // don't double-process
-      el.dataset.affScanned = '1';
-      const text = el.textContent.toLowerCase();
-      const match = AFF_KEYWORDS.find(kw => text.includes(kw));
-      if (!match) return;
-      const keyword = encodeURIComponent('CU Buffs ' + match);
-      const url = `https://www.amazon.com/s?k=${keyword}&tag=${AFF_AMAZON_TAG}`;
-      const label = el.closest('.link-item') ? el.textContent.trim().substring(0, 60) : el.textContent.trim().substring(0, 60);
-      const link = document.createElement('a');
-      link.href = url;
-      link.target = '_blank';
-      link.rel = 'noopener sponsored';
-      link.className = 'amazon-aff aff-amazon';
-      link.textContent = '(Shop on Amazon)';
-      link.dataset.aff = 'amazon';
-      link.dataset.label = label;
-      el.parentNode.insertBefore(link, el.nextSibling);
-    });
-  }
-
-  // Run after feeds load and re-run on each refresh cycle
-  setTimeout(injectAmazonLinks, 3000);
-  setInterval(injectAmazonLinks, 16 * 60 * 1000);
-
-  // ── PART D: AFFILIATE CLICK TRACKING ────────────────────────────────────
-  function trackAffClick(affType, label) {
-    // Google Analytics 4 (gtag) — fires if GA is loaded, silently skips if not
-    if (typeof gtag === 'function') {
-      gtag('event', 'affiliate_click', {
-        event_category: 'affiliate',
-        event_action:   'click',
-        event_label:    affType + ' | ' + label,
-        affiliate_type: affType,
-        content_label:  label,
-      });
-    }
-    // Console log for debugging (remove in production if desired)
-    console.log('[AFF]', affType, '|', label);
-  }
-
-  document.addEventListener('click', function(e) {
-    const el = e.target.closest('[data-aff]');
-    if (!el) return;
-    const affType = el.dataset.aff || 'unknown';
-    const label   = el.dataset.label || el.textContent.trim().substring(0, 80);
-    trackAffClick(affType, label);
-  });
 </script>
 </body>
 </html>
