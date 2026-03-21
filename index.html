@@ -338,7 +338,8 @@
   }
 
   /* SIDEBAR */
-  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; }
+  .main-wrap > main { margin: 0; padding: 0; }
   .widget {
     background: var(--bg-card);
     border: 1px solid var(--border-light);
@@ -1548,7 +1549,7 @@
   </main>
 
   <!-- AD 3: SIDEBAR TOP (row 1, col 2 — direct grid child, matches hero height automatically) -->
-  <div class="ad-slot ad-sidebar ad-sidebar-top" style="border-radius:var(--radius);">
+  <div class="ad-sidebar ad-sidebar-top" style="border-radius:var(--radius);">
     <a href="https://tallowlskincare.com" target="_blank">
       <picture>
         <source srcset="Tallow.webp" type="image/webp">
@@ -1617,7 +1618,7 @@
     </div>
 
     <!-- AD 4: SIDEBAR MID — 300×250 Medium Rectangle, mid-scroll engagement spot -->
-    <div class="ad-slot ad-sidebar" style="padding:0; border:none; background:none; overflow:hidden; position:relative;">
+    <div class="ad-sidebar" style="overflow:hidden; position:relative;">
       <a href="https://tallowlskincare.com/collections/all/products/eye-serum" target="_blank">
         <picture>
           <source srcset="Eyeserum.webp" type="image/webp">
