@@ -441,7 +441,25 @@
   .ad-banner-wrap .ad-slot { width: 100%; max-width: 970px; min-height: 90px; height: 90px; }
   /* Sidebar rectangle */
   .ad-sidebar { width: 100%; min-height: 250px; height: 250px; } /* CLS: explicit */
-  .ad-sidebar.ad-sidebar-top { height: 100%; min-height: 0; flex: none; }
+  /* Top ad: stretch to hero row height via grid align-self; image fills via absolute positioning */
+  .ad-sidebar.ad-sidebar-top {
+    position: relative;
+    align-self: stretch;
+    min-height: 0;
+    height: auto;
+    flex: none;
+    overflow: hidden;
+  }
+  .ad-sidebar.ad-sidebar-top > a {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  }
+  .ad-sidebar.ad-sidebar-top picture {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  }
+  .ad-sidebar.ad-sidebar-top img {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
   /* In-feed leaderboard */
   .ad-infeed-wrap {
     margin: 16px 0;
@@ -1528,14 +1546,14 @@
   </main>
 
   <!-- AD 3: SIDEBAR TOP (row 1, col 2 — direct grid child, matches hero height automatically) -->
-  <div class="ad-slot ad-sidebar ad-sidebar-top" style="padding:0; border:none; background:none; overflow:hidden; position:relative; border-radius:var(--radius);">
-    <a href="https://tallowlskincare.com" target="_blank" style="display:block; width:100%; height:100%;">
-      <picture style="display:block; width:100%; height:100%;">
+  <div class="ad-slot ad-sidebar ad-sidebar-top" style="border-radius:var(--radius);">
+    <a href="https://tallowlskincare.com" target="_blank">
+      <picture>
         <source srcset="Tallow.webp" type="image/webp">
-        <img src="Tallow.png" alt="Tallow Vanilla Orange Whipped Tallow" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+        <img src="Tallow.png" alt="Tallow Vanilla Orange Whipped Tallow" loading="lazy">
       </picture>
     </a>
-    <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px;">AD</div>
+    <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px; z-index:2;">AD</div>
   </div>
 
   <!-- ══ SIDEBAR ══ -->
