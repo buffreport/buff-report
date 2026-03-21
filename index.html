@@ -1960,19 +1960,22 @@ activateTab('latest');
 <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
 
 <!-- NEWSLETTER POPUP -->
-<div id="newsletter-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:9999; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-  <div style="min-height:100%; display:flex; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
-    <div style="background:#3a3a3a; border-radius:12px; padding:28px 20px 20px; max-width:480px; width:calc(100% - 40px); position:relative; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.5); overflow:hidden; box-sizing:border-box;">
-      <!-- Close button -->
-      <button onclick="closeNewsletter()" style="position:absolute; top:12px; right:14px; background:none; border:none; color:#aaa; font-size:26px; cursor:pointer; line-height:1; z-index:1; padding:4px 8px;">×</button>
-      <!-- Logo mark -->
-      <div style="font-family:'Playfair Display',serif; font-size:12px; font-weight:900; color:#CFB87C; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px;">THE BUFF REPORT</div>
-      <!-- Heading -->
-      <h2 style="font-family:'Playfair Display',serif; font-size:22px; font-weight:900; color:white; margin:0 0 6px;">Stay in the know.</h2>
-      <p style="color:#bbb; font-size:12px; font-family:'Merriweather Sans',sans-serif; margin:0 0 14px; line-height:1.5;">CU Buffs news — athletics, academics, and everything Boulder — straight to your inbox.</p>
-      <!-- Beehiiv embed -->
-      <iframe id="beehiiv-iframe" src="https://subscribe-forms.beehiiv.com/1dbc9ea7-e231-4c4e-a25c-bcc96b6a0dab" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width:100%; max-width:100%; height:260px; border-radius:6px; background-color:transparent; box-shadow:none; display:block;"></iframe>
+<div id="newsletter-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;">
+  <div style="background:#2a2a2a; border-radius:14px; padding:32px 28px 28px; max-width:420px; width:100%; position:relative; text-align:center; box-shadow:0 24px 64px rgba(0,0,0,0.6); box-sizing:border-box;">
+    <!-- Close button -->
+    <button onclick="closeNewsletter()" style="position:absolute; top:14px; right:16px; background:none; border:none; color:#777; font-size:24px; cursor:pointer; line-height:1; padding:4px 8px;">×</button>
+    <!-- Logo mark -->
+    <div style="font-family:'Playfair Display',serif; font-size:11px; font-weight:900; color:#CFB87C; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px;">The Buff Report</div>
+    <!-- Heading -->
+    <h2 style="font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:white; margin:0 0 8px; line-height:1.2;">Stay in the know.</h2>
+    <p style="color:#aaa; font-size:13px; font-family:'Merriweather Sans',sans-serif; margin:0 0 22px; line-height:1.6;">CU Buffs athletics, academics, and Boulder news — straight to your inbox. Free.</p>
+    <!-- Inline subscribe form -->
+    <div id="nl-form" style="display:flex; flex-direction:column; gap:10px;">
+      <input id="nl-email" type="email" placeholder="your@email.com" style="width:100%; padding:12px 14px; border-radius:8px; border:1.5px solid #444; background:#1a1a1a; color:white; font-size:14px; font-family:'Merriweather Sans',sans-serif; box-sizing:border-box; outline:none;">
+      <button id="nl-btn" onclick="handleNlSubmit()" style="width:100%; padding:13px; border-radius:8px; background:#CFB87C; color:#000; font-size:14px; font-weight:800; font-family:'Merriweather Sans',sans-serif; border:none; cursor:pointer; letter-spacing:0.5px;">Subscribe Free →</button>
     </div>
+    <div id="nl-msg" style="margin-top:10px; font-size:13px; font-family:'Merriweather Sans',sans-serif; min-height:18px;"></div>
+    <p style="color:#555; font-size:10px; font-family:'Merriweather Sans',sans-serif; margin:14px 0 0;">No spam. Unsubscribe anytime.</p>
   </div>
 </div>
 
@@ -1982,7 +1985,7 @@ activateTab('latest');
   const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
   if (!lastSeen || parseInt(lastSeen) < oneDayAgo) {
     setTimeout(() => {
-      document.getElementById('newsletter-overlay').style.display = 'block';
+      document.getElementById('newsletter-overlay').style.display = 'flex';
     }, 2000);
   }
 
@@ -2039,20 +2042,70 @@ activateTab('latest');
   }
 
   function openNewsletter(email) {
-    const base = 'https://subscribe-forms.beehiiv.com/1dbc9ea7-e231-4c4e-a25c-bcc96b6a0dab';
-    const iframe = document.getElementById('beehiiv-iframe');
+    const overlay = document.getElementById('newsletter-overlay');
+    // Pre-fill email if provided
     if (email && email.trim()) {
-      iframe.src = base + '?email=' + encodeURIComponent(email.trim());
-    } else {
-      iframe.src = base;
+      const input = document.getElementById('nl-email');
+      if (input) input.value = email.trim();
     }
-    document.getElementById('newsletter-overlay').style.display = 'block';
+    // Reset form state
+    const msg = document.getElementById('nl-msg');
+    const btn = document.getElementById('nl-btn');
+    if (msg) { msg.textContent = ''; msg.style.color = ''; }
+    if (btn) { btn.disabled = false; btn.textContent = 'Subscribe Free →'; }
+    overlay.style.display = 'flex';
   }
 
   function closeNewsletter() {
     document.getElementById('newsletter-overlay').style.display = 'none';
     localStorage.setItem('newsletter-last-seen', Date.now().toString());
   }
+
+  async function handleNlSubmit() {
+    const input = document.getElementById('nl-email');
+    const btn   = document.getElementById('nl-btn');
+    const msg   = document.getElementById('nl-msg');
+    const email = (input?.value || '').trim();
+    if (!email) { input.focus(); return; }
+    btn.disabled = true;
+    btn.textContent = '...';
+    msg.textContent = '';
+    try {
+      const resp = await fetch('https://buff-subscribe.kerstiensrrk.workers.dev/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+        signal: AbortSignal.timeout(8000),
+      });
+      const data = await resp.json();
+      if (data.status === 'ok') {
+        msg.textContent = "✓ You're in! Check your inbox.";
+        msg.style.color = '#4ade80';
+        input.value = '';
+        setTimeout(closeNewsletter, 2500);
+      } else if (data.status === 'duplicate') {
+        msg.textContent = 'You\'re already subscribed!';
+        msg.style.color = '#CFB87C';
+      } else {
+        msg.textContent = data.error || 'Something went wrong. Try again.';
+        msg.style.color = '#f87171';
+      }
+    } catch {
+      msg.textContent = 'Network error. Please try again.';
+      msg.style.color = '#f87171';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Subscribe Free →';
+    }
+  }
+
+  // Allow Enter key in modal email input
+  document.addEventListener('DOMContentLoaded', () => {
+    const nlEmail = document.getElementById('nl-email');
+    if (nlEmail) nlEmail.addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleNlSubmit();
+    });
+  });
 
   // ── DAILY ARTICLE CYCLING ─────────────────────────────────────────────
   // Once per day, replaces the oldest curated card in each section
