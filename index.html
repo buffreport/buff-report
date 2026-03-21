@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Buff Report — CU Buffs Athletics, Academics & Boulder News</title>
+<title>The Buff Report: CU Buffs Athletics, Academics & Boulder News</title>
 <meta name="description" content="The Buff Report is your one-stop source for CU Buffs football, basketball, recruiting, transfer portal, campus news, and Boulder local coverage. Every headline, one page.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://buffreport.com/">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Buff Report">
-<meta property="og:title" content="The Buff Report — CU Buffs Athletics, Academics & Boulder News">
+<meta property="og:title" content="The Buff Report: CU Buffs Athletics, Academics & Boulder News">
 <meta property="og:description" content="Your one-stop source for CU Buffs football, basketball, recruiting, transfer portal, campus news, and Boulder local coverage.">
 <meta property="og:image" content="https://buffreport.com/Gold.PNG">
 <meta property="og:url" content="https://buffreport.com/">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Buff Report — CU Buffs Athletics, Academics & Boulder News">
+<meta name="twitter:title" content="The Buff Report: CU Buffs Athletics, Academics & Boulder News">
 <meta name="twitter:description" content="Your one-stop source for CU Buffs football, basketball, recruiting, transfer portal, campus news, and Boulder local coverage.">
 <meta name="twitter:image" content="https://buffreport.com/Gold.PNG">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -210,15 +210,23 @@
   /* MAIN LAYOUT */
   .main-wrap {
     max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 320px;
-    gap: 24px; padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    grid-template-rows: auto auto;
+    column-gap: 24px; row-gap: 0;
+    padding: 20px 24px;
   }
+  /* Hero + top ad share row 1, content + sidebar share row 2 */
+  .main-wrap > .hero-row   { grid-column: 1; grid-row: 1; padding-bottom: 20px; }
+  .main-wrap > .ad-sidebar-top { grid-column: 2; grid-row: 1; padding-bottom: 20px; }
+  .main-wrap > main        { grid-column: 1; grid-row: 2; }
+  .main-wrap > .sidebar    { grid-column: 2; grid-row: 2; }
 
   /* HERO */
   .hero {
     background: var(--secondary);
     border-radius: var(--radius);
-    padding: 28px 32px; margin-bottom: 20px;
+    padding: 28px 32px; margin-bottom: 0;
     position: relative; overflow: hidden;
   }
   .hero::after {
@@ -433,7 +441,7 @@
   .ad-banner-wrap .ad-slot { width: 100%; max-width: 970px; min-height: 90px; height: 90px; }
   /* Sidebar rectangle */
   .ad-sidebar { width: 100%; min-height: 250px; height: 250px; } /* CLS: explicit */
-  .ad-sidebar.ad-sidebar-top { height: auto; min-height: 250px; flex: 1; }
+  .ad-sidebar.ad-sidebar-top { height: 100%; min-height: 0; flex: none; }
   /* In-feed leaderboard */
   .ad-infeed-wrap {
     margin: 16px 0;
@@ -668,6 +676,9 @@
   @media (max-width: 900px) {
     .main-wrap { grid-template-columns: 1fr; }
     .sidebar { display: none; }
+    .main-wrap > .ad-sidebar-top { display: none; }
+    .main-wrap > .hero-row { grid-column: 1; grid-row: 1; padding-bottom: 20px; }
+    .main-wrap > main { grid-column: 1; grid-row: 2; }
     .hero h2 { font-size: 26px; }
     .breaking-bar { font-size: 11px; flex-wrap: wrap; text-align: center; }
     .site-footer { flex-direction: column; gap: 12px; text-align: center; }
@@ -708,6 +719,7 @@
     .main-wrap { padding: 12px 12px; gap: 16px; }
     .main-wrap { grid-template-columns: 1fr; }
     .sidebar { display: none; }
+    .main-wrap > .ad-sidebar-top { display: none; }
 
     /* Hero */
     .hero { padding: 20px 16px; border-radius: 8px; }
@@ -763,10 +775,10 @@
     "name": "Trending Now on The Buff Report",
     "url": "https://buffreport.com",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Spring Practice — Sanders installs new offensive system" },
-      { "@type": "ListItem", "position": 2, "name": "JuJu Lewis QB1 — spring practice impressions" },
+      { "@type": "ListItem", "position": 1, "name": "Spring Practice: Sanders installs new offensive system" },
+      { "@type": "ListItem", "position": 2, "name": "JuJu Lewis QB1: spring practice impressions" },
       { "@type": "ListItem", "position": 3, "name": "Remembering Dominiq Ponder" },
-      { "@type": "ListItem", "position": 4, "name": "59 new players — can this roster gel?" },
+      { "@type": "ListItem", "position": 4, "name": "59 new players: can this roster gel?" },
       { "@type": "ListItem", "position": 5, "name": "MBB heads to CBC vs. Oklahoma" }
     ]
   },
@@ -808,7 +820,7 @@
 <!-- BREAKING BAR -->
 <div class="breaking-bar">
   <span class="badge">Developing</span>
-  CU Women's Basketball earns No. 10 seed in NCAA Tournament — will face Illinois in first round
+  CU Women's Basketball earns No. 10 seed in NCAA Tournament, will face Illinois in first round
   <a href="https://247sports.com/college/colorado/article/cu-buffs-ncaa-womens-basketball-tournament-illinois-march-madness-277846730/" target="_blank">Full Story</a>
 </div>
 
@@ -818,7 +830,7 @@
     <div class="house-ad">
       <div class="ha-left">
         <div class="ha-eyebrow">The Buff Brief</div>
-        <div class="ha-headline">Get the Buff Brief — Daily CU news straight to your inbox</div>
+        <div class="ha-headline">Get the Buff Brief: Daily CU news straight to your inbox</div>
         <div class="ha-sub">Free newsletter. No spam. Unsubscribe anytime.</div>
       </div>
       <button class="ha-btn" onclick="openNewsletter('')">Subscribe Free →</button>
@@ -863,7 +875,7 @@
 <!-- STATUS BAR -->
 <div style="background:white;">
   <div class="status-bar">
-    <span><span class="live-dot"></span> Auto-updating — Last refresh: <span id="refreshTime">—</span></span>
+    <span><span class="live-dot"></span> Auto-updating · Last refresh: <span id="refreshTime">-</span></span>
     <div class="email-mini">
       <span style="font-weight:700;">THE DAILY BUFF</span>
       <input type="email" id="email-input" placeholder="your@email.com" onkeydown="if(event.key==='Enter')document.getElementById('subscribe-btn').click()">
@@ -876,17 +888,18 @@
 
 <!-- MAIN -->
 <div class="main-wrap">
-  <main>
 
-    <!-- ══ HERO ══ -->
-    <div class="tab-section" data-tabs="latest">
-      <div class="hero">
-        <span class="tag">🏆 Campus Recognition</span>
-        <h2><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">CU Boulder Named 3rd Most Beautiful College Campus in America</a></h2>
-        <p>Travel + Leisure ranks the University of Colorado Boulder among the nation's most stunning campuses, citing the iconic Flatirons backdrop, historic sandstone architecture, and unmatched mountain setting as defining features.</p>
-        <div class="meta">March 5, 2026 · <a href="https://www.travelandleisure.com" target="_blank" style="color:rgba(255,255,255,0.6)">Travel + Leisure</a></div>
-      </div>
+  <!-- ══ HERO ══ (row 1, col 1 — direct grid child so it matches ad height) -->
+  <div class="hero-row tab-section" data-tabs="latest">
+    <div class="hero" style="height:100%; box-sizing:border-box;">
+      <span class="tag">🏆 Campus Recognition</span>
+      <h2><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">CU Boulder Named 3rd Most Beautiful College Campus in America</a></h2>
+      <p>Travel + Leisure ranks the University of Colorado Boulder among the nation's most stunning campuses, citing the iconic Flatirons backdrop, historic sandstone architecture, and unmatched mountain setting as defining features.</p>
+      <div class="meta">March 5, 2026 · <a href="https://www.travelandleisure.com" target="_blank" style="color:rgba(255,255,255,0.6)">Travel + Leisure</a></div>
     </div>
+  </div>
+
+  <main>
 
     <!-- ══ FOOTBALL ══ -->
     <div class="tab-section" data-tabs="latest football" data-cycle-feed="live-football" data-cycle-pill="pill-football" data-cycle-label="Football">
@@ -903,7 +916,7 @@
         <div class="hl-card" data-date="2026-03-21">
           <span class="accent-dot dot-football"></span>
           <div class="hl-body">
-            <h4><a href="https://denversports.com/ncaa/cu-football/buffs-gt-moved-up-2026/2128716" target="_blank">Season Opener vs. Georgia Tech Moved Up — Now on National TV</a></h4>
+            <h4><a href="https://denversports.com/ncaa/cu-football/buffs-gt-moved-up-2026/2128716" target="_blank">Season Opener vs. Georgia Tech Moved Up, Now on National TV</a></h4>
             <div class="hl-sub">CU's Sept. 5 opener at Georgia Tech shifted to prime time. Buffs seek revenge after last year's 27-20 home loss.</div>
             <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Denver Sports</span><span>Mar 21</span></div>
           </div>
@@ -919,7 +932,7 @@
         <div class="hl-card" data-date="2026-03-06">
           <span class="accent-dot dot-football"></span>
           <div class="hl-body">
-            <h4><a href="https://cubuffs.com/news/2026/3/6/football-buffs-open-spring-with-energy-emotion-and-purpose" target="_blank">Buffs Open Spring Practice With Heavy Hearts — Honor Dominiq Ponder</a></h4>
+            <h4><a href="https://cubuffs.com/news/2026/3/6/football-buffs-open-spring-with-energy-emotion-and-purpose" target="_blank">Buffs Open Spring Practice With Heavy Hearts, Honoring Dominiq Ponder</a></h4>
             <div class="hl-sub">Team decided unanimously to practice despite tragedy. Senior safety Ben Finneseth: 'Dom wouldn't miss a day.'</div>
             <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>CUBuffs.com</span><span>Mar 6</span></div>
           </div>
@@ -928,7 +941,7 @@
           <span class="accent-dot dot-football"></span>
           <div class="hl-body">
             <h4><a href="https://www.si.com/college/colorado/football/reasons-excited-about-colorado-buffaloes-spring-football-camp-deion-sanders-julian-lewis" target="_blank">Five Reasons to Be Excited About CU's Spring Camp</a></h4>
-            <div class="hl-sub">New OC Brennan Marion, JuJu Lewis at QB1, 59 new faces — reasons for optimism heading into Deion's fourth season.</div>
+            <div class="hl-sub">New OC Brennan Marion, JuJu Lewis at QB1, 59 new faces: reasons for optimism heading into Deion's fourth season.</div>
             <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Sports Illustrated</span><span>Mar 11</span></div>
           </div>
         </div>
@@ -944,7 +957,7 @@
         <div class="link-item"><a href="https://www.si.com/college/colorado/football/deion-sanders-revamp-colorado-coaching-staff-hire-fire-brennan-marion" target="_blank">Every move Sanders made to revamp coaching staff</a><span class="src">SI</span></div>
         <div class="link-item"><a href="https://clutchpoints.com/ncaa-football/colorado-football-news-deion-sanders-hires-ex-saints-bengals-safety-assistant-coach" target="_blank">Vonn Bell (ex-Saints, Bengals) joins staff as safeties coach</a><span class="src">Clutch Points</span></div>
         <div class="link-item"><a href="https://www.dailycamera.com/2026/03/01/colorado-buffs-football-spring-preview/" target="_blank">Overhauled roster, staff: Complete spring preview</a><span class="src">Daily Camera · Mar 1</span></div>
-        <div class="link-item"><a href="https://cubuffs.com/news/2026/2/19/football-at-t-black-gold-day-slated-for-april-11" target="_blank">AT&amp;T Black &amp; Gold Day Spring Game — April 11 — Free Admission</a><span class="src">CUBuffs.com · Feb 19</span></div>
+        <div class="link-item"><a href="https://cubuffs.com/news/2026/2/19/football-at-t-black-gold-day-slated-for-april-11" target="_blank">AT&amp;T Black &amp; Gold Day Spring Game: April 11 - Free Admission</a><span class="src">CUBuffs.com · Feb 19</span></div>
         <div class="link-item"><a href="https://cubuffs.com/news/2026/3/13/football-buffs-reload-wide-receiver-room-with-speed-and-explosive-talent" target="_blank">Buffs Reload Wide Receiver Room With Speed and Explosive Talent</a><span class="src">CUBuffs.com · Mar 13</span></div>
         <div class="link-item"><a href="https://www.axios.com/local/boulder/2026/03/02/colorado-football-spring-practice-dominiq-ponder-crash" target="_blank">Dominiq Ponder remembered as spring football begins</a><span class="src">Axios Boulder · Mar 2</span></div>
         <div class="link-item"><a href="https://www.dailycamera.com/2026/03/13/colorado-buffaloes-football-richard-young/" target="_blank">Buffaloes' Richard Young enjoying fresh start in Boulder</a><span class="src">Daily Camera · Mar 13</span></div>
@@ -952,7 +965,7 @@
       </div>
 
       <!-- 2025 Season Schedule -->
-      <div class="section-label"><h3>2025 Season Schedule &amp; Results <span style="font-size:11px;font-weight:400;color:var(--text-muted)">— Final: 3-9 (1-8 Big 12)</span></h3></div>
+      <div class="section-label"><h3>2025 Season Schedule &amp; Results <span style="font-size:11px;font-weight:400;color:var(--text-muted)">· Final: 3-9 (1-8 Big 12)</span></h3></div>
       <div class="widget" style="padding:0;">
         <div class="sched-row"><div class="sched-date">AUG<br>29</div><div class="sched-info"><strong>Georgia Tech</strong><span><span class="sched-ha">HOME</span> · Fri Night Opener</span></div><span class="sched-result loss">L 20–27</span></div>
         <div class="sched-row"><div class="sched-date">SEP<br>6</div><div class="sched-info"><strong>Delaware</strong><span><span class="sched-ha">HOME</span> · Non-Conference</span></div><span class="sched-result win">W 31–7</span></div>
@@ -961,11 +974,11 @@
         <div class="sched-row"><div class="sched-date">SEP<br>27</div><div class="sched-info"><strong>BYU</strong><span><span class="sched-ha">HOME</span> · Big 12 · Alamo Bowl Rematch</span></div><span class="sched-result loss">L 21–24</span></div>
         <div class="sched-row"><div class="sched-date">OCT<br>4</div><div class="sched-info"><strong>at TCU</strong><span><span class="sched-ha">AWAY</span> · Big 12</span></div><span class="sched-result loss">L 21–35</span></div>
         <div class="sched-row"><div class="sched-date">OCT<br>11</div><div class="sched-info"><strong>Iowa State</strong><span><span class="sched-ha">HOME</span> · Big 12</span></div><span class="sched-result win">W 24–17</span></div>
-        <div class="sched-row" style="opacity:.5"><div class="sched-date" style="background:#ccc;color:#fff;">OCT<br>18</div><div class="sched-info"><strong>BYE WEEK</strong><span>—</span></div><span class="sched-result tbd">BYE</span></div>
+        <div class="sched-row" style="opacity:.5"><div class="sched-date" style="background:#ccc;color:#fff;">OCT<br>18</div><div class="sched-info"><strong>BYE WEEK</strong><span></span></div><span class="sched-result tbd">BYE</span></div>
         <div class="sched-row"><div class="sched-date">OCT<br>25</div><div class="sched-info"><strong>at Utah</strong><span><span class="sched-ha">AWAY</span> · Big 12</span></div><span class="sched-result loss">L 7–53</span></div>
         <div class="sched-row"><div class="sched-date">NOV<br>1</div><div class="sched-info"><strong>Arizona</strong><span><span class="sched-ha">HOME</span> · Big 12</span></div><span class="sched-result loss">L 17–52</span></div>
         <div class="sched-row"><div class="sched-date">NOV<br>8</div><div class="sched-info"><strong>at West Virginia</strong><span><span class="sched-ha">AWAY</span> · Big 12 · Mil. Appreciation</span></div><span class="sched-result loss">L 22–29</span></div>
-        <div class="sched-row" style="opacity:.5"><div class="sched-date" style="background:#ccc;color:#fff;">NOV<br>15</div><div class="sched-info"><strong>BYE WEEK</strong><span>—</span></div><span class="sched-result tbd">BYE</span></div>
+        <div class="sched-row" style="opacity:.5"><div class="sched-date" style="background:#ccc;color:#fff;">NOV<br>15</div><div class="sched-info"><strong>BYE WEEK</strong><span></span></div><span class="sched-result tbd">BYE</span></div>
         <div class="sched-row"><div class="sched-date">NOV<br>22</div><div class="sched-info"><strong>Arizona State</strong><span><span class="sched-ha">HOME</span> · Big 12</span></div><span class="sched-result loss">L 17–42</span></div>
         <div class="sched-row"><div class="sched-date">NOV<br>29</div><div class="sched-info"><strong>at Kansas State</strong><span><span class="sched-ha">AWAY</span> · Big 12 Finale</span></div><span class="sched-result loss">L 14–24</span></div>
       </div>
@@ -985,7 +998,7 @@
           <div class="house-ad">
             <div class="ha-left">
               <div class="ha-eyebrow">The Buff Brief</div>
-              <div class="ha-headline">Never miss a Buffs story — join thousands of CU fans</div>
+              <div class="ha-headline">Never miss a Buffs story. Join thousands of CU fans</div>
               <div class="ha-sub">Free newsletter. No spam. Unsubscribe anytime.</div>
             </div>
             <button class="ha-btn" onclick="openNewsletter('')">Get it Free →</button>
@@ -1017,7 +1030,7 @@
         <div class="hl-card" data-date="2026-03-11">
           <span class="accent-dot dot-basketball"></span>
           <div class="hl-body">
-            <h4><a href="https://www.dailycamera.com/2026/03/11/colorado-buffaloes-basketball-oklahoma-state-season-ending/" target="_blank">Big 12 Tournament Ends Early — Oklahoma State Ousts Buffs</a></h4>
+            <h4><a href="https://www.dailycamera.com/2026/03/11/colorado-buffaloes-basketball-oklahoma-state-season-ending/" target="_blank">Big 12 Tournament Ends Early: Oklahoma State Ousts Buffs</a></h4>
             <div class="hl-sub">Colorado's run in Kansas City ends in the second round. Season alive thanks to CBC bid.</div>
             <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>Daily Camera</span><span>Mar 11</span></div>
           </div>
@@ -1025,7 +1038,7 @@
         <div class="hl-card" data-date="2026-03-15">
           <span class="accent-dot dot-basketball"></span>
           <div class="hl-body">
-            <h4><a href="https://www.si.com/college/colorado/basketball/colorado-buffaloes-ncaa-tournament-seed-projection-jr-payne-march-madness" target="_blank">Boyle's Squad Falls Short of NCAA Tourney — Where Things Stand</a></h4>
+            <h4><a href="https://www.si.com/college/colorado/basketball/colorado-buffaloes-ncaa-tournament-seed-projection-jr-payne-march-madness" target="_blank">Boyle's Squad Falls Short of NCAA Tourney: Where Things Stand</a></h4>
             <div class="hl-sub">Buffs needed deeper Big 12 run. 7-11 conference record not enough for at-large consideration.</div>
             <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>Sports Illustrated</span><span>Mar 15</span></div>
           </div>
@@ -1040,7 +1053,7 @@
         <div class="hl-card" data-date="2026-03-21">
           <span class="accent-dot dot-wbb"></span>
           <div class="hl-body">
-            <h4><a href="https://www.ncaa.com/live-updates/basketball-women/d1/live-updates-2026-ncaa-womens-basketball-tournament" target="_blank">🔴 TONIGHT: No. 10 CU vs. No. 7 Illinois — NCAA R1 at 8:30 PM CT on ESPN2</a></h4>
+            <h4><a href="https://www.ncaa.com/live-updates/basketball-women/d1/live-updates-2026-ncaa-womens-basketball-tournament" target="_blank">🔴 TONIGHT: No. 10 CU vs. No. 7 Illinois - NCAA R1 at 8:30 PM CT on ESPN2</a></h4>
             <div class="hl-sub">Buffs tip off in Nashville. JR Payne's squad (22-11) looks to pull the upset and advance in March Madness.</div>
             <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>NCAA.com</span><span>Mar 21</span></div>
           </div>
@@ -1077,7 +1090,7 @@
       <div class="section-label"><h3>More Basketball</h3></div>
       <div class="link-cluster">
         <div class="link-item"><a href="https://www.timescall.com/2026/03/16/colorado-buffaloes-college-basketball-crown/" target="_blank">MBB season continues at College Basketball Crown in Las Vegas</a><span class="src">Times Call · Mar 16</span></div>
-        <div class="link-item"><a href="https://www.espn.com/mens-college-basketball/story/_/id/48209506/arizona-gets-revenge-tops-houston-win-big-12-championship" target="_blank">Arizona tops Houston for Big 12 title — Eight teams to NCAA Tourney</a><span class="src">ESPN</span></div>
+        <div class="link-item"><a href="https://www.espn.com/mens-college-basketball/story/_/id/48209506/arizona-gets-revenge-tops-houston-win-big-12-championship" target="_blank">Arizona tops Houston for Big 12 title, eight teams to NCAA Tourney</a><span class="src">ESPN</span></div>
         <div class="link-item"><a href="https://www.yardbarker.com/college_basketball/articles/colorado_buffaloes_big_12_tournament_hub_with_full_schedule_bracket/s1_17284_43572871" target="_blank">Full Big 12 Tournament hub: Schedule, bracket, results</a><span class="src">Yardbarker</span></div>
       </div>
 
@@ -1086,7 +1099,7 @@
         <div class="hl-card">
           <span class="accent-dot dot-lacrosse"></span>
           <div class="hl-body">
-            <h4><a href="https://cubuffs.com/news/2026/3/15/lacrosse-no-13-colorado-tramples-stetson" target="_blank">No. 13 Buffs Trample Stetson — Stay Perfect at Home</a></h4>
+            <h4><a href="https://cubuffs.com/news/2026/3/15/lacrosse-no-13-colorado-tramples-stetson" target="_blank">No. 13 Buffs Trample Stetson, Stay Perfect at Home</a></h4>
             <div class="hl-sub">Colorado improves to 5-2 overall, 3-0 at home. Held Hatters scoreless in first quarter.</div>
             <div class="hl-meta"><span class="sport-pill pill-lacrosse">Lacrosse</span><span>CUBuffs.com</span><span>Mar 15</span></div>
           </div>
@@ -1110,26 +1123,26 @@
       </div>
 
       <!-- 2025-26 Season Schedule -->
-      <div class="section-label"><h3>2025–26 Season Schedule <span style="font-size:11px;font-weight:400;color:var(--text-muted)">— 17-13 (7-10 Big 12) · College Basketball Crown</span></h3></div>
+      <div class="section-label"><h3>2025-26 Season Schedule <span style="font-size:11px;font-weight:400;color:var(--text-muted)">· 17-13 (7-10 Big 12) · College Basketball Crown</span></h3></div>
       <div class="widget" style="padding:0;">
         <div class="sched-row" style="background:#fafaf8;"><div class="sched-date" style="background:#888;font-size:9px;">NON-CONF</div><div class="sched-info" style="font-size:10px;font-weight:700;color:var(--text-muted);">NON-CONFERENCE</div></div>
         <div class="sched-row"><div class="sched-date">NOV<br>3</div><div class="sched-info"><strong>Montana State</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 84–78</span></div>
         <div class="sched-row"><div class="sched-date">NOV<br>8</div><div class="sched-info"><strong>Eastern Washington</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 102–97</span></div>
         <div class="sched-row"><div class="sched-date">NOV</div><div class="sched-info"><strong>Providence</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 97–88</span></div>
         <div class="sched-row"><div class="sched-date">NOV</div><div class="sched-info"><strong>Alabama State</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 94–66</span></div>
-        <div class="sched-row"><div class="sched-date">DEC<br>13</div><div class="sched-info"><strong>UTSA</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result tbd">—</span></div>
-        <div class="sched-row"><div class="sched-date">DEC<br>17</div><div class="sched-info"><strong>Portland State</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result tbd">—</span></div>
-        <div class="sched-row"><div class="sched-date">DEC<br>20</div><div class="sched-info"><strong>Stanford</strong><span><span class="sched-ha">NEUTRAL</span> · Naismith HoF Series · Phoenix</span></div><span class="sched-result tbd">—</span></div>
-        <div class="sched-row"><div class="sched-date">DEC<br>28</div><div class="sched-info"><strong>Northern Colorado</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">DEC<br>13</div><div class="sched-info"><strong>UTSA</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result tbd">TBD</span></div>
+        <div class="sched-row"><div class="sched-date">DEC<br>17</div><div class="sched-info"><strong>Portland State</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result tbd">TBD</span></div>
+        <div class="sched-row"><div class="sched-date">DEC<br>20</div><div class="sched-info"><strong>Stanford</strong><span><span class="sched-ha">NEUTRAL</span> · Naismith HoF Series · Phoenix</span></div><span class="sched-result tbd">TBD</span></div>
+        <div class="sched-row"><div class="sched-date">DEC<br>28</div><div class="sched-info"><strong>Northern Colorado</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result tbd">TBD</span></div>
         <div class="sched-row" style="background:#fafaf8;"><div class="sched-date" style="background:#888;font-size:9px;">BIG 12</div><div class="sched-info" style="font-size:10px;font-weight:700;color:var(--text-muted);">BIG 12 CONFERENCE</div></div>
-        <div class="sched-row"><div class="sched-date">JAN<br>3</div><div class="sched-info"><strong>at Arizona State</strong><span><span class="sched-ha">AWAY</span> · Big 12 Opener</span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">JAN<br>3</div><div class="sched-info"><strong>at Arizona State</strong><span><span class="sched-ha">AWAY</span> · Big 12 Opener</span></div><span class="sched-result tbd">TBD</span></div>
         <div class="sched-row"><div class="sched-date">JAN<br>7</div><div class="sched-info"><strong>Utah</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 92–78</span></div>
         <div class="sched-row"><div class="sched-date">JAN<br>14</div><div class="sched-info"><strong>at Cincinnati</strong><span><span class="sched-ha">AWAY</span> · 1st visit since 1981</span></div><span class="sched-result loss">L 68–77</span></div>
-        <div class="sched-row"><div class="sched-date">JAN<br>17</div><div class="sched-info"><strong>at West Virginia</strong><span><span class="sched-ha">AWAY</span></span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">JAN<br>17</div><div class="sched-info"><strong>at West Virginia</strong><span><span class="sched-ha">AWAY</span></span></div><span class="sched-result tbd">TBD</span></div>
         <div class="sched-row"><div class="sched-date">JAN<br>20</div><div class="sched-info"><strong>Kansas</strong><span><span class="sched-ha">HOME</span> · ESPN · 9 PM</span></div><span class="sched-result loss">L</span></div>
         <div class="sched-row"><div class="sched-date">FEB<br>1</div><div class="sched-info"><strong>TCU</strong><span><span class="sched-ha">HOME</span> · TNT/truTV · 12 PM</span></div><span class="sched-result win">W</span></div>
         <div class="sched-row"><div class="sched-date">FEB<br>4</div><div class="sched-info"><strong>at Baylor</strong><span><span class="sched-ha">AWAY</span> · Peacock · 6 PM</span></div><span class="sched-result loss">L</span></div>
-        <div class="sched-row"><div class="sched-date">FEB<br>21</div><div class="sched-info"><strong>Oklahoma State</strong><span><span class="sched-ha">HOME</span> · 1st home visit since '10-11</span></div><span class="sched-result tbd">—</span></div>
+        <div class="sched-row"><div class="sched-date">FEB<br>21</div><div class="sched-info"><strong>Oklahoma State</strong><span><span class="sched-ha">HOME</span> · 1st home visit since '10-11</span></div><span class="sched-result tbd">TBD</span></div>
         <div class="sched-row"><div class="sched-date">FEB<br>25</div><div class="sched-info"><strong>Kansas State</strong><span><span class="sched-ha">HOME</span></span></div><span class="sched-result win">W 79–70</span></div>
         <div class="sched-row"><div class="sched-date">MAR<br>7</div><div class="sched-info"><strong>Arizona</strong><span><span class="sched-ha">HOME</span> · Senior Day</span></div><span class="sched-result loss">L 79–89</span></div>
         <div class="sched-row"><div class="sched-date">MAR</div><div class="sched-info"><strong>College Basketball Crown</strong><span><span class="sched-ha">LAS VEGAS</span> · vs. Oklahoma (QF)</span></div><span class="sched-result tbd">IN PROGRESS</span></div>
@@ -1179,7 +1192,7 @@
       <div class="section-label"><h3>More Recruiting</h3></div>
       <div class="link-cluster">
         <div class="link-item"><a href="https://247sports.com/college/colorado/season/2026-football/offers/" target="_blank">Full list of 2027 offers extended by CU</a><span class="src">247Sports</span></div>
-        <div class="link-item"><a href="https://www.on3.com/college/colorado-buffaloes/football/2026/transfers/" target="_blank">On3 recruiting tracker — every CU move</a><span class="src">On3</span></div>
+        <div class="link-item"><a href="https://www.on3.com/college/colorado-buffaloes/football/2026/transfers/" target="_blank">On3 recruiting tracker: every CU move</a><span class="src">On3</span></div>
         <div class="link-item"><a href="https://www.espn.com/college-sports/football/recruiting/school/_/id/38/class/2026" target="_blank">ESPN recruiting class breakdown</a><span class="src">ESPN</span></div>
         <div class="link-item"><a href="https://allbuffs.com/forums/colorado-football-recruiting-central.14/" target="_blank">Fan discussion: Recruiting central thread</a><span class="src">AllBuffs</span></div>
       </div>
@@ -1208,8 +1221,8 @@
     <div class="tab-section" data-tabs="latest portal">
       <div class="section-label"><h3>Transfer Portal / NIL</h3></div>
       <div class="link-cluster">
-        <div class="link-item"><a href="https://247sports.com/college/colorado/season/2026-football/transferportal/" target="_blank">COMPLETE: CU Transfer Portal Tracker — 40+ In, 36 Out</a><span class="src">247Sports</span></div>
-        <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-deion-sanders-updated-transfer-portal-rankings" target="_blank">Portal rankings updated — No. 21 transfer class nationally</a><span class="src">Sports Illustrated</span></div>
+        <div class="link-item"><a href="https://247sports.com/college/colorado/season/2026-football/transferportal/" target="_blank">COMPLETE: CU Transfer Portal Tracker - 40+ In, 36 Out</a><span class="src">247Sports</span></div>
+        <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-deion-sanders-updated-transfer-portal-rankings" target="_blank">Portal rankings updated: No. 21 transfer class nationally</a><span class="src">Sports Illustrated</span></div>
         <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-transfer-portal-exodus-raises-questions-deion-sanders-roster" target="_blank">Transfer portal exodus raises questions for Sanders' roster strategy</a><span class="src">Sports Illustrated</span></div>
         <div class="link-item"><a href="https://www.skobuffssports.com/post/colorado-buffaloes-2026-transfer-portal-overview" target="_blank">Full portal overview: Grading every addition by position</a><span class="src">Sko Buffs</span></div>
         <div class="link-item"><a href="https://glorycolorado.com/who-s-leaving-and-who-s-joining-colorado-football-s-2026-transfer-portal-tracker" target="_blank">Who's Leaving and Who's Joining: Complete Portal Tracker</a><span class="src">Glory Colorado</span></div>
@@ -1221,7 +1234,7 @@
     <!-- ══ CAMPUS / ACADEMICS ══ -->
     <div class="tab-section" data-tabs="latest campus">
       <div class="campus-banner">
-        <h3>Off the Field — Campus &amp; Academics</h3>
+        <h3>Off the Field: Campus &amp; Academics</h3>
         <span>Research · Rankings · Innovation · Student Life</span>
       </div>
       <div class="headlines">
@@ -1275,7 +1288,7 @@
         <div class="hl-card">
           <span class="accent-dot dot-campus"></span>
           <div class="hl-body">
-            <h4><a href="https://www.colorado.edu/today/2026/03/03/big-ideas-initiative-surpasses-400-submissions-working-group-invites-campus-idea-sessions" target="_blank">Big Ideas Initiative Surpasses 400 Submissions — Campus Idea Sessions Announced</a></h4>
+            <h4><a href="https://www.colorado.edu/today/2026/03/03/big-ideas-initiative-surpasses-400-submissions-working-group-invites-campus-idea-sessions" target="_blank">Big Ideas Initiative Surpasses 400 Submissions: Campus Idea Sessions Announced</a></h4>
             <div class="hl-sub">Working group invites campus to open idea sessions to shape CU's future priorities.</div>
             <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Boulder Today</span><span>Mar 3</span></div>
           </div>
@@ -1296,14 +1309,14 @@
     <!-- ══ AROUND TOWN ══ -->
     <div class="tab-section hidden" data-tabs="town" data-lazy-section="town">
       <div class="campus-banner" style="background:linear-gradient(135deg,#2d4a2d,#1a3a1a);">
-        <h3>Around Town — Boulder City</h3>
+        <h3>Around Town: Boulder City</h3>
         <span>Restaurants · Bars · Development · Local News</span>
       </div>
       <div class="headlines">
         <div class="hl-card">
           <span class="accent-dot" style="background:#2d8a4e;"></span>
           <div class="hl-body">
-            <h4><a href="https://www.denverpost.com/2026/03/12/last-call-at-the-dark-horse-boulders-world-famous-dive-bar-and-burger-joint/" target="_blank">Last Call at the Dark Horse — Boulder's 'World Famous' Dive Bar Closes After 51 Years</a></h4>
+            <h4><a href="https://www.denverpost.com/2026/03/12/last-call-at-the-dark-horse-boulders-world-famous-dive-bar-and-burger-joint/" target="_blank">Last Call at the Dark Horse: Boulder's 'World Famous' Dive Bar Closes After 51 Years</a></h4>
             <div class="hl-sub">The beloved dive bar and burger joint on University Ave shut its doors for good. Developers plan a mixed-use project with student housing on the site.</div>
             <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">Bars & Breweries</span><span>Denver Post</span><span>Mar 12</span></div>
           </div>
@@ -1359,7 +1372,7 @@
         <div class="pc-body">
           <div class="pc-title"><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR CU Buffs Podcast</a></div>
           <div class="pc-desc">The most-listened-to CU Buffs podcast. Ryan Koenigsberg, Jake Schwanitz and Scott Procter deliver insider access to Coach Prime, the Buffs and the Big 12.</div>
-          <div class="pc-meta">Daily — Apple Podcasts / Spotify / DNVR App</div>
+          <div class="pc-meta">Daily · Apple Podcasts / Spotify / DNVR App</div>
         </div>
       </div>
       <div class="podcast-card">
@@ -1367,7 +1380,7 @@
         <div class="pc-body">
           <div class="pc-title"><a href="https://podcasts.apple.com/us/podcast/locked-on-buffs-daily-podcast-on-colorado-football/id1641365043" target="_blank">Locked On Buffs</a></div>
           <div class="pc-desc">Hosted by Kevin Borba of Athlon Sports. Daily expert opinions, film reviews, interviews, recaps, and local analysis on all things Colorado Buffaloes.</div>
-          <div class="pc-meta">Daily — Apple Podcasts / Spotify</div>
+          <div class="pc-meta">Daily · Apple Podcasts / Spotify</div>
         </div>
       </div>
       <div class="podcast-card">
@@ -1375,7 +1388,7 @@
         <div class="pc-body">
           <div class="pc-title"><a href="https://buffstampede.podbean.com/" target="_blank">BuffStampede Podcast</a></div>
           <div class="pc-desc">Publisher Adam Munsterteiger and staff provide in-depth coverage of CU football and basketball. Film breakdowns, recruiting analysis, and insider scoops.</div>
-          <div class="pc-meta">Weekly — Podbean / Apple Podcasts</div>
+          <div class="pc-meta">Weekly · Podbean / Apple Podcasts</div>
         </div>
       </div>
       <div class="podcast-card">
@@ -1383,15 +1396,15 @@
         <div class="pc-body">
           <div class="pc-title"><a href="https://www.ralphiereport.com/ralphie-report-radio" target="_blank">Ralphie Report Radio</a></div>
           <div class="pc-desc">The editors of RalphieReport.com break down the Buffs, Big 12, and college football and basketball at large. Gameday previews and postgame analysis.</div>
-          <div class="pc-meta">Weekly — Apple Podcasts / Spotify</div>
+          <div class="pc-meta">Weekly · Apple Podcasts / Spotify</div>
         </div>
       </div>
       <div class="podcast-card">
         <div class="podcast-icon" style="background:linear-gradient(135deg,#0369A1,#38BDF8);color:white;">KO</div>
         <div class="pc-body">
-          <div class="pc-title"><a href="https://koacolorado.iheart.com/featured/cu-buffs/" target="_blank">KOA Colorado — Voice of the Buffs</a></div>
+          <div class="pc-title"><a href="https://koacolorado.iheart.com/featured/cu-buffs/" target="_blank">KOA Colorado: Voice of the Buffs</a></div>
           <div class="pc-desc">Official Buffs radio. Mark Johnson and Gary Barnett for football. Mark Johnson and Scott Wilke for men's basketball. Game broadcasts and weekly shows.</div>
-          <div class="pc-meta">Game Days + Weekly — 850 AM / 94.1 FM / iHeart</div>
+          <div class="pc-meta">Game Days + Weekly · 850 AM / 94.1 FM / iHeart</div>
         </div>
       </div>
 
@@ -1400,7 +1413,7 @@
         <div class="hl-card">
           <span class="accent-dot dot-podcast"></span>
           <div class="hl-body">
-            <h4><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR: Spring Practice Day 3 Recap — Who Stood Out in Full Pads?</a></h4>
+            <h4><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR: Spring Practice Day 3 Recap - Who Stood Out in Full Pads?</a></h4>
             <div class="hl-sub">JuJu Lewis looked sharp. New DL showing early promise. Plus: WBB earns NCAA bid.</div>
             <div class="hl-meta"><span class="sport-pill pill-podcast">Podcast</span><span>DNVR</span><span>Today</span></div>
           </div>
@@ -1416,7 +1429,7 @@
         <div class="hl-card">
           <span class="accent-dot dot-podcast"></span>
           <div class="hl-body">
-            <h4><a href="https://buffstampede.podbean.com/" target="_blank">BuffStampede: Transfer Portal Report Card — Grading Every Position</a></h4>
+            <h4><a href="https://buffstampede.podbean.com/" target="_blank">BuffStampede: Transfer Portal Report Card - Grading Every Position</a></h4>
             <div class="hl-sub">40 incoming transfers evaluated. Which positions are set and where are the question marks?</div>
             <div class="hl-meta"><span class="sport-pill pill-podcast">Podcast</span><span>BuffStampede</span><span>3 days ago</span></div>
           </div>
@@ -1443,7 +1456,7 @@
         <div class="hl-card">
           <span class="accent-dot dot-lacrosse"></span>
           <div class="hl-body">
-            <h4><a href="https://cubuffs.com/news/2026/3/15/lacrosse-no-13-colorado-tramples-stetson" target="_blank">W — Lacrosse: No. 13 Colorado def. Stetson</a></h4>
+            <h4><a href="https://cubuffs.com/news/2026/3/15/lacrosse-no-13-colorado-tramples-stetson" target="_blank">W: Lacrosse - No. 13 Colorado def. Stetson</a></h4>
             <div class="hl-sub">Buffs stay perfect at home (3-0), improve to 5-2 overall.</div>
             <div class="hl-meta"><span class="sport-pill pill-lacrosse">Lacrosse</span><span>CUBuffs.com</span><span>Mar 15</span></div>
           </div>
@@ -1451,7 +1464,7 @@
         <div class="hl-card">
           <span class="accent-dot dot-basketball"></span>
           <div class="hl-body">
-            <h4><a href="https://www.dailycamera.com/2026/03/11/colorado-buffaloes-basketball-oklahoma-state-season-ending/" target="_blank">L — MBB: Oklahoma State def. Colorado (Big 12 Tourney)</a></h4>
+            <h4><a href="https://www.dailycamera.com/2026/03/11/colorado-buffaloes-basketball-oklahoma-state-season-ending/" target="_blank">L: MBB - Oklahoma State def. Colorado (Big 12 Tourney)</a></h4>
             <div class="hl-sub">Season extended via CBC bid. Buffs to face Oklahoma April 1 in Las Vegas.</div>
             <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>Daily Camera</span><span>Mar 11</span></div>
           </div>
@@ -1459,7 +1472,7 @@
         <div class="hl-card">
           <span class="accent-dot dot-lacrosse"></span>
           <div class="hl-body">
-            <h4><a href="https://www.dailycamera.com/2026/03/08/colorado-buffaloes-lacrosse-vs-michigan-wolverines/" target="_blank">L — Lacrosse: No. 8 Michigan 8, No. 14 Colorado 7</a></h4>
+            <h4><a href="https://www.dailycamera.com/2026/03/08/colorado-buffaloes-lacrosse-vs-michigan-wolverines/" target="_blank">L: Lacrosse - No. 8 Michigan 8, No. 14 Colorado 7</a></h4>
             <div class="hl-sub">Wolverines rallied in 4th quarter to hand Buffs a close loss.</div>
             <div class="hl-meta"><span class="sport-pill pill-lacrosse">Lacrosse</span><span>Daily Camera</span><span>Mar 8</span></div>
           </div>
@@ -1480,7 +1493,7 @@
           <span class="accent-dot dot-basketball"></span>
           <div class="hl-body">
             <h4>College Basketball Crown QF: Colorado vs. Oklahoma (MBB)</h4>
-            <div class="hl-sub">April 1 — Las Vegas. Winner faces Baylor/Minnesota in semis.</div>
+            <div class="hl-sub">April 1 in Las Vegas. Winner faces Baylor/Minnesota in semis.</div>
             <div class="hl-meta"><span class="sport-pill pill-basketball">MBB</span><span>Apr 1</span></div>
           </div>
         </div>
@@ -1488,14 +1501,14 @@
           <span class="accent-dot dot-football"></span>
           <div class="hl-body">
             <h4>AT&amp;T Black &amp; Gold Day Spring Game (Football)</h4>
-            <div class="hl-sub">April 11 — Folsom Field. Free admission. Claim tickets at app.cubuffs.com/blackandgold2026.</div>
+            <div class="hl-sub">April 11 at Folsom Field. Free admission. Claim tickets at app.cubuffs.com/blackandgold2026.</div>
             <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Apr 11</span></div>
           </div>
         </div>
       </div>
 
       <!-- Live web feed for Live tab -->
-      <div class="section-label" style="margin-top:16px;"><h3>Breaking Now — from the Web</h3></div>
+      <div class="section-label" style="margin-top:16px;"><h3>Breaking Now: from the Web</h3></div>
       <div id="live-all" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading latest headlines…</div></div></div>
       </div>
@@ -1507,41 +1520,41 @@
       <div class="section-label"><h3>Around the Big 12</h3></div>
       <div class="link-cluster">
         <div class="link-item"><a href="https://www.espn.com/mens-college-basketball/story/_/id/48209506/arizona-gets-revenge-tops-houston-win-big-12-championship" target="_blank">Arizona tops Houston for Big 12 basketball title</a><span class="src">ESPN</span></div>
-        <div class="link-item"><a href="https://www.heartlandcollegesports.com/2026/03/15/eight-big-12-basketball-teams-will-play-in-march-madness/" target="_blank">Eight Big 12 teams headed to March Madness — conference record</a><span class="src">Heartland CS · Mar 15</span></div>
+        <div class="link-item"><a href="https://www.heartlandcollegesports.com/2026/03/15/eight-big-12-basketball-teams-will-play-in-march-madness/" target="_blank">Eight Big 12 teams headed to March Madness, conference record</a><span class="src">Heartland CS · Mar 15</span></div>
         <div class="link-item"><a href="https://www.foxsports.com/college-football/colorado-buffaloes-team" target="_blank">Big 12 spring practice tracker: Who's turning heads across the conference</a><span class="src">FOX Sports</span></div>
       </div>
     </div>
 
   </main>
 
+  <!-- AD 3: SIDEBAR TOP (row 1, col 2 — direct grid child, matches hero height automatically) -->
+  <div class="ad-slot ad-sidebar ad-sidebar-top" style="padding:0; border:none; background:none; overflow:hidden; position:relative; border-radius:var(--radius);">
+    <a href="https://tallowlskincare.com" target="_blank" style="display:block; width:100%; height:100%;">
+      <picture style="display:block; width:100%; height:100%;">
+        <source srcset="Tallow.webp" type="image/webp">
+        <img src="Tallow.png" alt="Tallow Vanilla Orange Whipped Tallow" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+      </picture>
+    </a>
+    <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px;">AD</div>
+  </div>
+
   <!-- ══ SIDEBAR ══ -->
   <aside class="sidebar">
-
-    <!-- AD 3: SIDEBAR TOP — stretches to fill space between hero and scoreboard -->
-    <div class="ad-slot ad-sidebar ad-sidebar-top" style="padding:0; border:none; background:none; overflow:hidden; position:relative;">
-      <a href="https://tallowlskincare.com" target="_blank" style="display:block; width:100%; height:100%;">
-        <picture style="display:block; width:100%; height:100%;">
-          <source srcset="Tallow.webp" type="image/webp">
-          <img src="Tallow.png" alt="Tallow — Vanilla Orange Whipped Tallow" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
-        </picture>
-      </a>
-      <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px;">AD</div>
-    </div>
 
     <div class="widget">
       <div class="widget-header dark">CU Scoreboard <span class="live-dot" style="margin-left:auto;"></span></div>
       <div class="score-game">
-        <div class="game-label upcoming">NCAA Tourney — WBB vs Illinois</div>
+        <div class="game-label upcoming">NCAA Tourney: WBB vs Illinois</div>
         <div class="score-line"><span class="team cu">#10 Colorado</span><span class="pts" style="font-size:12px;color:var(--academic);">TBA</span></div>
         <div class="score-line"><span class="team">#7 Illinois</span><span class="pts" style="font-size:12px;color:var(--academic);">TBA</span></div>
       </div>
       <div class="score-game">
-        <div class="game-label final">Final — LAX vs Stetson</div>
+        <div class="game-label final">Final: LAX vs Stetson</div>
         <div class="score-line"><span class="team cu">#13 Colorado</span><span class="pts winner">W</span></div>
         <div class="score-line"><span class="team">Stetson</span><span class="pts">L</span></div>
       </div>
       <div class="score-game">
-        <div class="game-label final">Final — MBB Big 12 Tourney</div>
+        <div class="game-label final">Final: MBB Big 12 Tourney</div>
         <div class="score-line"><span class="team">Oklahoma State</span><span class="pts winner">W</span></div>
         <div class="score-line"><span class="team cu">Colorado</span><span class="pts">L</span></div>
       </div>
@@ -1555,11 +1568,11 @@
       </div>
       <div class="sched-row">
         <span class="sched-date">APR 1</span>
-        <div class="sched-info"><strong>CBC QF: vs Oklahoma (MBB)</strong><span>Las Vegas — TBA</span></div>
+        <div class="sched-info"><strong>CBC QF: vs Oklahoma (MBB)</strong><span>Las Vegas · TBA</span></div>
       </div>
       <div class="sched-row">
         <span class="sched-date">APR 11</span>
-        <div class="sched-info"><strong>Spring Game (FB)</strong><span>Folsom Field — Free</span></div>
+        <div class="sched-info"><strong>Spring Game (FB)</strong><span>Folsom Field · Free</span></div>
       </div>
     </div>
 
@@ -1567,19 +1580,19 @@
       <div class="widget-header" style="color:var(--accent-green);">Recruiting Wire</div>
       <div class="rec-item">
         <div class="rec-avatar">XP</div>
-        <div class="rec-info"><div class="name">Xavier Payne</div><div class="stars">★★★</div><div class="detail">OL — Miami, FL (2027)</div><div class="status status-committed">Committed</div></div>
+        <div class="rec-info"><div class="name">Xavier Payne</div><div class="stars">★★★</div><div class="detail">OL · Miami, FL (2027)</div><div class="status status-committed">Committed</div></div>
       </div>
       <div class="rec-item">
         <div class="rec-avatar">PA</div>
-        <div class="rec-info"><div class="name">Preston Ashley</div><div class="stars">★★★</div><div class="detail">CB — Brandon, MS (2027)</div><div class="status status-committed">Committed</div></div>
+        <div class="rec-info"><div class="name">Preston Ashley</div><div class="stars">★★★</div><div class="detail">CB · Brandon, MS (2027)</div><div class="status status-committed">Committed</div></div>
       </div>
       <div class="rec-item">
         <div class="rec-avatar">KE</div>
-        <div class="rec-info"><div class="name">KJ Edwards</div><div class="stars">★★★★</div><div class="detail">RB — Carthage, TX (2027)</div><div class="status status-target">Target</div></div>
+        <div class="rec-info"><div class="name">KJ Edwards</div><div class="stars">★★★★</div><div class="detail">RB · Carthage, TX (2027)</div><div class="status status-target">Target</div></div>
       </div>
       <div class="rec-item">
         <div class="rec-avatar">KT</div>
-        <div class="rec-info"><div class="name">Khing Thibodeaux</div><div class="stars">★★★★</div><div class="detail">DL — TX (2028)</div><div class="status status-target">Visit Scheduled</div></div>
+        <div class="rec-info"><div class="name">Khing Thibodeaux</div><div class="stars">★★★★</div><div class="detail">DL · TX (2028)</div><div class="status status-target">Visit Scheduled</div></div>
       </div>
     </div>
 
@@ -1604,17 +1617,17 @@
 
     <div class="widget">
       <div class="widget-header purple">Latest Pods</div>
-      <div class="otf-item"><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR: Spring Practice Day 3 Recap</a><div class="otf-src">DNVR Buffs — Today</div></div>
-      <div class="otf-item"><a href="https://podcasts.apple.com/us/podcast/locked-on-buffs-daily-podcast-on-colorado-football/id1641365043" target="_blank">Locked On: Rebuilt Coaching Staff Breakdown</a><div class="otf-src">Locked On Buffs — Yesterday</div></div>
-      <div class="otf-item"><a href="https://buffstampede.podbean.com/" target="_blank">BuffStampede: Portal Report Card</a><div class="otf-src">BuffStampede — 3 days ago</div></div>
+      <div class="otf-item"><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR: Spring Practice Day 3 Recap</a><div class="otf-src">DNVR Buffs · Today</div></div>
+      <div class="otf-item"><a href="https://podcasts.apple.com/us/podcast/locked-on-buffs-daily-podcast-on-colorado-football/id1641365043" target="_blank">Locked On: Rebuilt Coaching Staff Breakdown</a><div class="otf-src">Locked On Buffs · Yesterday</div></div>
+      <div class="otf-item"><a href="https://buffstampede.podbean.com/" target="_blank">BuffStampede: Portal Report Card</a><div class="otf-src">BuffStampede · 3 days ago</div></div>
     </div>
 
     <div class="widget">
       <div class="widget-header">Trending Now</div>
       <div class="trend-item"><span class="trend-num">1</span><div><h4>WBB earns NCAA Tournament bid vs. Illinois</h4><div class="tm">3.2K discussions</div></div></div>
-      <div class="trend-item"><span class="trend-num">2</span><div><h4>JuJu Lewis QB1 — spring practice impressions</h4><div class="tm">2.1K discussions</div></div></div>
+      <div class="trend-item"><span class="trend-num">2</span><div><h4>JuJu Lewis QB1: spring practice impressions</h4><div class="tm">2.1K discussions</div></div></div>
       <div class="trend-item"><span class="trend-num">3</span><div><h4>Remembering Dominiq Ponder</h4><div class="tm">1.8K discussions</div></div></div>
-      <div class="trend-item"><span class="trend-num">4</span><div><h4>59 new players — can this roster gel?</h4><div class="tm">1.4K discussions</div></div></div>
+      <div class="trend-item"><span class="trend-num">4</span><div><h4>59 new players: can this roster gel?</h4><div class="tm">1.4K discussions</div></div></div>
       <div class="trend-item"><span class="trend-num">5</span><div><h4>MBB heads to CBC vs. Oklahoma</h4><div class="tm">890 discussions</div></div></div>
     </div>
 
@@ -1629,7 +1642,7 @@
     <div class="house-ad">
       <div class="ha-left">
         <div class="ha-eyebrow">The Buff Brief</div>
-        <div class="ha-headline">Before you go — get CU Buffs news delivered daily, for free</div>
+        <div class="ha-headline">Before you go: get CU Buffs news delivered daily, for free</div>
         <div class="ha-sub">Join thousands of Buffs fans. No spam. Unsubscribe anytime.</div>
       </div>
       <button class="ha-btn" onclick="openNewsletter('')">Subscribe Free →</button>
@@ -1640,7 +1653,7 @@
 <!-- FOOTER -->
 <footer class="site-footer">
   <div>
-    © 2026 The Buff Report — buffreport.com<br>
+    © 2026 The Buff Report · buffreport.com<br>
     Athletics. Academics. Everything CU. Not affiliated with the University of Colorado.
   </div>
   <div class="footer-links">
@@ -1671,15 +1684,15 @@ setInterval(() => {
 
 // ── DYNAMIC META TAGS ────────────────────────────────────────────────────
 const META = {
-  latest:     { title: 'The Buff Report — CU Buffs Latest News', desc: 'Every CU Buffs headline in one place. Football, basketball, recruiting, campus news, and Boulder coverage updated live.' },
+  latest:     { title: 'The Buff Report: CU Buffs Latest News', desc: 'Every CU Buffs headline in one place. Football, basketball, recruiting, campus news, and Boulder coverage updated live.' },
   football:   { title: 'CU Buffs Football 2026 | The Buff Report', desc: 'CU Buffs football news, scores, roster moves, spring practice updates, and Deion Sanders coverage.' },
   basketball: { title: 'CU Buffs Basketball 2026 | The Buff Report', desc: "CU men's and women's basketball scores, standings, roster news, and March Madness coverage." },
   recruiting: { title: 'CU Buffs Recruiting 2026–27 | The Buff Report', desc: "Full CU Buffs recruiting class tracker, commit list, star ratings, and 2027 targets. Updated weekly." },
-  portal:     { title: 'CU Buffs Transfer Portal & NIL 2026 | The Buff Report', desc: 'Track every CU Buffs transfer portal move — incoming and outgoing — plus NIL deals and valuations.' },
+  portal:     { title: 'CU Buffs Transfer Portal & NIL 2026 | The Buff Report', desc: 'Track every CU Buffs transfer portal move, incoming and outgoing, plus NIL deals and valuations.' },
   campus:     { title: 'CU Boulder Campus News 2026 | The Buff Report', desc: 'CU Boulder academics, research breakthroughs, campus life, rankings, and university announcements.' },
   town:       { title: 'Boulder Colorado Local News | The Buff Report', desc: 'Boulder city news covering restaurants, bars, development, construction, housing, and local events.' },
   podcasts:   { title: 'CU Buffs Podcasts | The Buff Report', desc: 'The best CU Buffs podcasts covering football, basketball, recruiting, and campus life.' },
-  live:       { title: 'CU Buffs Breaking News | The Buff Report', desc: 'Live breaking CU Buffs news feed — updated continuously from top sources.' },
+  live:       { title: 'CU Buffs Breaking News | The Buff Report', desc: 'Live breaking CU Buffs news feed, updated continuously from top sources.' },
 };
 const BASE_URL = 'https://buffreport.com';
 const OG_IMAGE = 'https://buffreport.com/Gold.PNG';
@@ -1968,7 +1981,7 @@ activateTab('latest');
     <div style="font-family:'Playfair Display',serif; font-size:11px; font-weight:900; color:#CFB87C; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px;">The Buff Report</div>
     <!-- Heading -->
     <h2 style="font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:white; margin:0 0 8px; line-height:1.2;">Stay in the know.</h2>
-    <p style="color:#aaa; font-size:13px; font-family:'Merriweather Sans',sans-serif; margin:0 0 22px; line-height:1.6;">CU Buffs athletics, academics, and Boulder news — straight to your inbox. Free.</p>
+    <p style="color:#aaa; font-size:13px; font-family:'Merriweather Sans',sans-serif; margin:0 0 22px; line-height:1.6;">CU Buffs athletics, academics, and Boulder news straight to your inbox. Free.</p>
     <!-- Inline subscribe form -->
     <div id="nl-form" style="display:flex; flex-direction:column; gap:10px;">
       <input id="nl-email" type="email" placeholder="your@email.com" style="width:100%; padding:12px 14px; border-radius:8px; border:1.5px solid #444; background:#1a1a1a; color:white; font-size:14px; font-family:'Merriweather Sans',sans-serif; box-sizing:border-box; outline:none;">
@@ -2186,6 +2199,7 @@ activateTab('latest');
 
   // Run 4 seconds after page load — gives live feeds time to populate
   setTimeout(cycleOldestArticles, 4000);
+
 </script>
 </body>
 </html>
