@@ -1,18 +1,17 @@
 /**
  * Buff Report — Service Worker
  * Strategy:
- *   - Static assets (HTML shell, logo, CSS/JS): Cache-First → fast repeat visits
+ *   - HTML (index.html, /): Network-First → always get latest site updates
+ *   - Static assets (logo, images): Cache-First → fast repeat visits
  *   - Story/feed data (API calls to workers.dev): Network-First → always fresh
  *   - Fallback: serve cached shell if fully offline
  */
 
-const CACHE_NAME   = 'buff-report-v1';
-const STATIC_CACHE = 'buff-report-static-v1';
+const CACHE_NAME   = 'buff-report-v2';
+const STATIC_CACHE = 'buff-report-static-v2';
 
-// Static assets to pre-cache on install
+// Static assets to pre-cache on install (HTML excluded — fetched fresh each load)
 const PRECACHE_ASSETS = [
-  '/',
-  '/index.html',
   '/Gold.webp',
   '/Gold.PNG',
 ];
@@ -48,6 +47,13 @@ self.addEventListener('fetch', event => {
   if (request.method !== 'GET') return;
   if (url.protocol === 'chrome-extension:') return;
 
+  // NETWORK-FIRST: HTML pages — always fetch latest from server
+  if (url.origin === self.location.origin &&
+      (url.pathname === '/' || url.pathname === '/index.html' || url.pathname.endsWith('.html'))) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
   // NETWORK-FIRST: API/feed calls (Cloudflare Workers, rss2json, fonts)
   const isNetworkFirst =
     url.hostname.includes('workers.dev') ||
@@ -62,7 +68,7 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // CACHE-FIRST: static assets on same origin (HTML, images, etc.)
+  // CACHE-FIRST: static assets on same origin (images, etc.)
   if (url.origin === self.location.origin) {
     event.respondWith(cacheFirst(request));
     return;
