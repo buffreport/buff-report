@@ -1322,20 +1322,20 @@ fetch('/breaking-news.json?v=' + Date.now())
     <div class="tab-section" data-tabs="latest basketball" data-cycle-feed="live-basketball" data-cycle-pill="pill-wbb" data-cycle-label="WBB">
       <div class="section-label"><h3>🏀 Women's Basketball</h3></div>
       <div class="headlines" id="curated-wbb">
-        <div class="hl-card" data-date="2026-03-21">
+        <div class="hl-card" data-date="2026-03-22">
           <span class="accent-dot dot-wbb"></span>
           <div class="hl-body">
-            <h4><a href="https://www.ncaa.com/live-updates/basketball-women/d1/live-updates-2026-ncaa-womens-basketball-tournament" target="_blank">🔴 TONIGHT: No. 10 CU vs. No. 7 Illinois - NCAA R1 at 8:30 PM CT on ESPN2</a></h4>
-            <div class="hl-sub">Buffs tip off in Nashville. JR Payne's squad (22-11) looks to pull the upset and advance in March Madness.</div>
-            <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>NCAA.com</span><span>Mar 21</span></div>
+            <h4><a href="https://www.dailycamera.com/2026/03/22/colorado-buffs-womens-basketball-ncaa-tournament-illinois/" target="_blank">Season Over: No. 10 CU WBB Falls to No. 7 Illinois in NCAA First Round</a></h4>
+            <div class="hl-sub">JR Payne's squad ends the year 22-12. Historic 17th NCAA Tournament appearance for the program.</div>
+            <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>Daily Camera</span><span>Mar 22</span></div>
           </div>
         </div>
-        <div class="hl-card" data-date="2026-03-21">
+        <div class="hl-card" data-date="2026-03-22">
           <span class="accent-dot dot-wbb"></span>
           <div class="hl-body">
-            <h4><a href="https://www.si.com/college/colorado/basketball/colorado-buffaloes-beat-illinois-fighting-illini-three-keys-ncaa-tournament" target="_blank">Three Keys for Colorado to Upset Illinois in the NCAA Tournament</a></h4>
-            <div class="hl-sub">Defense, ball movement, and experience off the bench could be the difference in tonight's first-round matchup.</div>
-            <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>Sports Illustrated</span><span>Mar 21</span></div>
+            <h4><a href="https://cubuffs.com/sports/womens-basketball" target="_blank">JR Payne Reflects on Breakthrough Season After NCAA Exit</a></h4>
+            <div class="hl-sub">Coach Payne on what this tournament run means for the program's trajectory heading into next season.</div>
+            <div class="hl-meta"><span class="sport-pill pill-wbb">WBB</span><span>CUBuffs.com</span><span>Mar 22</span></div>
           </div>
         </div>
         <div class="hl-card" data-date="2026-03-16">
@@ -2153,6 +2153,60 @@ async function updateLiveSection() {
 }
 updateLiveSection();
 
+// ── CURATED SECTION AUTO-REFRESH ─────────────────────────────────────────
+// Cache of raw feed results, keyed by section name (football, basketball, etc.)
+// Populated in loadLiveFeeds on every 15-minute cycle.
+const _feedCache = {};
+
+// Called after every loadLiveFeeds() — replaces curated hl-cards with the
+// freshest items from the corresponding live feed. Static HTML cards are only
+// the initial/fallback state; after the first successful fetch they are
+// overwritten and stay current automatically.
+function refreshCuratedSections() {
+  document.querySelectorAll('[data-cycle-feed]').forEach(section => {
+    const feedKey  = (section.dataset.cycleFeed  || '').replace('live-', '');
+    const pill     = section.dataset.cyclePill   || 'pill-football';
+    const label    = section.dataset.cycleLabel  || 'News';
+    const dotClass = 'dot-' + pill.replace('pill-', '');
+    const container = section.querySelector('.headlines[id]');
+    if (!container) return;
+
+    const items = _feedCache[feedKey];
+    if (!items?.length) return;
+
+    const today = new Date().toISOString().slice(0, 10);
+    const seen  = new Set();
+    const cards = items
+      .filter(i => {
+        const k = clean(i.title || '').substring(0, 40).toLowerCase();
+        if (seen.has(k)) return false;
+        seen.add(k);
+        return true;
+      })
+      .slice(0, 5)
+      .map(item => {
+        const title = clean(item.title || '');
+        const link  = item.link || '#';
+        const pub   = item.pubDate || '';
+        const src   = getSrc(link, item.author);
+        const date  = pub ? new Date(pub).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
+        return `<div class="hl-card" data-date="${today}">
+          <span class="accent-dot ${dotClass}"></span>
+          <div class="hl-body">
+            <h4><a href="${link}" target="_blank" rel="noopener">${title}</a></h4>
+            <div class="hl-meta">
+              <span class="sport-pill ${pill}">${label}</span>
+              <span>${src.name}</span>
+              ${date ? `<span>${date}</span>` : ''}
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+
+    if (cards) container.innerHTML = cards;
+  });
+}
+
 // ── PAGE-WIDE URL DEDUPLICATION ───────────────────────────────────────────
 // Build a set of all article URLs already in curated (static) sections
 // so live feed renders never show an article already in the featured cards
@@ -2329,8 +2383,9 @@ async function loadLiveFeeds(sections = ['football','basketball','recruiting','c
   const results = {};
   await Promise.all(Object.entries(loads).map(async ([k,p]) => { results[k] = await p; }));
 
+  let mergedCampus = [];
   if (results.camp || results.lifestyle) {
-    const mergedCampus = [...(results.lifestyle || []), ...(results.camp || [])]
+    mergedCampus = [...(results.lifestyle || []), ...(results.camp || [])]
       .filter((item, i, arr) => arr.findIndex(x => x.link === item.link) === i)
       .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
     renderLiveFeed('live-campus', mergedCampus, 10, 'https://www.colorado.edu/today/', 'CU Boulder Today');
@@ -2341,11 +2396,18 @@ async function loadLiveFeeds(sections = ['football','basketball','recruiting','c
   if (results.all)  renderLiveFeed('live-all',        results.all, 12, 'https://news.google.com/search?q=CU+Buffs', 'Google News');
   if (results.town) renderLiveFeed('live-town',       results.town,12, 'https://www.dailycamera.com', 'Daily Camera');
 
+  // Populate feed cache so refreshCuratedSections() can use fresh data
+  if (results.fb)            _feedCache.football    = results.fb;
+  if (results.bb)            _feedCache.basketball  = results.bb;
+  if (results.rec)           _feedCache.recruiting  = results.rec;
+  if (mergedCampus.length)   _feedCache.campus      = mergedCampus;
+  if (results.town)          _feedCache.town        = results.town;
+
   document.getElementById('refreshTime').textContent =
     new Date().toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', second:'2-digit' });
 
-  // Cycle oldest articles now that feeds are populated
-  if (typeof cycleOldestArticles === 'function') cycleOldestArticles();
+  // Replace curated hl-cards with live feed content on every cycle
+  refreshCuratedSections();
 }
 
 // ── INTERSECTION OBSERVER LAZY LOADING ───────────────────────────────────
