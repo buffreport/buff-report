@@ -2345,16 +2345,21 @@ function refreshCuratedSections() {
 
 // ── OG:IMAGE FETCH ────────────────────────────────────────────────────────
 // Asks the Cloudflare Worker to scrape the og:image from an article URL.
-// Falls back to the CU football filler if anything goes wrong.
-const _CU_FILLER = 'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg';
+// Returns null if the fetch fails or no image is found.
+const _CU_FILLERS = [
+  'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg',
+  'https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg',
+  'https://s3media.247sports.com/Uploads/Assets/335/658/13658335.jpg',
+  'https://images.sidearmdev.com/resize?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fcubuffs.com%2Fimages%2F2026%2F3%2F6%2FDSC09371.jpg&width=1600&type=jpeg',
+];
 async function fetchOgImage(articleUrl) {
   try {
     const resp = await fetch(`${PROXY}?og=${encodeURIComponent(articleUrl)}`,
       { signal: AbortSignal.timeout(6000) });
     const data = await resp.json();
-    return (data.image && data.image.startsWith('http')) ? data.image : _CU_FILLER;
+    return (data.image && data.image.startsWith('http')) ? data.image : null;
   } catch {
-    return _CU_FILLER;
+    return null;
   }
 }
 
@@ -2389,7 +2394,13 @@ async function smartCycleFootballCards() {
 
   // Replace one oldest card per cycle (prevents flooding on first load)
   const item = newer[0];
-  const imgUrl  = await fetchOgImage(item.link);
+  // Collect images already in use so we never duplicate a filler
+  const usedImgs = new Set([...container.querySelectorAll('.hl-card-img')].map(el => {
+    const m = el.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
+    return m ? m[1] : '';
+  }));
+  let imgUrl = await fetchOgImage(item.link);
+  if (!imgUrl) imgUrl = _CU_FILLERS.find(f => !usedImgs.has(f)) || _CU_FILLERS[0];
   const title   = clean(item.title);
   const link    = item.link;
   const src     = getSrc(link, item.author);
