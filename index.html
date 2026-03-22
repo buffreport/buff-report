@@ -265,7 +265,7 @@
     color: var(--text-muted);
   }
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .section-label.gold h3 { color: var(--primary-dark); }
+  .section-label.gold h3 { color: var(--primary); }
   .section-label.academic h3 { color: var(--academic); }
   .section-label.purple h3 { color: #6366F1; }
 
@@ -372,9 +372,9 @@
     padding: 3px 0; font-size: 13px;
   }
   .score-line .team { font-weight: 700; }
-  .score-line .team.cu { color: var(--primary-dark); }
+  .score-line .team.cu { color: var(--primary); }
   .score-line .pts { font-weight: 800; font-size: 16px; }
-  .score-line .pts.winner { color: var(--primary-dark); }
+  .score-line .pts.winner { color: var(--primary); }
 
   /* Schedule widget */
   .sched-row {
@@ -612,7 +612,7 @@
   .live-game-card .lgc-status::before { content: ''; width: 6px; height: 6px; background: var(--accent-red); border-radius: 50%; animation: pulse-badge 1.5s infinite; }
   .live-game-card .lgc-teams { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
   .live-game-card .lgc-team { font-weight: 800; font-size: 16px; }
-  .live-game-card .lgc-team.cu { color: var(--primary-dark); }
+  .live-game-card .lgc-team.cu { color: var(--primary); }
   .live-game-card .lgc-score { font-weight: 900; font-size: 24px; }
   .live-game-card .lgc-info { font-size: 10px; color: var(--text-muted); margin-top: 6px; }
   .no-live { padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
@@ -625,7 +625,7 @@
     font-size: 13px; color: var(--text-secondary);
     display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   }
-  .lf-fallback a { color: var(--primary-dark); font-weight: 600; text-decoration: none; }
+  .lf-fallback a { color: var(--primary); font-weight: 600; text-decoration: none; }
   .lf-fallback a:hover { text-decoration: underline; }
   .lf-timestamp {
     font-size: 10px; color: var(--text-muted); text-align: right;
@@ -649,7 +649,7 @@
     display: inline-block; font-size: 9px; font-weight: 700;
     padding: 1px 6px; border-radius: 3px; color: white; letter-spacing: 0.3px;
   }
-  .src-cubuffs   { background: #CFB87C; color: #000 !important; }
+  .src-cubuffs   { background: #E0BA51; color: #000 !important; }
   .src-camera    { background: #1a5276; }
   .src-post      { background: #c0392b; }
   .src-247       { background: #e67e22; }
@@ -1255,7 +1255,7 @@
         <span>Research · Rankings · Innovation · Student Life</span>
       </div>
       <div class="headlines">
-        <div class="hl-card" style="border-left: 3px solid #CFB87C; background: #fffdf5;">
+        <div class="hl-card" style="border-left: 3px solid #E0BA51; background: #fffdf5;">
           <span class="accent-dot dot-campus"></span>
           <div class="hl-body">
             <h4><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">🏆 CU Boulder Named 3rd Most Beautiful College Campus in America</a></h4>
@@ -1385,7 +1385,7 @@
       <div class="section-label purple"><h3>CU Buffs Podcasts</h3></div>
 
       <div class="podcast-card">
-        <div class="podcast-icon" style="background:linear-gradient(135deg,#1a1a1a,#333);color:#CFB87C;">DN</div>
+        <div class="podcast-icon" style="background:linear-gradient(135deg,#1a1a1a,#333);color:#E0BA51;">DN</div>
         <div class="pc-body">
           <div class="pc-title"><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR CU Buffs Podcast</a></div>
           <div class="pc-desc">The most-listened-to CU Buffs podcast. Ryan Koenigsberg, Jake Schwanitz and Scott Procter deliver insider access to Coach Prime, the Buffs and the Big 12.</div>
@@ -1626,7 +1626,7 @@
 
     <div class="widget">
       <div class="widget-header blue">Off the Field</div>
-      <div class="otf-item" style="border-left: 3px solid #CFB87C; padding-left: 8px; background: #fffdf5;"><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank" style="font-weight:700;">🏆 CU Boulder ranked 3rd Most Beautiful Campus in America</a><div class="otf-src">Travel + Leisure</div></div>
+      <div class="otf-item" style="border-left: 3px solid #E0BA51; padding-left: 8px; background: #fffdf5;"><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank" style="font-weight:700;">🏆 CU Boulder ranked 3rd Most Beautiful Campus in America</a><div class="otf-src">Travel + Leisure</div></div>
       <div class="otf-item"><a href="https://connections.cu.edu/stories/innovation-real-time-2026-cu-ie-awards-spotlight-smart-solutions" target="_blank">No. 2 in nation for startups launched</a><div class="otf-src">CU Connections</div></div>
       <div class="otf-item"><a href="https://www.cpr.org/2026/03/09/cu-ai-rollout/" target="_blank">Faculty push back against university AI rollout</a><div class="otf-src">Colorado Public Radio</div></div>
       <div class="otf-item"><a href="https://www.colorado.edu/today/2026/03/05/bfa-announces-2026-excellence-awards-winners-celebratory-ceremony-april-7" target="_blank">Faculty Excellence Award winners named</a><div class="otf-src">CU Boulder Today · Mar 5</div></div>
@@ -1755,7 +1755,7 @@ function updateLiveSection() {
   if (isGameTime) {
     container.innerHTML = `<div class="live-game-card">
       <div class="lgc-status">LIVE - 2nd Half</div>
-      <div class="lgc-teams"><span class="lgc-team cu">Colorado</span><span class="lgc-score" style="color:var(--primary-dark);">42</span></div>
+      <div class="lgc-teams"><span class="lgc-team cu">Colorado</span><span class="lgc-score" style="color:var(--primary);">42</span></div>
       <div class="lgc-teams"><span class="lgc-team">Opponent</span><span class="lgc-score">38</span></div>
       <div class="lgc-info">Big 12 - Folsom Field - ESPN2</div></div>`;
   } else {
@@ -2002,7 +2002,7 @@ activateTab('latest');
     <!-- Inline subscribe form -->
     <div id="nl-form" style="display:flex; flex-direction:column; gap:10px;">
       <input id="nl-email" type="email" placeholder="your@email.com" style="width:100%; padding:12px 14px; border-radius:8px; border:1.5px solid #444; background:#1a1a1a; color:white; font-size:14px; font-family:'Merriweather Sans',sans-serif; box-sizing:border-box; outline:none;">
-      <button id="nl-btn" onclick="handleNlSubmit()" style="width:100%; padding:13px; border-radius:8px; background:#CFB87C; color:#000; font-size:14px; font-weight:800; font-family:'Merriweather Sans',sans-serif; border:none; cursor:pointer; letter-spacing:0.5px;">Subscribe Free →</button>
+      <button id="nl-btn" onclick="handleNlSubmit()" style="width:100%; padding:13px; border-radius:8px; background:#E0BA51; color:#000; font-size:14px; font-weight:800; font-family:'Merriweather Sans',sans-serif; border:none; cursor:pointer; letter-spacing:0.5px;">Subscribe Free →</button>
     </div>
     <div id="nl-msg" style="margin-top:10px; font-size:13px; font-family:'Merriweather Sans',sans-serif; min-height:18px;"></div>
     <p style="color:#555; font-size:10px; font-family:'Merriweather Sans',sans-serif; margin:14px 0 0;">No spam. Unsubscribe anytime.</p>
