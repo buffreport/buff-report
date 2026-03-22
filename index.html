@@ -839,19 +839,20 @@
   .hero-slides { position: relative; width: 100%; height: 100%; min-height: 280px; }
   .hr-slide {
     position: absolute; inset: 0;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 28px 32px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 28px 40px;
     opacity: 0;
     transition: opacity 0.6s ease;
     background-size: cover; background-position: center;
+    text-align: center;
   }
   .hr-slide.active { opacity: 1; }
   .hr-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.82) 100%);
     pointer-events: none;
   }
-  .hr-content { position: relative; z-index: 2; }
+  .hr-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
   .hr-pill {
     display: inline-block;
     background: var(--primary); color: #000;
@@ -878,8 +879,8 @@
   .hr-dot { position: relative; z-index: 3; pointer-events: auto; }
   .hr-content { pointer-events: none; }
   .hr-headline a { pointer-events: auto; }
-  .hr-sub { font-size: 13px; color: rgba(255,255,255,0.75); max-width: 520px; line-height: 1.5; margin-bottom: 4px; }
-  .hr-meta { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 8px; }
+  .hr-sub { font-size: 13px; color: rgba(255,255,255,0.75); max-width: 480px; line-height: 1.5; margin-bottom: 4px; text-align: center; }
+  .hr-meta { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 8px; text-align: center; }
   .hr-dots {
     position: absolute; bottom: 14px; right: 20px;
     display: flex; gap: 6px; z-index: 3;
