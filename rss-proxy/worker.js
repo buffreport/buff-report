@@ -4,6 +4,7 @@
  * Routes:
  *   GET  /?q=...           → RSS proxy (Google News → JSON)
  *   GET  /?url=...         → Raw RSS URL proxy
+ *   GET  /?og=...          → og:image scraper (returns { image: url | null })
  *   POST /subscribe        → Beehiiv subscription API proxy
  *
  * Environment variables (set in CF dashboard → Worker → Settings → Variables):
@@ -35,6 +36,11 @@ export default {
     // ── ROUTE: POST /subscribe ──────────────────────────────────────────
     if (request.method === 'POST' && url.pathname === '/subscribe') {
       return handleSubscribe(request, env);
+    }
+
+    // ── ROUTE: GET /?og= (og:image scraper) ────────────────────────────
+    if (url.searchParams.has('og')) {
+      return handleOgImage(request);
     }
 
     // ── ROUTE: GET /?q= or /?url= (RSS proxy) ──────────────────────────
@@ -102,6 +108,46 @@ async function handleSubscribe(request, env) {
 
   } catch (err) {
     return json({ error: 'Network error. Please try again.' }, 502);
+  }
+}
+
+// ── OG:IMAGE SCRAPER ─────────────────────────────────────────────────────
+async function handleOgImage(request) {
+  const url = new URL(request.url);
+  const articleUrl = url.searchParams.get('og');
+  const jsonResp = (data, extra = {}) =>
+    new Response(JSON.stringify(data), {
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json', ...extra },
+    });
+
+  if (!articleUrl) return jsonResp({ image: null });
+
+  try {
+    const resp = await fetch(articleUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BuffReport/1.0; +https://buffreport.com)' },
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!resp.ok) return jsonResp({ image: null });
+
+    // Only read the first 20KB — og:image is always in <head>
+    const reader = resp.body.getReader();
+    let html = '';
+    while (html.length < 20000) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      html += new TextDecoder().decode(value);
+    }
+    reader.cancel();
+
+    // Match og:image in either attribute order
+    const match =
+      html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
+      html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+
+    const image = match ? match[1].trim() : null;
+    return jsonResp({ image }, { 'Cache-Control': 'public, max-age=3600' });
+  } catch {
+    return jsonResp({ image: null });
   }
 }
 

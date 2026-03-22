@@ -2343,9 +2343,25 @@ function refreshCuratedSections() {
   refreshTrending();
 }
 
+// ── OG:IMAGE FETCH ────────────────────────────────────────────────────────
+// Asks the Cloudflare Worker to scrape the og:image from an article URL.
+// Falls back to the CU football filler if anything goes wrong.
+const _CU_FILLER = 'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg';
+async function fetchOgImage(articleUrl) {
+  try {
+    const resp = await fetch(`${PROXY}?og=${encodeURIComponent(articleUrl)}`,
+      { signal: AbortSignal.timeout(6000) });
+    const data = await resp.json();
+    return (data.image && data.image.startsWith('http')) ? data.image : _CU_FILLER;
+  } catch {
+    return _CU_FILLER;
+  }
+}
+
 // ── FOOTBALL CARD SMART CYCLE ─────────────────────────────────────────────
 // Replaces only the oldest featured card when newer football news arrives.
-function smartCycleFootballCards() {
+// Fetches the real og:image from the article before rendering.
+async function smartCycleFootballCards() {
   const container = document.getElementById('curated-football');
   const items = _feedCache.football;
   if (!container || !items?.length) return;
@@ -2373,7 +2389,7 @@ function smartCycleFootballCards() {
 
   // Replace one oldest card per cycle (prevents flooding on first load)
   const item = newer[0];
-  const imgUrl  = _getStoryImage(item, 'football');
+  const imgUrl  = await fetchOgImage(item.link);
   const title   = clean(item.title);
   const link    = item.link;
   const src     = getSrc(link, item.author);
