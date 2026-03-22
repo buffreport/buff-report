@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sources · The Buff Report</title>
+<meta name="description" content="The Buff Report aggregates headlines and links from dozens of trusted publications covering CU Buffs athletics, campus life, and Boulder news.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Merriweather+Sans:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Merriweather+Sans:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"></noscript>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --primary: #E0BA51;
+    --bg: #FAFAF7;
+    --text: #111111;
+    --text-secondary: #555555;
+    --border: #e8e8e4;
+  }
+  body {
+    font-family: 'Merriweather Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #111; text-decoration: underline; }
+  a:hover { color: var(--primary); }
+
+  .top-bar { background: #000; height: 4px; }
+  .site-header {
+    background: #000;
+    padding: 18px 24px;
+    text-align: center;
+  }
+  .site-header a {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+  .site-header a:hover { color: #fff; }
+
+  .back-nav {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 24px 0;
+  }
+  .back-nav a {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+  .back-nav a:hover { color: var(--primary); }
+
+  .content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  p { margin-bottom: 14px; }
+
+  .notice-box {
+    background: #fff8e6;
+    border-left: 4px solid var(--primary);
+    padding: 14px 18px;
+    margin: 24px 0 36px;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .section-block {
+    margin-bottom: 40px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-label {
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: #000;
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .sources-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  @media (max-width: 500px) {
+    .sources-list { grid-template-columns: 1fr; }
+  }
+  .sources-list li {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+  .sources-list li:hover {
+    border-color: var(--primary);
+  }
+  .sources-list li .source-desc {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .recruiting-note {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 8px;
+  }
+
+  .suggest-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-top: 40px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .suggest-box .icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .suggest-box h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .suggest-box p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  footer {
+    background: #000;
+    color: #888;
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    margin-top: 60px;
+    font-family: 'Merriweather Sans', sans-serif;
+  }
+  footer a { color: var(--primary); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<header class="site-header">
+  <a href="/">The Buff Report</a>
+</header>
+
+<div class="back-nav">
+  <a href="/">&#8592; Back to buffreport.com</a>
+</div>
+
+<main class="content">
+  <h1>Our Sources</h1>
+  <p>The Buff Report aggregates headlines and links from dozens of trusted publications. We do not produce original reporting — we surface the best coverage from around the web and link directly back to the sources doing the work.</p>
+
+  <div class="notice-box">
+    <strong>Content ownership:</strong> All articles, reporting, photography, and original analysis belong to the respective publications and journalists who created them. The Buff Report displays only headlines and brief summaries, and every link takes you to the original source. If you are a publisher with questions about how your content is displayed, please <a href="/contact.html">contact us</a>.
+  </div>
+
+  <!-- SPORTS -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-label">Sports</span>
+      <span class="section-line"></span>
+    </div>
+    <ul class="sources-list">
+      <li>
+        Daily Camera / Buffzone
+        <span class="source-desc">Local coverage from Boulder's newspaper of record</span>
+      </li>
+      <li>
+        ESPN
+        <span class="source-desc">National sports leader &amp; Pac-12/Big 12 coverage</span>
+      </li>
+      <li>
+        247Sports
+        <span class="source-desc">CU Buffs team page, recruiting, and analysis</span>
+      </li>
+      <li>
+        On3
+        <span class="source-desc">NIL, recruiting, and college sports news</span>
+      </li>
+      <li>
+        Sports Illustrated
+        <span class="source-desc">National features and CU athletics coverage</span>
+      </li>
+      <li>
+        CUBuffs.com
+        <span class="source-desc">Official CU Athletics news and releases</span>
+      </li>
+      <li>
+        Denver Post
+        <span class="source-desc">Colorado's largest newspaper; CU sports desk</span>
+      </li>
+      <li>
+        DNVR
+        <span class="source-desc">Colorado-focused digital sports outlet</span>
+      </li>
+      <li>
+        Bleacher Report
+        <span class="source-desc">National college football and basketball coverage</span>
+      </li>
+      <li>
+        CBS Sports
+        <span class="source-desc">Scores, standings, and college sports features</span>
+      </li>
+      <li>
+        Yahoo Sports
+        <span class="source-desc">National coverage and wire reports</span>
+      </li>
+      <li>
+        Mile High Sports
+        <span class="source-desc">Colorado sports radio and digital outlet</span>
+      </li>
+      <li>
+        Sko Buffs
+        <span class="source-desc">CU Buffs fan coverage and analysis</span>
+      </li>
+      <li>
+        Glory Colorado
+        <span class="source-desc">Independent CU athletics coverage</span>
+      </li>
+      <li>
+        AllBuffs
+        <span class="source-desc">Fan community, forums, and breaking news</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- CAMPUS -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-label">Campus</span>
+      <span class="section-line"></span>
+    </div>
+    <ul class="sources-list">
+      <li>
+        CU Boulder Today
+        <span class="source-desc">Official university news and announcements</span>
+      </li>
+      <li>
+        Colorado Public Radio
+        <span class="source-desc">Statewide public radio; higher ed and policy</span>
+      </li>
+      <li>
+        CU Independent
+        <span class="source-desc">Student-run newspaper at CU Boulder</span>
+      </li>
+      <li>
+        KUNC
+        <span class="source-desc">Northern Colorado public media</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- AROUND TOWN -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-label">Around Town</span>
+      <span class="section-line"></span>
+    </div>
+    <ul class="sources-list">
+      <li>
+        Boulder Beat
+        <span class="source-desc">Independent local journalism for Boulder</span>
+      </li>
+      <li>
+        Boulder Weekly
+        <span class="source-desc">Alternative news and culture publication</span>
+      </li>
+      <li>
+        9News
+        <span class="source-desc">Denver NBC affiliate; Colorado news leader</span>
+      </li>
+      <li>
+        Axios Boulder
+        <span class="source-desc">Local edition of Axios; Boulder news briefs</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- RECRUITING -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-label">Recruiting</span>
+      <span class="section-line"></span>
+    </div>
+    <ul class="sources-list">
+      <li>
+        247Sports
+        <span class="source-desc">Prospect rankings, commitments, &amp; transfer portal</span>
+      </li>
+      <li>
+        On3
+        <span class="source-desc">NIL valuations, commits, and class rankings</span>
+      </li>
+      <li>
+        Sports Illustrated
+        <span class="source-desc">Recruiting features and analysis</span>
+      </li>
+    </ul>
+    <p class="recruiting-note">Recruiting coverage may overlap with our sports sources above. The above represent our primary recruiting-focused feeds.</p>
+  </div>
+
+  <div class="suggest-box">
+    <div class="icon">&#128161;</div>
+    <div>
+      <h3>Know a source we should add?</h3>
+      <p>We're always looking to improve our coverage. If you know of a reliable publication or outlet covering CU, Boulder, or Colorado sports that we're missing, <a href="/contact.html">let us know</a>.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 The Buff Report &middot; Not affiliated with the University of Colorado</p>
+  <p style="margin-top:8px;">
+    <a href="/privacy.html">Privacy</a> &middot;
+    <a href="/about.html">About</a> &middot;
+    <a href="/contact.html">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>

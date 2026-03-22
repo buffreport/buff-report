@@ -314,9 +314,15 @@
   .hl-card h4 a:hover { color: var(--primary-dark); }
   .hl-card .hl-sub { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
   .hl-card .hl-meta {
-    display: flex; align-items: center; gap: 10px;
+    display: flex; align-items: center; gap: 6px;
     margin-top: 6px; font-size: 10px; color: var(--text-muted);
     text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  /* "Source · Date" separator between non-pill spans */
+  .hl-card .hl-meta > span:not(.sport-pill) + span:not(.sport-pill)::before {
+    content: '·';
+    margin-right: 6px;
+    opacity: 0.4;
   }
   .hl-card .sport-pill {
     padding: 2px 8px; border-radius: 4px;
@@ -779,27 +785,43 @@
 
   /* ── DARK MODE ─────────────────────────────────────────────────────── */
   [data-theme="dark"] {
-    --bg: #0D0D0D; --bg-card: #1A1A1A; --text: #F0F0EC;
-    --text-secondary: #AAAAAA; --text-muted: #666666;
-    --border: #2A2A2A; --border-light: #222222;
-    --link: #F0F0EC; --link-hover: #E0BA51;
+    --bg: #0a0a0a; --bg-card: #1f2937; --text: #e5e5e5;
+    --text-secondary: #9ca3af; --text-muted: #6b7280;
+    --border: #374151; --border-light: #2d3748;
+    --link: #e5e5e5; --link-hover: #CFB000;
+    --primary: #CFB000; --primary-dark: #b09800;
   }
-  [data-theme="dark"] body         { background: #0D0D0D; color: #F0F0EC; }
+  /* Smooth transitions on theme change */
+  body, .hl-card, .widget, header, #main-nav, .status-bar-wrap, .nav-bar, .live-feed-item {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  [data-theme="dark"] body         { background: #0a0a0a; color: #e5e5e5; }
   [data-theme="dark"] header,
   [data-theme="dark"] #main-nav,
-  [data-theme="dark"] .status-bar-wrap { background: #111 !important; border-color: #2A2A2A !important; }
-  [data-theme="dark"] .nav-bar     { background: #111; border-color: #2A2A2A; }
-  [data-theme="dark"] .hl-card     { background: #1A1A1A; }
-  [data-theme="dark"] .hl-card:hover { background: #222; }
-  [data-theme="dark"] .widget      { background: #1A1A1A; border-color: #2A2A2A; }
-  [data-theme="dark"] .widget-header { border-color: #2A2A2A; }
-  [data-theme="dark"] .logo-text h1 { color: #F0F0EC; }
-  [data-theme="dark"] .logo-dateline { border-color: #2A2A2A; color: #666; }
-  [data-theme="dark"] .section-label::after { background: #2A2A2A; }
-  [data-theme="dark"] .link-item   { border-color: #2A2A2A; }
-  [data-theme="dark"] .score-game  { border-color: #2A2A2A; }
-  [data-theme="dark"] .dark-toggle { border-color: #2A2A2A; color: #aaa; }
-  [data-theme="dark"] .dark-toggle:hover { border-color: #E0BA51; color: #E0BA51; }
+  [data-theme="dark"] .status-bar-wrap { background: #111827 !important; border-color: #374151 !important; }
+  [data-theme="dark"] .nav-bar     { background: #111827; border-color: #374151; }
+  [data-theme="dark"] .hl-card     { background: #1f2937; border-color: #374151; }
+  [data-theme="dark"] .hl-card:hover { background: #242424; border-color: #CFB000; }
+  [data-theme="dark"] .widget      { background: #1f2937; border-color: #374151; }
+  [data-theme="dark"] .widget-header { border-color: #374151; }
+  [data-theme="dark"] .logo-text h1 { color: #e5e5e5; }
+  [data-theme="dark"] .logo-dateline { border-color: #374151; color: #6b7280; }
+  [data-theme="dark"] .section-label::after { background: #374151; }
+  [data-theme="dark"] .link-item   { border-color: #374151; background: #1f2937; }
+  [data-theme="dark"] .score-game  { border-color: #374151; }
+  [data-theme="dark"] .live-feed-item { background: #1f2937; border-color: #374151; }
+  [data-theme="dark"] .live-feed-item:hover { border-color: #CFB000; }
+  [data-theme="dark"] .dark-toggle { border-color: #374151; color: #9ca3af; }
+  [data-theme="dark"] .dark-toggle:hover { border-color: #CFB000; color: #CFB000; }
+  [data-theme="dark"] .nav-link.active { color: #CFB000; border-bottom-color: #CFB000; }
+  [data-theme="dark"] .section-label h3 { color: #e5e5e5; }
+  [data-theme="dark"] .sched-row   { border-color: #374151; }
+  [data-theme="dark"] .score-line  { color: #e5e5e5; }
+  [data-theme="dark"] .pts.winner  { background: #14532d; color: #86efac; }
+  [data-theme="dark"] .pts         { color: #9ca3af; }
+  /* Ad images — soften white background in dark mode */
+  [data-theme="dark"] .ad-sidebar img { border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,255,255,0.08); }
+  [data-theme="dark"] .ad-slot img   { border-radius: 8px; box-shadow: 0 0 0 1px rgba(255,255,255,0.06); }
 
   /* ── DARK TOGGLE BUTTON ───────────────────────────────────────────── */
   .dark-toggle {
@@ -1007,12 +1029,24 @@
 </head>
 <body>
 
-<!-- BREAKING BAR -->
-<div class="breaking-bar">
-  <span class="badge">Developing</span>
-  CU Women's Basketball earns No. 10 seed in NCAA Tournament, will face Illinois in first round
-  <a href="https://247sports.com/college/colorado/article/cu-buffs-ncaa-womens-basketball-tournament-illinois-march-madness-277846730/" target="_blank">Full Story</a>
+<!-- BREAKING BAR — controlled by breaking-news.json -->
+<div class="breaking-bar" id="breaking-bar" style="display:none;">
+  <span class="badge" id="breaking-label">Developing</span>
+  <span id="breaking-text"></span>
+  <a id="breaking-link" href="#" target="_blank" rel="noopener">Full Story</a>
 </div>
+<script>
+fetch('/breaking-news.json?v=' + Date.now())
+  .then(r => r.json())
+  .then(d => {
+    if (!d.active) return;
+    document.getElementById('breaking-label').textContent = d.label || 'Developing';
+    document.getElementById('breaking-text').textContent = d.text;
+    document.getElementById('breaking-link').href = d.url || '#';
+    document.getElementById('breaking-bar').style.display = '';
+  })
+  .catch(() => {});
+</script>
 
 <!-- AD 1: TOP LEADERBOARD -->
 <div style="background:#111; padding: 8px 16px; display:flex; justify-content:center; border-bottom: 1px solid #222;">
@@ -1392,6 +1426,29 @@
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading live basketball headlines…</div></div></div>
       </div>
       <p class="lf-timestamp" id="live-basketball-ts"></p>
+    </div>
+
+    <!-- ══ CU SKI ══ -->
+    <div class="tab-section" data-tabs="latest">
+      <div class="section-label" style="border-left-color:#3b82f6;"><h3>⛷️ CU Ski <span style="font-size:11px;font-weight:400;color:var(--text-muted)">· Chasing National Championship #21</span></h3></div>
+      <div class="headlines">
+        <div class="hl-card" data-date="2026-03-20" style="border-left:3px solid #3b82f6;">
+          <span class="accent-dot" style="background:#3b82f6;"></span>
+          <div class="hl-body">
+            <h4><a href="https://cubuffs.com/sports/skiing" target="_blank">CU Ski Eyes National Championship #21 at NCAAs in Steamboat Springs</a></h4>
+            <div class="hl-sub">The Buffs head to Steamboat Springs for the NCAA Ski Championships as one of the top programs in the country, chasing their 21st national title.</div>
+            <div class="hl-meta"><span class="sport-pill" style="background:#eff6ff;color:#3b82f6;">Ski</span><span>CUBuffs.com</span><span>Mar 20</span></div>
+          </div>
+        </div>
+        <div class="hl-card" data-date="2026-03-15">
+          <span class="accent-dot" style="background:#3b82f6;"></span>
+          <div class="hl-body">
+            <h4><a href="https://cubuffs.com/sports/skiing/schedule" target="_blank">Buffs Ski Program: Full 2025-26 Season Results &amp; Schedule</a></h4>
+            <div class="hl-sub">Track every race result and upcoming competition for the No. 1-ranked CU Ski program this season.</div>
+            <div class="hl-meta"><span class="sport-pill" style="background:#eff6ff;color:#3b82f6;">Ski</span><span>CUBuffs.com</span><span>Mar 15</span></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ══ RECRUITING ══ -->
@@ -1798,6 +1855,30 @@
       </div>
     </div>
 
+    <!-- SHEDEUR WATCH WIDGET -->
+    <div class="widget" id="shedeur-widget">
+      <div class="widget-header dark" style="background:#311b06; color:#f5a623; border-color:#5a3a10;">🏈 Shedeur Watch <span style="font-size:9px;font-weight:700;background:#f5a623;color:#000;padding:1px 5px;border-radius:3px;margin-left:auto;">CLE</span></div>
+      <div style="padding:10px 14px 4px;">
+        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">2025 Season · Cleveland Browns</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;">
+          <div style="text-align:center;background:var(--bg);border:1px solid var(--border-light);border-radius:6px;padding:6px 4px;">
+            <div style="font-size:16px;font-weight:900;color:var(--text);">—</div>
+            <div style="font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Pass Yds</div>
+          </div>
+          <div style="text-align:center;background:var(--bg);border:1px solid var(--border-light);border-radius:6px;padding:6px 4px;">
+            <div style="font-size:16px;font-weight:900;color:var(--text);">—</div>
+            <div style="font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">TDs</div>
+          </div>
+          <div style="text-align:center;background:var(--bg);border:1px solid var(--border-light);border-radius:6px;padding:6px 4px;">
+            <div style="font-size:16px;font-weight:900;color:var(--text);">—</div>
+            <div style="font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">INTs</div>
+          </div>
+        </div>
+        <div id="shedeur-news" style="font-size:11px;color:var(--text-secondary);line-height:1.5;">Loading latest Shedeur news…</div>
+        <a href="https://www.espn.com/nfl/player/_/id/4432577/shedeur-sanders" target="_blank" rel="noopener" style="display:block;margin-top:8px;font-size:10px;font-weight:700;color:var(--primary);text-decoration:none;text-transform:uppercase;letter-spacing:.5px;">Full Profile on ESPN →</a>
+      </div>
+    </div>
+
     <div class="widget">
       <div class="widget-header gold">Upcoming</div>
       <div class="sched-row">
@@ -1871,17 +1952,17 @@
           <div class="sp-av" style="background:#2563EB;color:#fff;">M</div>
           <div class="sp-av" style="background:#111;color:#E0BA51;">K</div>
         </div>
-        <div class="sp-text"><strong>5,200+ Buffs</strong> read this daily <span class="sp-stars">★★★★★</span></div>
+        <div class="sp-text"><strong>Join thousands of Buffs fans</strong> <span class="sp-stars">★★★★★</span></div>
       </div>
     </div>
 
     <div class="widget">
       <div class="widget-header">Trending Now</div>
-      <div class="trend-item"><span class="trend-num">1</span><div><h4>WBB earns NCAA Tournament bid vs. Illinois</h4><div class="tm">3.2K discussions</div></div></div>
-      <div class="trend-item"><span class="trend-num">2</span><div><h4>JuJu Lewis QB1: spring practice impressions</h4><div class="tm">2.1K discussions</div></div></div>
-      <div class="trend-item"><span class="trend-num">3</span><div><h4>Remembering Dominiq Ponder</h4><div class="tm">1.8K discussions</div></div></div>
-      <div class="trend-item"><span class="trend-num">4</span><div><h4>59 new players: can this roster gel?</h4><div class="tm">1.4K discussions</div></div></div>
-      <div class="trend-item"><span class="trend-num">5</span><div><h4>MBB heads to CBC vs. Oklahoma</h4><div class="tm">890 discussions</div></div></div>
+      <div class="trend-item"><span class="trend-num">1</span><div><h4>WBB NCAA Tournament: CU vs. Illinois</h4></div></div>
+      <div class="trend-item"><span class="trend-num">2</span><div><h4>JuJu Lewis QB1: spring practice impressions</h4></div></div>
+      <div class="trend-item"><span class="trend-num">3</span><div><h4>Remembering Dominiq Ponder</h4></div></div>
+      <div class="trend-item"><span class="trend-num">4</span><div><h4>59 new players: can this roster gel?</h4></div></div>
+      <div class="trend-item"><span class="trend-num">5</span><div><h4>CU Ski chasing national championship #21</h4></div></div>
     </div>
 
 
@@ -1910,12 +1991,13 @@
     Athletics. Academics. Everything CU. Not affiliated with the University of Colorado.
   </div>
   <div class="footer-links">
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-    <a href="#">Advertise</a>
-    <a href="#">Subscribe</a>
-    <a href="#">Privacy</a>
-    <a href="#">Tips</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/advertise.html">Advertise</a>
+    <a href="#" onclick="openNewsletter('');return false;">Subscribe</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/tips.html">Tips</a>
+    <a href="/sources.html">Sources</a>
   </div>
 </footer>
 
@@ -1979,6 +2061,13 @@ function activateTab(tabName) {
   });
   document.querySelector('.main-wrap').classList.toggle('hero-hidden', tabName !== 'latest');
   if (window._syncAdToHero) window._syncAdToHero();
+  // Live tab: auto-refresh scores every 60s while active
+  if (tabName === 'live') {
+    updateLiveSection();
+    if (!_liveRefreshInterval) _liveRefreshInterval = setInterval(updateLiveSection, 60000);
+  } else {
+    if (_liveRefreshInterval) { clearInterval(_liveRefreshInterval); _liveRefreshInterval = null; }
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1986,25 +2075,91 @@ navLinks.forEach(link => {
   link.addEventListener('click', e => { e.preventDefault(); activateTab(link.dataset.tab); });
 });
 
-// ── LIVE SECTION ─────────────────────────────────────────────────────────
-function updateLiveSection() {
+// ── LIVE SECTION — ESPN API (no auth required) ────────────────────────────
+const CU_TEAM_ID = '38';
+let _liveRefreshInterval = null;
+
+async function updateLiveSection() {
   const container = document.getElementById('live-games-container');
-  const isGameTime = false;
-  if (isGameTime) {
-    container.innerHTML = `<div class="live-game-card">
-      <div class="lgc-status">LIVE - 2nd Half</div>
-      <div class="lgc-teams"><span class="lgc-team cu">Colorado</span><span class="lgc-score" style="color:var(--primary);">42</span></div>
-      <div class="lgc-teams"><span class="lgc-team">Opponent</span><span class="lgc-score">38</span></div>
-      <div class="lgc-info">Big 12 - Folsom Field - ESPN2</div></div>`;
-  } else {
-    container.innerHTML = `<div class="no-live">
-      <strong>No games currently live</strong>
-      Next up: WBB NCAA Tournament vs. Illinois (date TBA)<br>
-      <span style="font-size:11px;margin-top:6px;display:block;">Check back during game times for live scores and play-by-play updates.</span>
-    </div>`;
+  if (!container) return;
+  const endpoints = [
+    'https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard',
+    'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard',
+    'https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=5'
+  ];
+  try {
+    const results = await Promise.allSettled(
+      endpoints.map(url => fetch(url, { signal: AbortSignal.timeout(6000) }).then(r => r.json()))
+    );
+    const cuGames = [];
+    results.forEach(r => {
+      if (r.status !== 'fulfilled' || !r.value?.events) return;
+      r.value.events.forEach(event => {
+        const comp = event.competitions?.[0];
+        const cuTeam = comp?.competitors?.find(c => c.team?.id === CU_TEAM_ID);
+        if (cuTeam) cuGames.push({ event, comp, cuTeam });
+      });
+    });
+
+    const live      = cuGames.filter(g => g.comp?.status?.type?.state === 'in');
+    const upcoming  = cuGames.filter(g => g.comp?.status?.type?.state === 'pre');
+    const finished  = cuGames.filter(g => g.comp?.status?.type?.state === 'post');
+
+    if (live.length) {
+      container.innerHTML = live.map(({ event, comp, cuTeam }) => {
+        const opp   = comp.competitors.find(c => c.team.id !== CU_TEAM_ID);
+        const desc  = comp.status.type.description || '';
+        const cuPts = cuTeam.score || '0';
+        const oppPts = opp?.score || '0';
+        const winning = parseInt(cuPts) >= parseInt(oppPts);
+        const bc    = comp.broadcasts?.[0]?.names?.[0] || '';
+        return `<div class="live-game-card">
+          <div class="lgc-status">🔴 LIVE &nbsp;·&nbsp; ${desc}</div>
+          <div class="lgc-teams"><span class="lgc-team cu">${cuTeam.team.abbreviation || 'CU'} Colorado</span><span class="lgc-score" style="color:${winning?'var(--primary)':'inherit'}">${cuPts}</span></div>
+          <div class="lgc-teams"><span class="lgc-team">${opp?.team?.shortDisplayName||'Opponent'}</span><span class="lgc-score" style="color:${!winning?'var(--accent-red)':'inherit'}">${oppPts}</span></div>
+          <div class="lgc-info">${event.shortName||event.name}${bc?' · '+bc:''}</div>
+        </div>`;
+      }).join('');
+    } else if (upcoming.length) {
+      const { event, comp, cuTeam } = upcoming[0];
+      const opp = comp.competitors.find(c => c.team.id !== CU_TEAM_ID);
+      const detail = comp.status.type.shortDetail || '';
+      const bc = comp.broadcasts?.[0]?.names?.[0] || '';
+      container.innerHTML = `<div class="no-live" style="text-align:left;padding:16px;">
+        <div style="font-size:10px;font-weight:800;color:var(--accent-red);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">⏭ Next Up</div>
+        <div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px;">${cuTeam.team.shortDisplayName||'Colorado'} vs. ${opp?.team?.shortDisplayName||''}</div>
+        <div style="font-size:12px;color:var(--text-secondary);">${detail}${bc?' · '+bc:''}</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:8px;">Auto-refreshes every 60s when this tab is active</div>
+      </div>`;
+    } else if (finished.length) {
+      container.innerHTML = finished.slice(0,2).map(({ event, comp, cuTeam }) => {
+        const opp = comp.competitors.find(c => c.team.id !== CU_TEAM_ID);
+        const cuPts = cuTeam.score || '0';
+        const oppPts = opp?.score || '0';
+        const won = parseInt(cuPts) > parseInt(oppPts);
+        return `<div class="live-game-card" style="border-color:var(--border);">
+          <div class="lgc-status" style="color:var(--text-muted);">FINAL</div>
+          <div class="lgc-teams"><span class="lgc-team cu">Colorado</span><span class="lgc-score" style="font-size:18px;color:${won?'var(--accent-green)':'var(--accent-red)'}">${cuPts}</span></div>
+          <div class="lgc-teams"><span class="lgc-team">${opp?.team?.shortDisplayName||''}</span><span class="lgc-score" style="font-size:18px;">${oppPts}</span></div>
+          <div class="lgc-info">${event.shortName||''}</div>
+        </div>`;
+      }).join('');
+    } else {
+      container.innerHTML = `<div class="no-live"><strong>No CU games today</strong>Check back on game days for live scores and updates.<br><a href="https://www.espn.com/college-sports/" target="_blank" rel="noopener" style="color:var(--primary);font-size:11px;margin-top:6px;display:inline-block;">View full schedule on ESPN →</a></div>`;
+    }
+  } catch(e) {
+    container.innerHTML = `<div class="no-live"><strong>Scores unavailable</strong><a href="https://www.espn.com/college-sports/" target="_blank" rel="noopener" style="color:var(--primary);display:block;margin-top:4px;">View on ESPN →</a></div>`;
   }
 }
 updateLiveSection();
+
+// ── PAGE-WIDE URL DEDUPLICATION ───────────────────────────────────────────
+// Build a set of all article URLs already in curated (static) sections
+// so live feed renders never show an article already in the featured cards
+const _curatedUrls = new Set();
+document.querySelectorAll('.hl-card a[href]').forEach(a => {
+  try { _curatedUrls.add(new URL(a.href).href); } catch(e) {}
+});
 
 // ── LIVE RSS FEEDS ───────────────────────────────────────────────────────
 const SOURCE_NAMES = {
@@ -2021,6 +2176,13 @@ const SOURCE_NAMES = {
   'colorado.edu':           { name:'CU Boulder Today',      cls:'src-cutoday' },
   'boulderreportinglab.org':{ name:'Boulder Reporting Lab', cls:'src-brl'     },
   'cbssports.com':          { name:'CBS Sports',            cls:'src-cbs'     },
+  'ralphiereport.com':      { name:'Ralphie Report',        cls:'src-espn'    },
+  'coloradobuffaloeswire.usatoday.com': { name:'CU Buffs Wire', cls:'src-si' },
+  'milehighsports.com':     { name:'Mile High Sports',      cls:'src-camera'  },
+  'bleacherreport.com':     { name:'Bleacher Report',       cls:'src-espn'    },
+  'sportingnews.com':       { name:'Sporting News',         cls:'src-si'      },
+  'skobuffssports.com':     { name:'Sko Buffs',             cls:'src-cuindep' },
+  'kunc.org':               { name:'KUNC',                  cls:'src-cpr'     },
   'coloradodaily.com':      { name:'Colorado Daily',        cls:'src-camera'  },
   'travelandleisure.com':   { name:'Travel + Leisure',      cls:'src-default' },
   'usnews.com':             { name:'U.S. News',             cls:'src-default' },
@@ -2122,7 +2284,10 @@ function renderLiveFeed(id, items, limit, fallbackUrl, fallbackName) {
   const seen = new Set();
   const unique = items.filter(i => {
     const k = clean(i.title||'').substring(0,40).toLowerCase();
-    if (seen.has(k)) return false; seen.add(k); return true;
+    if (seen.has(k)) return false; seen.add(k);
+    // Also skip if URL already exists in curated static sections
+    try { if (_curatedUrls.has(new URL(i.link||'').href)) return false; } catch(e) {}
+    return true;
   });
   el.innerHTML = unique.slice(0, limit).map((item) => {
     const title = clean(item.title);
@@ -2153,13 +2318,13 @@ const _lazyLoaded = {};
 async function loadLiveFeeds(sections = ['football','basketball','recruiting','campus','all']) {
   const loads = {};
 
-  if (sections.includes('football'))    loads.fb        = fetchViaProxy('Colorado Buffs football Deion Sanders spring 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com');
-  if (sections.includes('basketball'))  loads.bb        = fetchViaProxy('Colorado Buffs basketball NCAA tournament Big 12 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com');
-  if (sections.includes('recruiting'))  loads.rec       = fetchViaProxy('Colorado Buffs recruiting transfer portal 2026 2027 site:247sports.com OR site:on3.com OR site:si.com');
+  if (sections.includes('football'))    loads.fb        = fetchViaProxy('Colorado Buffs football Deion Sanders 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:bleacherreport.com OR site:skobuffssports.com OR site:milehighsports.com');
+  if (sections.includes('basketball'))  loads.bb        = fetchViaProxy('Colorado Buffs basketball 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:bleacherreport.com OR site:skobuffssports.com');
+  if (sections.includes('recruiting'))  loads.rec       = fetchViaProxy('Colorado Buffs recruiting transfer portal NIL 2026 2027 site:247sports.com OR site:on3.com OR site:si.com OR site:sportingnews.com');
   if (sections.includes('campus'))      loads.camp      = fetchRSS('https://www.colorado.edu/today/rss.xml');
-  if (sections.includes('campus'))      loads.lifestyle = fetchViaProxy('"CU Boulder" OR "University of Colorado Boulder" ranking OR ranked OR beautiful OR best OR top OR award OR recognition OR campus life OR research OR innovation');
-  if (sections.includes('all'))         loads.all       = fetchViaProxy('"CU Boulder" OR "Colorado Buffs" news 2026');
-  if (sections.includes('town'))        loads.town      = fetchViaProxy('Boulder Colorado restaurant bar development construction local news site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com');
+  if (sections.includes('campus'))      loads.lifestyle = fetchViaProxy('"CU Boulder" OR "University of Colorado Boulder" campus research ranking innovation site:cpr.org OR site:kunc.org OR site:cuindependent.com OR site:colorado.edu');
+  if (sections.includes('all'))         loads.all       = fetchViaProxy('"CU Boulder" OR "Colorado Buffs" news 2026 site:ralphiereport.com OR site:espn.com OR site:247sports.com OR site:dailycamera.com OR site:on3.com OR site:milehighsports.com');
+  if (sections.includes('town'))        loads.town      = fetchViaProxy('Boulder Colorado local news 2026 site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com OR site:9news.com');
 
   const results = {};
   await Promise.all(Object.entries(loads).map(async ([k,p]) => { results[k] = await p; }));
@@ -2457,6 +2622,22 @@ activateTab('latest');
 
   // cycleOldestArticles is now called at the end of loadLiveFeeds()
   // so it always runs after feeds are populated — no timeout needed
+
+  // ── SHEDEUR WATCH ────────────────────────────────────────────────────
+  (async function loadShedeurNews() {
+    try {
+      const items = await fetchViaProxy('Shedeur Sanders Cleveland Browns NFL 2026');
+      const el = document.getElementById('shedeur-news');
+      if (!el) return;
+      if (!items?.length) { el.textContent = 'No recent news found.'; return; }
+      const latest = items[0];
+      const title = (latest.title || '').replace(/<[^>]+>/g, '').trim().substring(0, 100);
+      const link  = latest.link || '#';
+      const src   = getSrc(link, latest.author);
+      el.innerHTML = `<a href="${link}" target="_blank" rel="noopener" style="color:var(--text);font-weight:600;text-decoration:none;">${title}</a>
+        <div style="margin-top:3px;font-size:9px;color:var(--text-muted);">${src.name} · ${timeAgo(latest.pubDate||'')}</div>`;
+    } catch(e) {}
+  })();
 
   // ── SYNC AD HEIGHT TO HERO ──────────────────────────────────────────
   // On Latest tab: sizes the top sidebar ad to match the hero height.
