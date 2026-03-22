@@ -216,10 +216,14 @@
     gap: 24px;
     padding: 20px 24px;
   }
-  /* Hero + top ad share row 1 — same gap (24px) on all sides */
+  /* Latest tab: hero in row 1, main in row 2, sidebar spans both */
   .main-wrap > .hero-row   { grid-column: 1; grid-row: 1; }
   .main-wrap > main        { grid-column: 1; grid-row: 2; }
   .main-wrap > .sidebar    { grid-column: 2; grid-row: 1 / span 2; }
+  /* Non-Latest tabs: collapse to single row — no hero gap */
+  .main-wrap.hero-hidden { grid-template-rows: auto; }
+  .main-wrap.hero-hidden > main { grid-row: 1; }
+  .main-wrap.hero-hidden > .sidebar { grid-row: 1; }
 
   /* HERO */
   .hero {
@@ -1971,6 +1975,7 @@ function activateTab(tabName) {
     const tabs = (section.dataset.tabs || '').split(' ');
     section.classList.toggle('hidden', !tabs.includes(tabName));
   });
+  document.querySelector('.main-wrap').classList.toggle('hero-hidden', tabName !== 'latest');
   if (window._syncAdToHero) window._syncAdToHero();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
