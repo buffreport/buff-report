@@ -286,7 +286,8 @@
   .section-label.purple h3 { color: #6366F1; }
 
   /* HEADLINE CARDS */
-  .headlines { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+  .headlines { display: flex; flex-direction: column; gap: 0; margin-bottom: 24px; }
+  #curated-football { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .hl-card {
     background: var(--bg-card);
     border-radius: var(--radius);
@@ -987,7 +988,7 @@
     .hr-headline { font-size: 18px; }
     .hr-slide { padding: 16px 18px; }
     .hr-sub { display: none; }
-    .headlines { grid-template-columns: 1fr; }
+    #curated-football { grid-template-columns: 1fr; }
   }
 
   /* ── FLOATING SUBSCRIBE BUTTON ────────────────────────────────────── */
