@@ -315,6 +315,8 @@
   .dot-podcast { background: #6366F1; }
   .dot-wbb { background: #D946EF; }
   .dot-town { background: #2d8a4e; }
+  .dot-ski { background: #3b82f6; }
+  .dot-all { background: var(--secondary); }
 
   .hl-card .hl-body { flex: 1; }
   .hl-card h4 { font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 3px; }
@@ -346,6 +348,8 @@
   .pill-podcast { background: #EEF2FF; color: #6366F1; }
   .pill-town { background: #e8f5e9; color: #2d8a4e; }
   .pill-live { background: #FEF2F2; color: var(--accent-red); }
+  .pill-ski  { background: #eff6ff; color: #3b82f6; }
+  .pill-all  { background: #f0f0f0; color: #333; }
 
   /* LINK CLUSTER (dense Drudge-style) */
   .link-cluster { margin-bottom: 20px; }
@@ -1454,23 +1458,23 @@ fetch('/breaking-news.json?v=' + Date.now())
     </div>
 
     <!-- ══ CU SKI ══ -->
-    <div class="tab-section" data-tabs="latest">
+    <div class="tab-section" data-tabs="latest" data-cycle-feed="live-ski" data-cycle-pill="pill-ski" data-cycle-label="Ski">
       <div class="section-label" style="border-left-color:#3b82f6;"><h3>⛷️ CU Ski <span style="font-size:11px;font-weight:400;color:var(--text-muted)">· Chasing National Championship #21</span></h3></div>
-      <div class="headlines">
-        <div class="hl-card" data-date="2026-03-20" style="border-left:3px solid #3b82f6;">
-          <span class="accent-dot" style="background:#3b82f6;"></span>
+      <div class="headlines" id="curated-ski">
+        <div class="hl-card" data-date="2026-03-20">
+          <span class="accent-dot dot-ski"></span>
           <div class="hl-body">
             <h4><a href="https://cubuffs.com/sports/skiing" target="_blank">CU Ski Eyes National Championship #21 at NCAAs in Steamboat Springs</a></h4>
             <div class="hl-sub">The Buffs head to Steamboat Springs for the NCAA Ski Championships as one of the top programs in the country, chasing their 21st national title.</div>
-            <div class="hl-meta"><span class="sport-pill" style="background:#eff6ff;color:#3b82f6;">Ski</span><span>CUBuffs.com</span><span>Mar 20</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-ski">Ski</span><span>CUBuffs.com</span><span>Mar 20</span></div>
           </div>
         </div>
         <div class="hl-card" data-date="2026-03-15">
-          <span class="accent-dot" style="background:#3b82f6;"></span>
+          <span class="accent-dot dot-ski"></span>
           <div class="hl-body">
             <h4><a href="https://cubuffs.com/sports/skiing/schedule" target="_blank">Buffs Ski Program: Full 2025-26 Season Results &amp; Schedule</a></h4>
             <div class="hl-sub">Track every race result and upcoming competition for the No. 1-ranked CU Ski program this season.</div>
-            <div class="hl-meta"><span class="sport-pill" style="background:#eff6ff;color:#3b82f6;">Ski</span><span>CUBuffs.com</span><span>Mar 15</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-ski">Ski</span><span>CUBuffs.com</span><span>Mar 15</span></div>
           </div>
         </div>
       </div>
@@ -1554,16 +1558,44 @@ fetch('/breaking-news.json?v=' + Date.now())
     </div>
 
     <!-- ══ PORTAL / NIL ══ -->
-    <div class="tab-section" data-tabs="latest portal">
+    <div class="tab-section" data-tabs="latest portal" data-cycle-feed="live-portal" data-cycle-pill="pill-portal" data-cycle-label="Portal/NIL">
       <div class="section-label"><h3>🔄 Transfer Portal / NIL</h3></div>
-      <div class="link-cluster">
-        <div class="link-item"><a href="https://247sports.com/college/colorado/season/2026-football/transferportal/" target="_blank">COMPLETE: CU Transfer Portal Tracker - 40+ In, 36 Out</a><span class="src">247Sports</span></div>
-        <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-deion-sanders-updated-transfer-portal-rankings" target="_blank">Portal rankings updated: No. 21 transfer class nationally</a><span class="src">Sports Illustrated</span></div>
-        <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-transfer-portal-exodus-raises-questions-deion-sanders-roster" target="_blank">Transfer portal exodus raises questions for Sanders' roster strategy</a><span class="src">Sports Illustrated</span></div>
-        <div class="link-item"><a href="https://www.skobuffssports.com/post/colorado-buffaloes-2026-transfer-portal-overview" target="_blank">Full portal overview: Grading every addition by position</a><span class="src">Sko Buffs</span></div>
-        <div class="link-item"><a href="https://glorycolorado.com/who-s-leaving-and-who-s-joining-colorado-football-s-2026-transfer-portal-tracker" target="_blank">Who's Leaving and Who's Joining: Complete Portal Tracker</a><span class="src">Glory Colorado</span></div>
-        <div class="link-item"><a href="https://www.on3.com/college/colorado-buffaloes/transfer-portal/wire/football/" target="_blank">DeAndre Moore Jr. (ex-Texas) Headlines Portal Additions</a><span class="src">On3</span></div>
-        <div class="link-item"><a href="https://sports.yahoo.com/articles/tracking-colorado-footballs-transfer-portal-120431777.html" target="_blank">Yahoo Sports: Tracking Colorado's portal movement</a><span class="src">Yahoo Sports</span></div>
+      <div class="headlines" id="curated-portal">
+        <div class="hl-card" data-date="2026-03-01">
+          <span class="accent-dot dot-portal"></span>
+          <div class="hl-body">
+            <h4><a href="https://247sports.com/college/colorado/season/2026-football/transferportal/" target="_blank">COMPLETE: CU Transfer Portal Tracker — 40+ In, 36 Out</a></h4>
+            <div class="hl-meta"><span class="sport-pill pill-portal">Portal/NIL</span><span>247Sports</span></div>
+          </div>
+        </div>
+        <div class="hl-card" data-date="2026-03-01">
+          <span class="accent-dot dot-portal"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-deion-sanders-updated-transfer-portal-rankings" target="_blank">Portal rankings updated: No. 21 transfer class nationally</a></h4>
+            <div class="hl-meta"><span class="sport-pill pill-portal">Portal/NIL</span><span>Sports Illustrated</span></div>
+          </div>
+        </div>
+        <div class="hl-card" data-date="2026-03-01">
+          <span class="accent-dot dot-portal"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.on3.com/college/colorado-buffaloes/transfer-portal/wire/football/" target="_blank">DeAndre Moore Jr. (ex-Texas) Headlines Portal Additions</a></h4>
+            <div class="hl-meta"><span class="sport-pill pill-portal">Portal/NIL</span><span>On3</span></div>
+          </div>
+        </div>
+        <div class="hl-card" data-date="2026-03-01">
+          <span class="accent-dot dot-portal"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.skobuffssports.com/post/colorado-buffaloes-2026-transfer-portal-overview" target="_blank">Full portal overview: Grading every addition by position</a></h4>
+            <div class="hl-meta"><span class="sport-pill pill-portal">Portal/NIL</span><span>Sko Buffs</span></div>
+          </div>
+        </div>
+        <div class="hl-card" data-date="2026-03-01">
+          <span class="accent-dot dot-portal"></span>
+          <div class="hl-body">
+            <h4><a href="https://glorycolorado.com/who-s-leaving-and-who-s-joining-colorado-football-s-2026-transfer-portal-tracker" target="_blank">Who's Leaving and Who's Joining: Complete Portal Tracker</a></h4>
+            <div class="hl-meta"><span class="sport-pill pill-portal">Portal/NIL</span><span>Glory Colorado</span></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1855,12 +1887,30 @@ fetch('/breaking-news.json?v=' + Date.now())
     </div>
 
     <!-- ══ AROUND THE BIG 12 ══ -->
-    <div class="tab-section" data-tabs="latest">
+    <div class="tab-section" data-tabs="latest" data-cycle-feed="live-all" data-cycle-pill="pill-all" data-cycle-label="Big 12">
       <div class="section-label"><h3>Around the Big 12</h3></div>
-      <div class="link-cluster">
-        <div class="link-item"><a href="https://www.espn.com/mens-college-basketball/story/_/id/48209506/arizona-gets-revenge-tops-houston-win-big-12-championship" target="_blank">Arizona tops Houston for Big 12 basketball title</a><span class="src">ESPN</span></div>
-        <div class="link-item"><a href="https://www.heartlandcollegesports.com/2026/03/15/eight-big-12-basketball-teams-will-play-in-march-madness/" target="_blank">Eight Big 12 teams headed to March Madness, conference record</a><span class="src">Heartland CS · Mar 15</span></div>
-        <div class="link-item"><a href="https://www.foxsports.com/college-football/colorado-buffaloes-team" target="_blank">Big 12 spring practice tracker: Who's turning heads across the conference</a><span class="src">FOX Sports</span></div>
+      <div class="headlines" id="curated-big12">
+        <div class="hl-card" data-date="2026-03-15">
+          <span class="accent-dot dot-all"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.espn.com/mens-college-basketball/story/_/id/48209506/arizona-gets-revenge-tops-houston-win-big-12-championship" target="_blank">Arizona tops Houston for Big 12 basketball title</a></h4>
+            <div class="hl-meta"><span class="sport-pill pill-all">Big 12</span><span>ESPN</span></div>
+          </div>
+        </div>
+        <div class="hl-card" data-date="2026-03-15">
+          <span class="accent-dot dot-all"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.heartlandcollegesports.com/2026/03/15/eight-big-12-basketball-teams-will-play-in-march-madness/" target="_blank">Eight Big 12 teams headed to March Madness, conference record</a></h4>
+            <div class="hl-meta"><span class="sport-pill pill-all">Big 12</span><span>Heartland CS</span><span>Mar 15</span></div>
+          </div>
+        </div>
+        <div class="hl-card" data-date="2026-03-15">
+          <span class="accent-dot dot-all"></span>
+          <div class="hl-body">
+            <h4><a href="https://www.foxsports.com/college-football/colorado-buffaloes-team" target="_blank">Big 12 spring practice tracker: Who's turning heads across the conference</a></h4>
+            <div class="hl-meta"><span class="sport-pill pill-all">Big 12</span><span>FOX Sports</span></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2424,6 +2474,7 @@ async function loadLiveFeeds(sections = ['football','basketball','recruiting','c
   if (sections.includes('campus'))      loads.lifestyle = fetchViaProxy('"CU Boulder" OR "University of Colorado Boulder" campus research ranking innovation site:cpr.org OR site:kunc.org OR site:cuindependent.com OR site:colorado.edu');
   if (sections.includes('all'))         loads.all       = fetchViaProxy('"CU Boulder" OR "Colorado Buffs" news 2026 site:ralphiereport.com OR site:espn.com OR site:247sports.com OR site:dailycamera.com OR site:on3.com OR site:milehighsports.com');
   if (sections.includes('town'))        loads.town      = fetchViaProxy('Boulder Colorado local news 2026 site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com OR site:9news.com');
+  if (sections.includes('ski'))         loads.ski       = fetchViaProxy('CU Colorado Buffs skiing NCAA ski championships 2026 site:cubuffs.com OR site:espn.com OR site:dailycamera.com OR site:freeskier.com OR site:skimag.com OR site:powder.com');
 
   const results = {};
   await Promise.all(Object.entries(loads).map(async ([k,p]) => { results[k] = await p; }));
@@ -2445,8 +2496,11 @@ async function loadLiveFeeds(sections = ['football','basketball','recruiting','c
   if (results.fb)            _feedCache.football    = results.fb;
   if (results.bb)            _feedCache.basketball  = results.bb;
   if (results.rec)           _feedCache.recruiting  = results.rec;
+  if (results.rec)           _feedCache.portal      = results.rec;  // portal reuses recruiting feed
   if (mergedCampus.length)   _feedCache.campus      = mergedCampus;
+  if (results.all)           _feedCache.all         = results.all;
   if (results.town)          _feedCache.town        = results.town;
+  if (results.ski)           _feedCache.ski         = results.ski;
 
   document.getElementById('refreshTime').textContent =
     new Date().toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', second:'2-digit' });
@@ -2457,8 +2511,8 @@ async function loadLiveFeeds(sections = ['football','basketball','recruiting','c
 
 // ── INTERSECTION OBSERVER LAZY LOADING ───────────────────────────────────
 // Load core feeds immediately on page load
-loadLiveFeeds(['football','basketball','recruiting','campus','all']);
-setInterval(() => loadLiveFeeds(['football','basketball','recruiting','campus','all']), 15 * 60 * 1000);
+loadLiveFeeds(['football','basketball','recruiting','campus','all','ski','town']);
+setInterval(() => loadLiveFeeds(['football','basketball','recruiting','campus','all','ski','town']), 15 * 60 * 1000);
 
 // Lazy-load Around Town, Podcasts, and Live sections when scrolled into view
 if ('IntersectionObserver' in window) {
