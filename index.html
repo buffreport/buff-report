@@ -493,12 +493,12 @@
   }
   .house-ad::before {
     content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 4px; background: #CFA82C;
+    width: 4px; background: var(--primary);
   }
   .ha-left { flex: 1; min-width: 0; }
   .ha-eyebrow {
     font-size: 9px; font-weight: 800; letter-spacing: 2px;
-    text-transform: uppercase; color: #CFA82C; margin-bottom: 4px;
+    text-transform: uppercase; color: var(--primary); margin-bottom: 4px;
   }
   .ha-headline {
     font-size: 15px; font-weight: 800; color: white;
@@ -507,13 +507,13 @@
   }
   .ha-sub { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 3px; }
   .ha-btn {
-    background: #CFA82C; color: #000; font-weight: 800; font-size: 12px;
+    background: var(--primary); color: #000; font-weight: 800; font-size: 12px;
     padding: 10px 22px; border-radius: 5px; border: none; cursor: pointer;
     white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px;
     flex-shrink: 0; font-family: 'Merriweather Sans', sans-serif;
     transition: background 0.15s;
   }
-  .ha-btn:hover { background: #b8a265; }
+  .ha-btn:hover { background: var(--primary-dark); }
   /* Mobile house ad — stack vertically and expand height */
   @media (max-width: 600px) {
     .ad-infeed-wrap .ad-slot,
@@ -1995,7 +1995,7 @@ activateTab('latest');
     <!-- Close button -->
     <button onclick="closeNewsletter()" style="position:absolute; top:14px; right:16px; background:none; border:none; color:#777; font-size:24px; cursor:pointer; line-height:1; padding:4px 8px;">×</button>
     <!-- Logo mark -->
-    <div style="font-family:'Playfair Display',serif; font-size:11px; font-weight:900; color:#CFB87C; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px;">The Buff Report</div>
+    <div style="font-family:'Playfair Display',serif; font-size:11px; font-weight:900; color:#E0BA51; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px;">The Buff Report</div>
     <!-- Heading -->
     <h2 style="font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:white; margin:0 0 8px; line-height:1.2;">Stay in the know.</h2>
     <p style="color:#aaa; font-size:13px; font-family:'Merriweather Sans',sans-serif; margin:0 0 22px; line-height:1.6;">CU Buffs athletics, academics, and Boulder news straight to your inbox. Free.</p>
@@ -2054,7 +2054,7 @@ activateTab('latest');
         input.value = '';
       } else if (data.status === 'duplicate') {
         msg.textContent = 'Already subscribed!';
-        msg.style.color = '#CFB87C';
+        msg.style.color = '#E0BA51';
       } else {
         // API error → fall back to modal
         msg.textContent = data.error || 'Error. Try again.';
@@ -2115,7 +2115,7 @@ activateTab('latest');
         setTimeout(closeNewsletter, 2500);
       } else if (data.status === 'duplicate') {
         msg.textContent = 'You\'re already subscribed!';
-        msg.style.color = '#CFB87C';
+        msg.style.color = '#E0BA51';
       } else {
         msg.textContent = data.error || 'Something went wrong. Try again.';
         msg.style.color = '#f87171';
