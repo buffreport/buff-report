@@ -54,6 +54,8 @@
     --accent-green: #16A34A;
     --accent-orange: #EA580C;
     --radius: 8px;
+    --accent: var(--primary);
+    --accent-dark: var(--primary-dark);
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
     --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
@@ -173,12 +175,15 @@
     font-size: 11px; font-weight: 700;
     text-transform: uppercase; letter-spacing: 1px;
     color: var(--text-muted);
-    padding: 12px 16px;
-    border-bottom: 2px solid transparent;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1px solid transparent;
     transition: all 0.15s; white-space: nowrap;
-    cursor: pointer; margin-bottom: -1px;
+    cursor: pointer;
+    margin: 6px 2px;
   }
-  .nav-link:hover, .nav-link.active { color: var(--secondary); border-bottom-color: var(--primary); }
+  .nav-link:hover { color: var(--secondary); border-color: var(--border); background: var(--bg-card); }
+  .nav-link.active { color: var(--bg-card); background: var(--secondary); border-color: var(--secondary); }
   .nav-link.live { color: var(--accent-red); }
   .nav-link.live::before {
     content: '';
@@ -281,30 +286,77 @@
   .section-label.purple h3 { color: #6366F1; }
 
   /* HEADLINE CARDS */
-  .headlines { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .headlines { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
   .hl-card {
     background: var(--bg-card);
-    border: 1px solid var(--border-light);
     border-radius: var(--radius);
-    padding: 14px 16px;
-    display: flex; align-items: flex-start; gap: 12px;
-    transition: all 0.15s; cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
     position: relative;
   }
   .hl-card:hover {
-    border-color: var(--primary);
-    box-shadow: var(--shadow-sm);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
-  /* Full-card click: the headline link covers the entire card */
-  .hl-card h4 a::after {
-    content: '';
+  .hl-card-img {
+    height: 160px;
+    background-size: cover;
+    background-position: center top;
+    background-color: #111;
+    position: relative;
+  }
+  .hl-card-cat {
     position: absolute;
-    inset: 0;
+    top: 10px;
+    left: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
+  .cat-football   { background: #111; }
+  .cat-basketball { background: var(--accent-orange); }
+  .cat-wbb        { background: #D946EF; }
+  .cat-recruiting { background: var(--accent-green); }
+  .cat-portal     { background: #8B5CF6; }
+  .cat-campus     { background: var(--academic); }
+  .cat-ski        { background: #3b82f6; }
+  .cat-town       { background: #2d8a4e; }
+  .cat-all        { background: #555; }
+  .hl-card-body   { padding: 14px; }
+  .hl-card-body h3 { font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 8px; }
+  .hl-card-body h3 a { color: var(--text); }
+  .hl-card-body h3 a:hover { color: var(--accent-dark); }
+  .hl-card-footer { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+  .hl-source { font-weight: 600; color: var(--accent-dark); }
+  /* Legacy dot-style cards (static fallback) */
   .hl-card .accent-dot {
     width: 8px; height: 8px;
     border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+  }
+  .hl-card .hl-body { flex: 1; }
+  .hl-card h4 { font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 3px; }
+  .hl-card h4 a { color: var(--text); }
+  .hl-card h4 a:hover { color: var(--primary-dark); }
+  .hl-card .hl-sub { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+  .hl-card .hl-meta {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 6px; font-size: 10px; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .hl-card .hl-meta > span:not(.sport-pill) + span:not(.sport-pill)::before {
+    content: '·';
+    margin-right: 6px;
+    opacity: 0.4;
+  }
+  .hl-card .sport-pill {
+    padding: 2px 8px; border-radius: 4px;
+    font-weight: 700; font-size: 9px; letter-spacing: 0.5px;
   }
   .dot-football { background: var(--secondary); }
   .dot-basketball { background: var(--accent-orange); }
@@ -935,6 +987,7 @@
     .hr-headline { font-size: 18px; }
     .hr-slide { padding: 16px 18px; }
     .hr-sub { display: none; }
+    .headlines { grid-template-columns: 1fr; }
   }
 
   /* ── FLOATING SUBSCRIBE BUTTON ────────────────────────────────────── */
@@ -1199,43 +1252,51 @@ fetch('/breaking-news.json?v=' + Date.now())
       <div class="section-label gold"><h3>🏈 Football</h3></div>
       <div class="headlines" id="curated-football">
         <div class="hl-card" data-date="2026-03-21">
-          <span class="accent-dot dot-football"></span>
-          <div class="hl-body">
-            <h4><a href="https://denversports.com/ncaa/cu-football/buffs-prime-dc-broncos/2128890" target="_blank">New DC, New Look: Chris Marve Takes Over as Colorado's Defensive Coordinator</a></h4>
-            <div class="hl-sub">Marve promoted after Robert Livingston left for the Denver Broncos. First full spring in charge of an overhauled defensive unit.</div>
-            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Denver Sports</span><span>Mar 21</span></div>
+          <div class="hl-card-img" style="background-image:url('https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg')">
+            <span class="hl-card-cat cat-football">Football</span>
+          </div>
+          <div class="hl-card-body">
+            <h3><a href="https://denversports.com/ncaa/cu-football/buffs-prime-dc-broncos/2128890" target="_blank">New DC, New Look: Chris Marve Takes Over as Colorado's Defensive Coordinator</a></h3>
+            <div class="hl-card-footer">
+              <span class="hl-source">Denver Sports</span>
+              <span>Mar 21</span>
+            </div>
           </div>
         </div>
         <div class="hl-card" data-date="2026-03-21">
-          <span class="accent-dot dot-football"></span>
-          <div class="hl-body">
-            <h4><a href="https://denversports.com/ncaa/cu-football/buffs-gt-moved-up-2026/2128716" target="_blank">Season Opener vs. Georgia Tech Moved Up, Now on National TV</a></h4>
-            <div class="hl-sub">CU's Sept. 5 opener at Georgia Tech shifted to prime time. Buffs seek revenge after last year's 27-20 home loss.</div>
-            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Denver Sports</span><span>Mar 21</span></div>
+          <div class="hl-card-img" style="background-image:url('https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg')">
+            <span class="hl-card-cat cat-football">Football</span>
+          </div>
+          <div class="hl-card-body">
+            <h3><a href="https://denversports.com/ncaa/cu-football/buffs-gt-moved-up-2026/2128716" target="_blank">Season Opener vs. Georgia Tech Moved Up, Now on National TV</a></h3>
+            <div class="hl-card-footer">
+              <span class="hl-source">Denver Sports</span>
+              <span>Mar 21</span>
+            </div>
           </div>
         </div>
         <div class="hl-card" data-date="2026-03-17">
-          <span class="accent-dot dot-football"></span>
-          <div class="hl-body">
-            <h4><a href="https://www.dailycamera.com/2026/03/17/colorado-buffaloes-football-naeten-mitchell/" target="_blank">Transfer Naeten Mitchell Making Plays in Early Spring Reps</a></h4>
-            <div class="hl-sub">New addition drawing early praise from coaches. Mitchell's versatility gives offensive line coach options.</div>
-            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Daily Camera</span><span>Mar 17</span></div>
+          <div class="hl-card-img" style="background-image:url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80')">
+            <span class="hl-card-cat cat-football">Football</span>
+          </div>
+          <div class="hl-card-body">
+            <h3><a href="https://www.dailycamera.com/2026/03/17/colorado-buffaloes-football-naeten-mitchell/" target="_blank">Transfer Naeten Mitchell Making Plays in Early Spring Reps</a></h3>
+            <div class="hl-card-footer">
+              <span class="hl-source">Daily Camera</span>
+              <span>Mar 17</span>
+            </div>
           </div>
         </div>
         <div class="hl-card" data-date="2026-03-06">
-          <span class="accent-dot dot-football"></span>
-          <div class="hl-body">
-            <h4><a href="https://cubuffs.com/news/2026/3/6/football-buffs-open-spring-with-energy-emotion-and-purpose" target="_blank">Buffs Open Spring Practice With Heavy Hearts, Honoring Dominiq Ponder</a></h4>
-            <div class="hl-sub">Team decided unanimously to practice despite tragedy. Senior safety Ben Finneseth: 'Dom wouldn't miss a day.'</div>
-            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>CUBuffs.com</span><span>Mar 6</span></div>
+          <div class="hl-card-img" style="background-image:url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80')">
+            <span class="hl-card-cat cat-football">Football</span>
           </div>
-        </div>
-        <div class="hl-card" data-date="2026-03-11">
-          <span class="accent-dot dot-football"></span>
-          <div class="hl-body">
-            <h4><a href="https://www.si.com/college/colorado/football/reasons-excited-about-colorado-buffaloes-spring-football-camp-deion-sanders-julian-lewis" target="_blank">Five Reasons to Be Excited About CU's Spring Camp</a></h4>
-            <div class="hl-sub">New OC Brennan Marion, JuJu Lewis at QB1, 59 new faces: reasons for optimism heading into Deion's fourth season.</div>
-            <div class="hl-meta"><span class="sport-pill pill-football">Football</span><span>Sports Illustrated</span><span>Mar 11</span></div>
+          <div class="hl-card-body">
+            <h3><a href="https://cubuffs.com/news/2026/3/6/football-buffs-open-spring-with-energy-emotion-and-purpose" target="_blank">Buffs Open Spring Practice With Heavy Hearts, Honoring Dominiq Ponder</a></h3>
+            <div class="hl-card-footer">
+              <span class="hl-source">CUBuffs.com</span>
+              <span>Mar 6</span>
+            </div>
           </div>
         </div>
       </div>
@@ -2251,6 +2312,26 @@ updateLiveSection();
 // ── CURATED SECTION AUTO-REFRESH ─────────────────────────────────────────
 // Cache of raw feed results, keyed by section name (football, basketball, etc.)
 // Populated in loadLiveFeeds on every 15-minute cycle.
+// ── STORY IMAGE FALLBACKS ─────────────────────────────────────────────────
+const _defaultImages = {
+  football:   'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80',
+  basketball: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=80',
+  wbb:        'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=80',
+  recruiting: 'https://images.unsplash.com/photo-1461896836934-bd45ba8aaeb6?w=600&q=80',
+  portal:     'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
+  campus:     'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80',
+  ski:        'https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?w=600&q=80',
+  town:       'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=600&q=80',
+  all:        'https://images.unsplash.com/photo-1461896836934-bd45ba8aaeb6?w=600&q=80',
+  default:    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80'
+};
+function _getStoryImage(item, category) {
+  if (item.thumbnail && item.thumbnail.startsWith('http')) return item.thumbnail;
+  if (item.image    && item.image.startsWith('http'))    return item.image;
+  if (item.enclosure?.url?.startsWith('http'))           return item.enclosure.url;
+  return _defaultImages[category] || _defaultImages.default;
+}
+
 const _feedCache = {};
 
 // Called after every loadLiveFeeds() — replaces curated hl-cards with the
@@ -2285,13 +2366,16 @@ function refreshCuratedSections() {
         const pub   = item.pubDate || '';
         const src   = getSrc(link, item.author);
         const date  = pub ? new Date(pub).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
+        const imgUrl = _getStoryImage(item, feedKey);
+        const catClass = 'cat-' + feedKey;
         return `<div class="hl-card" data-date="${today}">
-          <span class="accent-dot ${dotClass}"></span>
-          <div class="hl-body">
-            <h4><a href="${link}" target="_blank" rel="noopener">${title}</a></h4>
-            <div class="hl-meta">
-              <span class="sport-pill ${pill}">${label}</span>
-              <span>${src.name}</span>
+          <div class="hl-card-img" style="background-image:url('${imgUrl}')">
+            <span class="hl-card-cat ${catClass}">${label}</span>
+          </div>
+          <div class="hl-card-body">
+            <h3><a href="${link}" target="_blank" rel="noopener">${title}</a></h3>
+            <div class="hl-card-footer">
+              <span class="hl-source">${src.name}</span>
               ${date ? `<span>${date}</span>` : ''}
             </div>
           </div>
