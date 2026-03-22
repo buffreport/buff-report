@@ -873,6 +873,7 @@
   .hero-slides { position: relative; width: 100%; height: 100%; min-height: 280px; }
   .hr-slide {
     position: absolute; inset: 0;
+    background-size: cover; background-position: center;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     padding: 28px 40px;
     opacity: 0;
@@ -883,7 +884,7 @@
   .hr-slide.active { opacity: 1; }
   .hr-overlay {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.82) 100%);
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.25) 100%);
     pointer-events: none;
   }
   .hr-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
@@ -1131,7 +1132,7 @@ fetch('/breaking-news.json?v=' + Date.now())
       <div class="hero-slides">
 
         <!-- Slide 1: Football -->
-        <div class="hr-slide active" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1209 60%, #0a0a0a 100%);">
+        <div class="hr-slide active" style="background-image: url('https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg'); background-color:#111;">
           <div class="hr-overlay"></div>
           <div class="hr-content">
             <span class="hr-pill">🏈 Football</span>
@@ -1142,7 +1143,7 @@ fetch('/breaking-news.json?v=' + Date.now())
         </div>
 
         <!-- Slide 2: Campus -->
-        <div class="hr-slide" style="background: linear-gradient(135deg, #070c1a 0%, #0a1628 60%, #070c1a 100%);">
+        <div class="hr-slide" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/CU_boulder_campus.jpg/1280px-CU_boulder_campus.jpg'); background-color:#111;">
           <div class="hr-overlay"></div>
           <div class="hr-content">
             <span class="hr-pill">🏆 Campus</span>
@@ -1153,7 +1154,7 @@ fetch('/breaking-news.json?v=' + Date.now())
         </div>
 
         <!-- Slide 3: Basketball -->
-        <div class="hr-slide" style="background: linear-gradient(135deg, #0d0505 0%, #1a0a0a 60%, #0d0505 100%);">
+        <div class="hr-slide" style="background-image: url('https://s3media.247sports.com/Uploads/Assets/335/658/13658335.jpg'); background-color:#111;">
           <div class="hr-overlay"></div>
           <div class="hr-content">
             <span class="hr-pill">🏀 Basketball</span>
@@ -1164,8 +1165,8 @@ fetch('/breaking-news.json?v=' + Date.now())
         </div>
 
         <!-- Slide 4: Season Opener -->
-        <div class="hr-slide" style="background: linear-gradient(135deg, #0a0a0a 0%, #111 60%, #0a0a0a 100%);">
-          <div class="hr-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(224,186,81,0.08) 60%, transparent 100%);"></div>
+        <div class="hr-slide" style="background-image: url('https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg'); background-color:#111;">
+          <div class="hr-overlay"></div>
           <div class="hr-content">
             <span class="hr-pill">📺 Football</span>
             <h2 class="hr-headline"><a href="https://denversports.com/ncaa/cu-football/buffs-gt-moved-up-2026/2128716" target="_blank">Season Opener vs. Georgia Tech Moved to Prime Time National TV</a></h2>
