@@ -1859,23 +1859,24 @@ fetch('/breaking-news.json?v=' + Date.now())
     <div class="widget" id="shedeur-widget">
       <div class="widget-header dark" style="background:#311b06; color:#f5a623; border-color:#5a3a10;">🏈 Shedeur Watch <span style="font-size:9px;font-weight:700;background:#f5a623;color:#000;padding:1px 5px;border-radius:3px;margin-left:auto;">CLE</span></div>
       <div style="padding:10px 14px 4px;">
-        <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">2025 Season · Cleveland Browns</div>
+        <div id="shedeur-season-label" style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Cleveland Browns</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;">
           <div style="text-align:center;background:var(--bg);border:1px solid var(--border-light);border-radius:6px;padding:6px 4px;">
-            <div style="font-size:16px;font-weight:900;color:var(--text);">—</div>
+            <div id="sw-yds" style="font-size:16px;font-weight:900;color:var(--text);">—</div>
             <div style="font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Pass Yds</div>
           </div>
           <div style="text-align:center;background:var(--bg);border:1px solid var(--border-light);border-radius:6px;padding:6px 4px;">
-            <div style="font-size:16px;font-weight:900;color:var(--text);">—</div>
+            <div id="sw-tds" style="font-size:16px;font-weight:900;color:var(--text);">—</div>
             <div style="font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">TDs</div>
           </div>
           <div style="text-align:center;background:var(--bg);border:1px solid var(--border-light);border-radius:6px;padding:6px 4px;">
-            <div style="font-size:16px;font-weight:900;color:var(--text);">—</div>
+            <div id="sw-ints" style="font-size:16px;font-weight:900;color:var(--text);">—</div>
             <div style="font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">INTs</div>
           </div>
         </div>
+        <div id="sw-record" style="font-size:10px;color:var(--text-muted);margin-bottom:6px;display:none;"></div>
         <div id="shedeur-news" style="font-size:11px;color:var(--text-secondary);line-height:1.5;">Loading latest Shedeur news…</div>
-        <a href="https://www.espn.com/nfl/player/_/id/4432577/shedeur-sanders" target="_blank" rel="noopener" style="display:block;margin-top:8px;font-size:10px;font-weight:700;color:var(--primary);text-decoration:none;text-transform:uppercase;letter-spacing:.5px;">Full Profile on ESPN →</a>
+        <a href="https://www.espn.com/nfl/player/_/id/4432762/shedeur-sanders" target="_blank" rel="noopener" style="display:block;margin-top:8px;font-size:10px;font-weight:700;color:var(--primary);text-decoration:none;text-transform:uppercase;letter-spacing:.5px;">Full Profile on ESPN →</a>
       </div>
     </div>
 
@@ -2686,6 +2687,42 @@ activateTab('latest');
   // so it always runs after feeds are populated — no timeout needed
 
   // ── SHEDEUR WATCH ────────────────────────────────────────────────────
+  (async function loadShedeurStats() {
+    try {
+      const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/athletes/4432762/statistics');
+      if (!res.ok) return;
+      const data = await res.json();
+      const cats = data?.splits?.categories || [];
+
+      let yds = '—', tds = '—', ints = '—';
+      for (const cat of cats) {
+        if (cat.name === 'passing') {
+          for (const stat of (cat.stats || [])) {
+            if (stat.name === 'passingYards')      yds  = stat.displayValue ?? '—';
+            if (stat.name === 'passingTouchdowns') tds  = stat.displayValue ?? '—';
+            if (stat.name === 'interceptions')     ints = stat.displayValue ?? '—';
+          }
+          break;
+        }
+      }
+
+      const ydEl  = document.getElementById('sw-yds');
+      const tdEl  = document.getElementById('sw-tds');
+      const intEl = document.getElementById('sw-ints');
+      if (ydEl)  ydEl.textContent  = yds;
+      if (tdEl)  tdEl.textContent  = tds;
+      if (intEl) intEl.textContent = ints;
+
+      // Season label: use athlete's team/season from response if available
+      const team   = data?.athlete?.team?.displayName;
+      const season = data?.season?.displayName;
+      const labelEl = document.getElementById('shedeur-season-label');
+      if (labelEl && (team || season)) {
+        labelEl.textContent = [season, team].filter(Boolean).join(' · ');
+      }
+    } catch(e) {}
+  })();
+
   (async function loadShedeurNews() {
     try {
       const items = await fetchViaProxy('Shedeur Sanders Cleveland Browns NFL 2026');
