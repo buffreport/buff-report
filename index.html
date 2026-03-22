@@ -1211,16 +1211,6 @@ fetch('/breaking-news.json?v=' + Date.now())
         </div>
 
         <!-- Slide 3: Basketball -->
-        <div class="hr-slide" style="background-image: url('https://s3media.247sports.com/Uploads/Assets/335/658/13658335.jpg'); background-color:#111;">
-          <div class="hr-overlay"></div>
-          <div class="hr-content">
-            <span class="hr-pill">🏀 Basketball</span>
-            <h2 class="hr-headline"><a href="https://cubuffs.com/news/2026/3/17/womens-basketball-buffs-earn-ncaa-tournament-bid" target="_blank">CU Women's Basketball Earns NCAA Tournament Bid, Set to Face Illinois</a></h2>
-            <p class="hr-sub">Buffs punch ticket to March Madness. JR Payne's squad heads to the tournament as one of the hottest teams in the Big 12.</p>
-            <div class="hr-meta">Mar 17, 2026 · CUBuffs.com</div>
-          </div>
-        </div>
-
         <!-- Slide 4: Season Opener -->
         <div class="hr-slide" style="background-image: url('https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg'); background-color:#111;">
           <div class="hr-overlay"></div>
@@ -1248,7 +1238,7 @@ fetch('/breaking-news.json?v=' + Date.now())
     </div>
 
     <!-- ══ FOOTBALL ══ -->
-    <div class="tab-section" data-tabs="latest football" data-cycle-feed="live-football" data-cycle-pill="pill-football" data-cycle-label="Football">
+    <div class="tab-section" data-tabs="latest football">
       <div class="section-label gold"><h3>🏈 Football</h3></div>
       <div class="headlines" id="curated-football">
         <div class="hl-card" data-date="2026-03-21">
@@ -1276,7 +1266,7 @@ fetch('/breaking-news.json?v=' + Date.now())
           </div>
         </div>
         <div class="hl-card" data-date="2026-03-17">
-          <div class="hl-card-img" style="background-image:url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80')">
+          <div class="hl-card-img" style="background-image:url('https://www.dailycamera.com/wp-content/uploads/2026/03/Mitchell.jpg?w=600')">
             <span class="hl-card-cat cat-football">Football</span>
           </div>
           <div class="hl-card-body">
@@ -1288,7 +1278,7 @@ fetch('/breaking-news.json?v=' + Date.now())
           </div>
         </div>
         <div class="hl-card" data-date="2026-03-06">
-          <div class="hl-card-img" style="background-image:url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80')">
+          <div class="hl-card-img" style="background-image:url('https://images.sidearmdev.com/resize?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fcubuffs.com%2Fimages%2F2026%2F3%2F6%2FDSC09371.jpg&width=1600&type=jpeg')">
             <span class="hl-card-cat cat-football">Football</span>
           </div>
           <div class="hl-card-body">
@@ -1305,18 +1295,7 @@ fetch('/breaking-news.json?v=' + Date.now())
     <!-- Football extra -->
     <div class="tab-section hidden" data-tabs="football">
       <div class="section-label"><h3>More Football</h3></div>
-      <div class="link-cluster">
-        <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-new-coaching-staff-officially-announced-deion-sanders" target="_blank">12 New Coaches: CU Officially Announces Revamped Staff Under Sanders</a><span class="src">SI</span></div>
-        <div class="link-item"><a href="https://www.dailycamera.com/2026/02/24/cu-buffs-dante-carter-defensive-line-coach/" target="_blank">Dante' Carter promoted to DL coach after Peko leaves for Steelers</a><span class="src">Daily Camera · Feb 24</span></div>
-        <div class="link-item"><a href="https://www.si.com/college/colorado/football/deion-sanders-revamp-colorado-coaching-staff-hire-fire-brennan-marion" target="_blank">Every move Sanders made to revamp coaching staff</a><span class="src">SI</span></div>
-        <div class="link-item"><a href="https://clutchpoints.com/ncaa-football/colorado-football-news-deion-sanders-hires-ex-saints-bengals-safety-assistant-coach" target="_blank">Vonn Bell (ex-Saints, Bengals) joins staff as safeties coach</a><span class="src">Clutch Points</span></div>
-        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/01/colorado-buffs-football-spring-preview/" target="_blank">Overhauled roster, staff: Complete spring preview</a><span class="src">Daily Camera · Mar 1</span></div>
-        <div class="link-item"><a href="https://cubuffs.com/news/2026/2/19/football-at-t-black-gold-day-slated-for-april-11" target="_blank">AT&amp;T Black &amp; Gold Day Spring Game: April 11 - Free Admission</a><span class="src">CUBuffs.com · Feb 19</span></div>
-        <div class="link-item"><a href="https://cubuffs.com/news/2026/3/13/football-buffs-reload-wide-receiver-room-with-speed-and-explosive-talent" target="_blank">Buffs Reload Wide Receiver Room With Speed and Explosive Talent</a><span class="src">CUBuffs.com · Mar 13</span></div>
-        <div class="link-item"><a href="https://www.axios.com/local/boulder/2026/03/02/colorado-football-spring-practice-dominiq-ponder-crash" target="_blank">Dominiq Ponder remembered as spring football begins</a><span class="src">Axios Boulder · Mar 2</span></div>
-        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/13/colorado-buffaloes-football-richard-young/" target="_blank">Buffaloes' Richard Young enjoying fresh start in Boulder</a><span class="src">Daily Camera · Mar 13</span></div>
-        <div class="link-item"><a href="https://www.dailycamera.com/2026/03/08/colorado-buffs-football-danny-scudero-2/" target="_blank">Danny Scudero excited to join Colorado Buffs football</a><span class="src">Daily Camera · Mar 8</span></div>
-      </div>
+      <div id="more-football" class="link-cluster"><div class="link-item" style="color:var(--text-muted);font-size:11px;">Loading…</div></div>
 
       <!-- 2025 Season Schedule -->
       <div class="section-label"><h3>2025 Season Schedule &amp; Results <span style="font-size:11px;font-weight:400;color:var(--text-muted)">· Final: 3-9 (1-8 Big 12)</span></h3></div>
@@ -1993,21 +1972,7 @@ fetch('/breaking-news.json?v=' + Date.now())
 
     <div class="widget">
       <div class="widget-header dark">CU Scoreboard <span class="live-dot" style="margin-left:auto;"></span></div>
-      <div class="score-game">
-        <div class="game-label upcoming">NCAA Tourney: WBB vs Illinois</div>
-        <div class="score-line"><span class="team cu">#10 Colorado</span><span class="pts" style="font-size:12px;color:var(--academic);">TBA</span></div>
-        <div class="score-line"><span class="team">#7 Illinois</span><span class="pts" style="font-size:12px;color:var(--academic);">TBA</span></div>
-      </div>
-      <div class="score-game">
-        <div class="game-label final">Final: LAX vs Stetson</div>
-        <div class="score-line"><span class="team cu">#13 Colorado</span><span class="pts winner">W</span></div>
-        <div class="score-line"><span class="team">Stetson</span><span class="pts">L</span></div>
-      </div>
-      <div class="score-game">
-        <div class="game-label final">Final: MBB Big 12 Tourney</div>
-        <div class="score-line"><span class="team">Oklahoma State</span><span class="pts winner">W</span></div>
-        <div class="score-line"><span class="team cu">Colorado</span><span class="pts">L</span></div>
-      </div>
+      <div id="sidebar-scoreboard"><div class="score-game"><div class="game-label" style="color:var(--text-muted);">Loading scores…</div></div></div>
     </div>
 
     <!-- SHEDEUR WATCH WIDGET -->
@@ -2037,38 +2002,14 @@ fetch('/breaking-news.json?v=' + Date.now())
 
     <div class="widget">
       <div class="widget-header gold">Upcoming</div>
-      <div class="sched-row">
-        <span class="sched-date">MAR</span>
-        <div class="sched-info"><strong>NCAA R1: vs Illinois (WBB)</strong><span>Date/Time TBA</span></div>
-      </div>
-      <div class="sched-row">
-        <span class="sched-date">APR 1</span>
-        <div class="sched-info"><strong>CBC QF: vs Oklahoma (MBB)</strong><span>Las Vegas · TBA</span></div>
-      </div>
-      <div class="sched-row">
-        <span class="sched-date">APR 11</span>
-        <div class="sched-info"><strong>Spring Game (FB)</strong><span>Folsom Field · Free</span></div>
+      <div id="upcoming-schedule">
+        <div class="sched-row"><span style="font-size:11px;color:var(--text-muted);padding:8px 14px;">Loading schedule…</span></div>
       </div>
     </div>
 
     <div class="widget">
       <div class="widget-header" style="color:var(--accent-green);">Recruiting Wire</div>
-      <div class="rec-item">
-        <div class="rec-avatar">XP</div>
-        <div class="rec-info"><div class="name">Xavier Payne</div><div class="stars">★★★</div><div class="detail">OL · Miami, FL (2027)</div><div class="status status-committed">Committed</div></div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-avatar">PA</div>
-        <div class="rec-info"><div class="name">Preston Ashley</div><div class="stars">★★★</div><div class="detail">CB · Brandon, MS (2027)</div><div class="status status-committed">Committed</div></div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-avatar">KE</div>
-        <div class="rec-info"><div class="name">KJ Edwards</div><div class="stars">★★★★</div><div class="detail">RB · Carthage, TX (2027)</div><div class="status status-target">Target</div></div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-avatar">KT</div>
-        <div class="rec-info"><div class="name">Khing Thibodeaux</div><div class="stars">★★★★</div><div class="detail">DL · TX (2028)</div><div class="status status-target">Visit Scheduled</div></div>
-      </div>
+      <div id="recruiting-wire"><div class="rec-item" style="padding:10px 14px;font-size:11px;color:var(--text-muted);">Loading…</div></div>
     </div>
 
     <!-- AD 4: SIDEBAR MID — 300×250 Medium Rectangle, mid-scroll engagement spot -->
@@ -2114,11 +2055,11 @@ fetch('/breaking-news.json?v=' + Date.now())
 
     <div class="widget">
       <div class="widget-header">Trending Now</div>
-      <div class="trend-item"><span class="trend-num">1</span><div><h4>WBB NCAA Tournament: CU vs. Illinois</h4></div></div>
-      <div class="trend-item"><span class="trend-num">2</span><div><h4>JuJu Lewis QB1: spring practice impressions</h4></div></div>
-      <div class="trend-item"><span class="trend-num">3</span><div><h4>Remembering Dominiq Ponder</h4></div></div>
-      <div class="trend-item"><span class="trend-num">4</span><div><h4>59 new players: can this roster gel?</h4></div></div>
-      <div class="trend-item"><span class="trend-num">5</span><div><h4>CU Ski chasing national championship #21</h4></div></div>
+      <div id="trending-now">
+        <div class="trend-item"><span class="trend-num">1</span><div><h4><a href="https://cubuffs.com/news/2026/3/21/womens-basketball-colorado-falls-to-illinois-in-ncaa-first-round-66-57" target="_blank" rel="noopener">Season Over: Colorado Falls to Illinois in NCAA First Round, 66-57</a></h4><div class="tm">CUBuffs.com · Mar 21</div></div></div>
+        <div class="trend-item"><span class="trend-num">2</span><div><h4><a href="https://www.dailycamera.com/2026/03/17/colorado-buffaloes-football-naeten-mitchell/" target="_blank" rel="noopener">Transfer Naeten Mitchell Making Plays in Early Spring Reps</a></h4><div class="tm">Daily Camera · Mar 17</div></div></div>
+        <div class="trend-item"><span class="trend-num">3</span><div><h4><a href="https://denversports.com/ncaa/cu-football/buffs-prime-dc-broncos/2128890" target="_blank" rel="noopener">New DC, New Look: Chris Marve Takes Over as Colorado's Defensive Coordinator</a></h4><div class="tm">Denver Sports · Mar 21</div></div></div>
+      </div>
     </div>
 
 
@@ -2238,19 +2179,32 @@ let _liveRefreshInterval = null;
 async function updateLiveSection() {
   const container = document.getElementById('live-games-container');
   if (!container) return;
+  // Yesterday's date string (YYYYMMDD) to catch games that finished last night
+  const yd = new Date(Date.now() - 864e5).toISOString().slice(0,10).replace(/-/g,'');
   const endpoints = [
+    // Today
     'https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard',
     'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard',
-    'https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=5'
+    'https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=5',
+    'https://site.api.espn.com/apis/site/v2/sports/lacrosse/womens-lacrosse/scoreboard',
+    'https://site.api.espn.com/apis/site/v2/sports/lacrosse/mens-lacrosse/scoreboard',
+    // Yesterday — catches games that finished last night
+    `https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard?dates=${yd}`,
+    `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=${yd}`,
+    `https://site.api.espn.com/apis/site/v2/sports/lacrosse/womens-lacrosse/scoreboard?dates=${yd}`,
+    `https://site.api.espn.com/apis/site/v2/sports/lacrosse/mens-lacrosse/scoreboard?dates=${yd}`,
   ];
   try {
     const results = await Promise.allSettled(
       endpoints.map(url => fetch(url, { signal: AbortSignal.timeout(6000) }).then(r => r.json()))
     );
+    const seenIds = new Set();
     const cuGames = [];
     results.forEach(r => {
       if (r.status !== 'fulfilled' || !r.value?.events) return;
       r.value.events.forEach(event => {
+        if (seenIds.has(event.id)) return;
+        seenIds.add(event.id);
         const comp = event.competitions?.[0];
         const cuTeam = comp?.competitors?.find(c => c.team?.id === CU_TEAM_ID);
         if (cuTeam) cuGames.push({ event, comp, cuTeam });
@@ -2259,7 +2213,9 @@ async function updateLiveSection() {
 
     const live      = cuGames.filter(g => g.comp?.status?.type?.state === 'in');
     const upcoming  = cuGames.filter(g => g.comp?.status?.type?.state === 'pre');
-    const finished  = cuGames.filter(g => g.comp?.status?.type?.state === 'post');
+    const finished  = cuGames
+      .filter(g => g.comp?.status?.type?.state === 'post')
+      .sort((a, b) => new Date(b.event.date) - new Date(a.event.date));
 
     if (live.length) {
       container.innerHTML = live.map(({ event, comp, cuTeam }) => {
@@ -2288,16 +2244,18 @@ async function updateLiveSection() {
         <div style="font-size:10px;color:var(--text-muted);margin-top:8px;">Auto-refreshes every 60s when this tab is active</div>
       </div>`;
     } else if (finished.length) {
-      container.innerHTML = finished.slice(0,2).map(({ event, comp, cuTeam }) => {
+      container.innerHTML = finished.slice(0,3).map(({ event, comp, cuTeam }) => {
         const opp = comp.competitors.find(c => c.team.id !== CU_TEAM_ID);
         const cuPts = cuTeam.score || '0';
         const oppPts = opp?.score || '0';
         const won = parseInt(cuPts) > parseInt(oppPts);
+        const cuRank = cuTeam.curatedRank?.current > 0 && cuTeam.curatedRank.current <= 25 ? `#${cuTeam.curatedRank.current} ` : '';
+        const oppRank = opp?.curatedRank?.current > 0 && opp.curatedRank.current <= 25 ? `#${opp.curatedRank.current} ` : '';
+        const note = comp.notes?.[0]?.headline || event.shortName || '';
         return `<div class="live-game-card" style="border-color:var(--border);">
-          <div class="lgc-status" style="color:var(--text-muted);">FINAL</div>
-          <div class="lgc-teams"><span class="lgc-team cu">Colorado</span><span class="lgc-score" style="font-size:18px;color:${won?'var(--accent-green)':'var(--accent-red)'}">${cuPts}</span></div>
-          <div class="lgc-teams"><span class="lgc-team">${opp?.team?.shortDisplayName||''}</span><span class="lgc-score" style="font-size:18px;">${oppPts}</span></div>
-          <div class="lgc-info">${event.shortName||''}</div>
+          <div class="lgc-status" style="color:var(--text-muted);">FINAL${note ? ' · ' + note : ''}</div>
+          <div class="lgc-teams"><span class="lgc-team cu">${cuRank}Colorado</span><span class="lgc-score" style="font-size:18px;color:${won?'var(--accent-green)':'var(--accent-red)'}">${cuPts}</span></div>
+          <div class="lgc-teams"><span class="lgc-team">${oppRank}${opp?.team?.shortDisplayName||''}</span><span class="lgc-score" style="font-size:18px;color:${!won?'var(--accent-green)':'inherit'}">${oppPts}</span></div>
         </div>`;
       }).join('');
     } else {
@@ -2314,16 +2272,16 @@ updateLiveSection();
 // Populated in loadLiveFeeds on every 15-minute cycle.
 // ── STORY IMAGE FALLBACKS ─────────────────────────────────────────────────
 const _defaultImages = {
-  football:   'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80',
-  basketball: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=80',
-  wbb:        'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=80',
-  recruiting: 'https://images.unsplash.com/photo-1461896836934-bd45ba8aaeb6?w=600&q=80',
-  portal:     'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
-  campus:     'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80',
-  ski:        'https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?w=600&q=80',
-  town:       'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=600&q=80',
-  all:        'https://images.unsplash.com/photo-1461896836934-bd45ba8aaeb6?w=600&q=80',
-  default:    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80'
+  football:   'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg',
+  basketball: 'https://s3media.247sports.com/Uploads/Assets/335/658/13658335.jpg',
+  wbb:        'https://s3media.247sports.com/Uploads/Assets/335/658/13658335.jpg',
+  recruiting: 'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg',
+  portal:     'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg',
+  campus:     'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/CU_boulder_campus.jpg/1280px-CU_boulder_campus.jpg',
+  ski:        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/CU_boulder_campus.jpg/1280px-CU_boulder_campus.jpg',
+  town:       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/CU_boulder_campus.jpg/1280px-CU_boulder_campus.jpg',
+  all:        'https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg',
+  default:    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/CU_boulder_campus.jpg/1280px-CU_boulder_campus.jpg'
 };
 function _getStoryImage(item, category) {
   if (item.thumbnail && item.thumbnail.startsWith('http')) return item.thumbnail;
@@ -2384,6 +2342,149 @@ function refreshCuratedSections() {
 
     if (cards) container.innerHTML = cards;
   });
+  refreshTrending();
+}
+
+// ── FOOTBALL CARD SMART CYCLE ─────────────────────────────────────────────
+// Replaces only the oldest featured card when newer football news arrives.
+function smartCycleFootballCards() {
+  const container = document.getElementById('curated-football');
+  const items = _feedCache.football;
+  if (!container || !items?.length) return;
+
+  const cards = [...container.querySelectorAll('.hl-card[data-date]')];
+  if (!cards.length) return;
+
+  // Collect URLs already displayed so we don't show duplicates
+  const shownUrls = new Set([...container.querySelectorAll('a[href]')].map(a => {
+    try { return new URL(a.href).href; } catch { return a.href; }
+  }));
+
+  // Sort cards oldest → newest
+  cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
+
+  // Find feed items newer than the oldest card and not already shown
+  const oldestDate = new Date(cards[0].dataset.date);
+  const newer = items.filter(item => {
+    if (!item.link || !item.title) return false;
+    try { if (shownUrls.has(new URL(item.link).href)) return false; } catch {}
+    return new Date(item.pubDate || 0) > oldestDate;
+  }).sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0));
+
+  if (!newer.length) return;
+
+  // Replace one oldest card per cycle (prevents flooding on first load)
+  const item = newer[0];
+  const imgUrl  = _getStoryImage(item, 'football');
+  const title   = clean(item.title);
+  const link    = item.link;
+  const src     = getSrc(link, item.author);
+  const pub     = item.pubDate || '';
+  const dateStr = pub ? new Date(pub).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
+  const dateAttr = pub ? new Date(pub).toISOString().slice(0,10) : new Date().toISOString().slice(0,10);
+  cards[0].outerHTML = `<div class="hl-card" data-date="${dateAttr}">
+    <div class="hl-card-img" style="background-image:url('${imgUrl}')">
+      <span class="hl-card-cat cat-football">Football</span>
+    </div>
+    <div class="hl-card-body">
+      <h3><a href="${link}" target="_blank" rel="noopener">${title}</a></h3>
+      <div class="hl-card-footer">
+        <span class="hl-source">${src.name}</span>
+        ${dateStr ? `<span>${dateStr}</span>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── MORE FOOTBALL — fully automated from feed ─────────────────────────────
+function updateMoreFootball() {
+  const container = document.getElementById('more-football');
+  const items = _feedCache.football;
+  if (!container || !items?.length) return;
+
+  // Exclude URLs already in the top 4 featured cards
+  const featured = document.getElementById('curated-football');
+  const featuredUrls = new Set(featured
+    ? [...featured.querySelectorAll('a[href]')].map(a => { try { return new URL(a.href).href; } catch { return a.href; } })
+    : []);
+
+  const seen = new Set();
+  const links = items.filter(item => {
+    if (!item.link || !item.title) return false;
+    try { if (featuredUrls.has(new URL(item.link).href)) return false; } catch {}
+    const k = item.title.substring(0,50).toLowerCase();
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  }).slice(0, 10);
+
+  if (!links.length) return;
+  container.innerHTML = links.map(item => {
+    const title = clean(item.title);
+    const src   = getSrc(item.link, item.author);
+    const ago   = item.pubDate ? timeAgo(item.pubDate) : '';
+    return `<div class="link-item"><a href="${item.link}" target="_blank" rel="noopener">${title}</a><span class="src">${src.name}${ago ? ' · ' + ago : ''}</span></div>`;
+  }).join('');
+}
+
+// ── RECRUITING WIRE — automated from recruiting feed ──────────────────────
+function updateRecruitingWire() {
+  const container = document.getElementById('recruiting-wire');
+  const items = _feedCache.recruiting;
+  if (!container || !items?.length) return;
+
+  const seen = new Set();
+  const top = items.filter(item => {
+    if (!item.link || !item.title) return false;
+    const k = item.title.substring(0,50).toLowerCase();
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  }).slice(0, 5);
+
+  if (!top.length) return;
+  container.innerHTML = top.map(item => {
+    const title = clean(item.title);
+    const src   = getSrc(item.link, item.author);
+    const ago   = item.pubDate ? timeAgo(item.pubDate) : '';
+    const initials = title.split(' ').slice(0,2).map(w => w[0] || '').join('').toUpperCase();
+    return `<div class="rec-item">
+      <div class="rec-avatar" style="font-size:10px;">${initials}</div>
+      <div class="rec-info">
+        <div class="name"><a href="${item.link}" target="_blank" rel="noopener">${title}</a></div>
+        <div class="detail">${src.name}${ago ? ' · ' + ago : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── TRENDING NOW — always reflects freshest headlines across all feeds ─────
+function refreshTrending() {
+  const container = document.getElementById('trending-now');
+  if (!container) return;
+  const seen = new Set();
+  const all = [];
+  Object.values(_feedCache).forEach(items => {
+    (items || []).forEach(item => {
+      const key = (item.title || '').substring(0, 60).toLowerCase();
+      if (seen.has(key) || !item.title || !item.link) return;
+      seen.add(key);
+      all.push(item);
+    });
+  });
+  all.sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0));
+  if (all.length < 3) return; // keep static fallbacks until enough content loads
+  container.innerHTML = all.slice(0, 5).map((item, i) => {
+    const title = clean(item.title);
+    const src   = getSrc(item.link || '', item.author);
+    const ago   = item.pubDate ? timeAgo(item.pubDate) : '';
+    return `<div class="trend-item">
+      <span class="trend-num">${i + 1}</span>
+      <div><h4><a href="${item.link}" target="_blank" rel="noopener">${title}</a></h4>
+      ${src.name || ago ? `<div class="tm">${src.name}${ago ? ' · ' + ago : ''}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ── PAGE-WIDE URL DEDUPLICATION ───────────────────────────────────────────
@@ -2456,7 +2557,7 @@ function clean(s) {
 }
 
 // Cloudflare Worker proxy — no CORS issues, no rate limits, no API key
-const PROXY = 'https://buff-report.kerstiensrrk.workers.dev';
+const PROXY = 'https://buff-report-proxy.kerstiensrrk.workers.dev';
 
 async function fetchViaProxy(query, count = 15) {
   const url = `${PROXY}?q=${encodeURIComponent(query)}&count=${count}`;
@@ -2591,6 +2692,9 @@ async function loadLiveFeeds(sections = ['football','basketball','recruiting','c
 
   // Replace curated hl-cards with live feed content on every cycle
   refreshCuratedSections();
+  smartCycleFootballCards();
+  updateMoreFootball();
+  updateRecruitingWire();
 }
 
 // ── INTERSECTION OBSERVER LAZY LOADING ───────────────────────────────────
@@ -2633,6 +2737,169 @@ function loadPaidAd(slotId, imageUrl, linkUrl, altText) {
            style="width:100%; height:100%; object-fit:cover; display:block;">
     </a>`;
 }
+
+// ── SIDEBAR SCOREBOARD — ESPN scoreboard API (today + yesterday) ──────────
+async function loadSidebarScoreboard() {
+  const container = document.getElementById('sidebar-scoreboard');
+  if (!container) return;
+  const yd = new Date(Date.now() - 864e5).toISOString().slice(0,10).replace(/-/g,'');
+  const TEAM = '38';
+  const sportEndpoints = [
+    { urls: [
+        'https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard',
+        `https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard?dates=${yd}`
+      ], label: 'WBB' },
+    { urls: [
+        'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard',
+        `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=${yd}`
+      ], label: 'MBB' },
+    { urls: [
+        'https://site.api.espn.com/apis/site/v2/sports/lacrosse/womens-lacrosse/scoreboard',
+        `https://site.api.espn.com/apis/site/v2/sports/lacrosse/womens-lacrosse/scoreboard?dates=${yd}`
+      ], label: 'LAX' },
+    { urls: [
+        'https://site.api.espn.com/apis/site/v2/sports/lacrosse/mens-lacrosse/scoreboard',
+        `https://site.api.espn.com/apis/site/v2/sports/lacrosse/mens-lacrosse/scoreboard?dates=${yd}`
+      ], label: 'MLAX' },
+  ];
+  try {
+    const allFetches = sportEndpoints.flatMap(s => s.urls.map(url => ({ url, label: s.label })));
+    const results = await Promise.allSettled(
+      allFetches.map(({ url }) => fetch(url, { signal: AbortSignal.timeout(6000) }).then(r => r.json()))
+    );
+    const seenIds = new Set();
+    const cuGames = [];
+    results.forEach((r, i) => {
+      if (r.status !== 'fulfilled' || !r.value?.events) return;
+      const label = allFetches[i].label;
+      r.value.events.forEach(event => {
+        if (seenIds.has(event.id)) return;
+        seenIds.add(event.id);
+        const comp = event.competitions?.[0];
+        const cuTeam = comp?.competitors?.find(c => c.team?.id === TEAM);
+        if (!cuTeam) return;
+        cuGames.push({ event, comp, cuTeam, label });
+      });
+    });
+    // Sort: live first, then upcoming (soonest), then finished (most recent)
+    const stateOrder = { in: 0, pre: 1, post: 2 };
+    cuGames.sort((a, b) => {
+      const sa = stateOrder[a.comp?.status?.type?.state] ?? 3;
+      const sb = stateOrder[b.comp?.status?.type?.state] ?? 3;
+      if (sa !== sb) return sa - sb;
+      if (sa === 1) return new Date(a.event.date) - new Date(b.event.date); // upcoming: soonest first
+      return new Date(b.event.date) - new Date(a.event.date); // finished: most recent first
+    });
+    const display = cuGames.slice(0, 4);
+    if (!display.length) {
+      container.innerHTML = '<div class="score-game"><div class="game-label" style="color:var(--text-muted);">No recent CU games</div></div>';
+      return;
+    }
+    container.innerHTML = display.map(({ event, comp, cuTeam, label }) => {
+      const opp = comp.competitors.find(c => c.team.id !== TEAM);
+      const state = comp.status?.type?.state;
+      const oppName = opp?.team?.shortDisplayName || opp?.team?.displayName || 'TBD';
+      const cuRank  = cuTeam.curatedRank?.current > 0 && cuTeam.curatedRank.current <= 25 ? `#${cuTeam.curatedRank.current} ` : '';
+      const oppRank = opp?.curatedRank?.current > 0 && opp.curatedRank.current <= 25 ? `#${opp.curatedRank.current} ` : '';
+      const note    = comp.notes?.[0]?.headline || '';
+      const gameLabel = note ? note + ' · ' + label : label;
+      if (state === 'in') {
+        const desc = comp.status?.type?.description || 'Live';
+        const cuPts = cuTeam.score || '0';
+        const oppPts = opp?.score || '0';
+        const cuWin = parseInt(cuPts) >= parseInt(oppPts);
+        return `<div class="score-game">
+          <div class="game-label" style="color:var(--accent-red);">🔴 LIVE · ${desc} · ${gameLabel}</div>
+          <div class="score-line"><span class="team cu">${cuRank}Colorado</span><span class="pts" style="color:${cuWin?'var(--accent-green)':'var(--accent-red)'}">${cuPts}</span></div>
+          <div class="score-line"><span class="team">${oppRank}${oppName}</span><span class="pts">${oppPts}</span></div>
+        </div>`;
+      } else if (state === 'pre') {
+        const detail = comp.status?.type?.shortDetail || 'TBA';
+        const cuSide = cuTeam.homeAway === 'home' ? 'vs' : 'at';
+        return `<div class="score-game">
+          <div class="game-label upcoming">${gameLabel}</div>
+          <div class="score-line"><span class="team cu">${cuRank}Colorado</span><span class="pts" style="font-size:11px;color:var(--academic);">${cuSide}</span></div>
+          <div class="score-line"><span class="team">${oppRank}${oppName}</span><span class="pts" style="font-size:11px;color:var(--text-muted);">${detail}</span></div>
+        </div>`;
+      } else {
+        const cuPts  = cuTeam.score || '0';
+        const oppPts = opp?.score || '0';
+        const cuWon  = parseInt(cuPts) > parseInt(oppPts);
+        return `<div class="score-game">
+          <div class="game-label final">Final · ${gameLabel}</div>
+          <div class="score-line"><span class="team cu">${cuRank}Colorado</span><span class="pts${cuWon?' winner':''}">${cuPts}</span></div>
+          <div class="score-line"><span class="team">${oppRank}${oppName}</span><span class="pts${!cuWon?' winner':''}">${oppPts}</span></div>
+        </div>`;
+      }
+    }).join('');
+  } catch(e) {
+    container.innerHTML = '<div class="score-game"><div class="game-label" style="color:var(--text-muted);">Scores unavailable</div></div>';
+  }
+}
+loadSidebarScoreboard();
+setInterval(loadSidebarScoreboard, 60 * 1000);
+
+// ── UPCOMING SCHEDULE — ESPN team schedule API ────────────────────────────
+async function loadUpcomingGames() {
+  const container = document.getElementById('upcoming-schedule');
+  if (!container) return;
+  const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const sports = [
+    { url: 'https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/teams/38/schedule', label: 'WBB' },
+    { url: 'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/38/schedule',   label: 'MBB' },
+    { url: 'https://site.api.espn.com/apis/site/v2/sports/football/college-football/teams/38/schedule',            label: 'FB'  },
+  ];
+  try {
+    const results = await Promise.allSettled(
+      sports.map(s => fetch(s.url, { signal: AbortSignal.timeout(6000) }).then(r => r.json()).then(d => ({ d, label: s.label })))
+    );
+    const now = Date.now();
+    const upcoming = [];
+    results.forEach(r => {
+      if (r.status !== 'fulfilled') return;
+      const { d, label } = r.value;
+      (d.events || []).forEach(event => {
+        const comp  = event.competitions?.[0];
+        if (comp?.status?.type?.state !== 'pre') return;
+        const gameDate = new Date(event.date);
+        if (gameDate < now) return;
+        const cuSide  = comp.competitors?.find(c => c.team?.id === '38');
+        const opp     = comp.competitors?.find(c => c.team?.id !== '38');
+        const isHome  = cuSide?.homeAway === 'home';
+        upcoming.push({ gameDate, label, opp, comp, isHome });
+      });
+    });
+    upcoming.sort((a, b) => a.gameDate - b.gameDate);
+    const next = upcoming.slice(0, 5);
+    if (!next.length) { container.innerHTML = '<div class="sched-row"><span style="font-size:11px;color:var(--text-muted);padding:8px 14px;">No upcoming games found</span></div>'; return; }
+    container.innerHTML = next.map(({ gameDate, label, opp, comp, isHome }) => {
+      const mon     = MONTHS[gameDate.getMonth()];
+      const day     = gameDate.getDate();
+      const dateStr = `${mon}${day > 1 ? ' ' + day : ''}`;
+      const oppName = opp?.team?.shortDisplayName || opp?.team?.displayName || 'TBD';
+      const vs      = isHome ? 'vs' : 'at';
+      const detail  = comp.status?.type?.shortDetail || 'TBA';
+      const venue   = comp.venue?.fullName || '';
+      const bc      = comp.broadcasts?.[0]?.names?.[0] || '';
+      const sub     = [venue, bc].filter(Boolean).join(' · ') || detail;
+      return `<div class="sched-row">
+        <span class="sched-date">${dateStr}</span>
+        <div class="sched-info"><strong>${vs} ${oppName} (${label})</strong><span>${sub}</span></div>
+      </div>`;
+    }).join('');
+  } catch(e) {}
+}
+loadUpcomingGames();
+setInterval(loadUpcomingGames, 15 * 60 * 1000);
+
+// ── FULL-CARD CLICK: clicking anywhere on .hl-card opens article ─────────
+document.addEventListener('click', function(e) {
+  const card = e.target.closest('.hl-card');
+  if (!card) return;
+  if (e.target.closest('a')) return; // let native link handle it
+  const link = card.querySelector('a[href]');
+  if (link) window.open(link.href, '_blank', 'noopener');
+});
 
 activateTab('latest');
 </script>
