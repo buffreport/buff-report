@@ -218,9 +218,8 @@
   }
   /* Hero + top ad share row 1 — same gap (24px) on all sides */
   .main-wrap > .hero-row   { grid-column: 1; grid-row: 1; }
-  .main-wrap > .ad-sidebar-top { grid-column: 2; grid-row: 1; }
   .main-wrap > main        { grid-column: 1; grid-row: 2; }
-  .main-wrap > .sidebar    { grid-column: 2; grid-row: 2; }
+  .main-wrap > .sidebar    { grid-column: 2; grid-row: 1 / span 2; }
 
   /* HERO */
   .hero {
@@ -455,6 +454,7 @@
     height: 300px; /* fallback until JS runs */
     min-height: 0;
     flex: none;
+    margin-bottom: 24px;
   }
   .ad-sidebar.ad-sidebar-top > a {
     position: absolute; inset: 0;
@@ -700,7 +700,6 @@
   @media (max-width: 900px) {
     .main-wrap { grid-template-columns: 1fr; }
     .sidebar { display: none; }
-    .main-wrap > .ad-sidebar-top { display: none; }
     .main-wrap > .hero-row { grid-column: 1; grid-row: 1; padding-bottom: 20px; }
     .main-wrap > main { grid-column: 1; grid-row: 2; }
     .hero h2 { font-size: 26px; }
@@ -743,7 +742,6 @@
     .main-wrap { padding: 12px 12px; gap: 16px; }
     .main-wrap { grid-template-columns: 1fr; }
     .sidebar { display: none; }
-    .main-wrap > .ad-sidebar-top { display: none; }
 
     /* Hero */
     .hero { padding: 20px 16px; border-radius: 8px; }
@@ -1761,19 +1759,19 @@
 
   </main>
 
-  <!-- AD 3: SIDEBAR TOP (row 1, col 2 — direct grid child, matches hero height automatically) -->
-  <div class="ad-slot ad-sidebar ad-sidebar-top" style="border-radius:0; border:none; background:none; padding:0;">
-    <a href="https://tallowlskincare.com" target="_blank">
-      <picture>
-        <source srcset="Tallow.webp" type="image/webp">
-        <img src="Tallow.png" alt="Tallow Vanilla Orange Whipped Tallow" loading="lazy">
-      </picture>
-    </a>
-    <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px; z-index:2;">AD</div>
-  </div>
-
   <!-- ══ SIDEBAR ══ -->
   <aside class="sidebar">
+
+    <!-- AD 3: SIDEBAR TOP (matches hero height on Latest tab via JS ResizeObserver) -->
+    <div class="ad-slot ad-sidebar ad-sidebar-top" style="border-radius:0; border:none; background:none; padding:0;">
+      <a href="https://tallowlskincare.com" target="_blank">
+        <picture>
+          <source srcset="Tallow.webp" type="image/webp">
+          <img src="Tallow.png" alt="Tallow Vanilla Orange Whipped Tallow" loading="lazy">
+        </picture>
+      </a>
+      <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px; z-index:2;">AD</div>
+    </div>
 
     <div class="widget">
       <div class="widget-header dark">CU Scoreboard <span class="live-dot" style="margin-left:auto;"></span></div>
@@ -1973,6 +1971,7 @@ function activateTab(tabName) {
     const tabs = (section.dataset.tabs || '').split(' ');
     section.classList.toggle('hidden', !tabs.includes(tabName));
   });
+  if (window._syncAdToHero) window._syncAdToHero();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -2450,17 +2449,23 @@ activateTab('latest');
   setTimeout(cycleOldestArticles, 4000);
 
   // ── SYNC AD HEIGHT TO HERO ──────────────────────────────────────────
-  // Sets the top sidebar ad to exactly match the hero height.
-  // ResizeObserver re-fires whenever fonts load or content reflows.
+  // On Latest tab: sizes the top sidebar ad to match the hero height.
+  // On other tabs: lets the ad use its natural CSS fallback height (300px).
   (function() {
     function syncAdToHero() {
-      var hero = document.querySelector('.hero-rotator');
-      var ad   = document.querySelector('.ad-sidebar-top');
+      var hero    = document.querySelector('.hero-rotator');
+      var heroRow = document.querySelector('.hero-row');
+      var ad      = document.querySelector('.ad-sidebar-top');
       if (!hero || !ad) return;
       if (window.innerWidth <= 900) { ad.style.height = ''; return; }
+      if (heroRow && heroRow.classList.contains('hidden')) {
+        ad.style.height = '300px';
+        return;
+      }
       var h = hero.getBoundingClientRect().height;
       if (h > 0) ad.style.height = h + 'px';
     }
+    window._syncAdToHero = syncAdToHero;
     syncAdToHero();
     window.addEventListener('load', syncAdToHero);
     window.addEventListener('resize', syncAdToHero);
