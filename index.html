@@ -278,11 +278,18 @@
     padding: 14px 16px;
     display: flex; align-items: flex-start; gap: 12px;
     transition: all 0.15s; cursor: pointer;
+    position: relative;
   }
   .hl-card:hover {
     border-color: var(--primary);
     box-shadow: var(--shadow-sm);
     transform: translateY(-1px);
+  }
+  /* Full-card click: the headline link covers the entire card */
+  .hl-card h4 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
   }
   .hl-card .accent-dot {
     width: 8px; height: 8px;
@@ -765,6 +772,155 @@
     .footer-links a { padding: 0 6px; font-size: 9px; }
 
   }
+
+  /* ── DARK MODE ─────────────────────────────────────────────────────── */
+  [data-theme="dark"] {
+    --bg: #0D0D0D; --bg-card: #1A1A1A; --text: #F0F0EC;
+    --text-secondary: #AAAAAA; --text-muted: #666666;
+    --border: #2A2A2A; --border-light: #222222;
+    --link: #F0F0EC; --link-hover: #E0BA51;
+  }
+  [data-theme="dark"] body         { background: #0D0D0D; color: #F0F0EC; }
+  [data-theme="dark"] header,
+  [data-theme="dark"] #main-nav,
+  [data-theme="dark"] .status-bar-wrap { background: #111 !important; border-color: #2A2A2A !important; }
+  [data-theme="dark"] .nav-bar     { background: #111; border-color: #2A2A2A; }
+  [data-theme="dark"] .hl-card     { background: #1A1A1A; }
+  [data-theme="dark"] .hl-card:hover { background: #222; }
+  [data-theme="dark"] .widget      { background: #1A1A1A; border-color: #2A2A2A; }
+  [data-theme="dark"] .widget-header { border-color: #2A2A2A; }
+  [data-theme="dark"] .logo-text h1 { color: #F0F0EC; }
+  [data-theme="dark"] .logo-dateline { border-color: #2A2A2A; color: #666; }
+  [data-theme="dark"] .section-label::after { background: #2A2A2A; }
+  [data-theme="dark"] .link-item   { border-color: #2A2A2A; }
+  [data-theme="dark"] .score-game  { border-color: #2A2A2A; }
+  [data-theme="dark"] .dark-toggle { border-color: #2A2A2A; color: #aaa; }
+  [data-theme="dark"] .dark-toggle:hover { border-color: #E0BA51; color: #E0BA51; }
+
+  /* ── DARK TOGGLE BUTTON ───────────────────────────────────────────── */
+  .dark-toggle {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 9999px;
+    padding: 6px 13px;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1;
+    transition: border-color 0.15s, color 0.15s;
+    color: var(--text-muted);
+    display: flex; align-items: center; gap: 5px;
+    font-family: var(--font-body, 'Merriweather Sans', sans-serif);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  .dark-toggle:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* ── STICKY NAV ───────────────────────────────────────────────────── */
+  #main-nav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    transition: box-shadow 0.2s;
+  }
+  #main-nav.scrolled { box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+  #main-nav .nav-bar { overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  #main-nav .nav-bar::-webkit-scrollbar { display: none; }
+
+  /* ── HERO ROTATOR ─────────────────────────────────────────────────── */
+  .hero-rotator {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: #111;
+  }
+  .hero-slides { position: relative; width: 100%; height: 100%; min-height: 280px; }
+  .hr-slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 28px 32px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    background-size: cover; background-position: center;
+  }
+  .hr-slide.active { opacity: 1; }
+  .hr-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+    pointer-events: none;
+  }
+  .hr-content { position: relative; z-index: 2; }
+  .hr-pill {
+    display: inline-block;
+    background: var(--primary); color: #000;
+    font-size: 9px; font-weight: 800; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .hr-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px; font-weight: 900; color: white;
+    line-height: 1.2; margin-bottom: 8px; letter-spacing: -0.3px;
+  }
+  .hr-headline a { color: white; }
+  .hr-headline a:hover { color: var(--primary); }
+  .hr-sub { font-size: 13px; color: rgba(255,255,255,0.75); max-width: 520px; line-height: 1.5; margin-bottom: 4px; }
+  .hr-meta { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 8px; }
+  .hr-dots {
+    position: absolute; bottom: 14px; right: 20px;
+    display: flex; gap: 6px; z-index: 3;
+  }
+  .hr-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.35); cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .hr-dot.active { background: var(--primary); transform: scale(1.35); }
+  @media (max-width: 640px) {
+    .hero-rotator, .hero-slides { min-height: 200px; }
+    .hr-headline { font-size: 18px; }
+    .hr-slide { padding: 16px 18px; }
+    .hr-sub { display: none; }
+  }
+
+  /* ── FLOATING SUBSCRIBE BUTTON ────────────────────────────────────── */
+  .float-sub {
+    position: fixed; bottom: 24px; right: 24px; z-index: 500;
+    background: #000; color: var(--primary);
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size: 12px; font-weight: 800; letter-spacing: 0.3px;
+    padding: 13px 20px; border-radius: 9999px; border: none;
+    cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: float-in 0.5s ease 4s both;
+    white-space: nowrap;
+  }
+  .float-sub:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
+  @keyframes float-in { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  @media (max-width: 480px) { .float-sub { bottom: 16px; right: 16px; } }
+
+  /* ── SOCIAL PROOF ─────────────────────────────────────────────────── */
+  .social-proof {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    background: rgba(224,186,81,0.07);
+    border-radius: 8px; border: 1px solid rgba(224,186,81,0.2);
+    margin-top: 10px;
+  }
+  .sp-avatars { display: flex; }
+  .sp-av {
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 2px solid var(--bg-card);
+    margin-left: -7px; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 800;
+  }
+  .sp-av:first-child { margin-left: 0; }
+  .sp-text { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+  .sp-text strong { color: var(--text); }
+  .sp-stars { color: var(--primary); font-size: 10px; margin-left: 2px; }
+
 </style>
 
 <!-- ── JSON-LD STRUCTURED DATA ─────────────────────────────────────────── -->
@@ -856,9 +1012,9 @@
 </div>
 
 <!-- HEADER -->
-<header style="background:white; border-bottom: 1px solid var(--border);">
+<header style="background:white; border-bottom: 3px solid var(--primary);">
   <div class="site-header">
-        <a href="https://buffreport.com" class="logo" style="text-decoration:none; color:inherit;">
+    <a href="https://buffreport.com" class="logo" style="text-decoration:none; color:inherit;">
       <div class="logo-mark" style="background:none; padding:0; overflow:hidden;">
         <picture>
           <source srcset="Gold.webp" type="image/webp">
@@ -871,21 +1027,24 @@
       </div>
       <div class="logo-dateline" id="dateline">Wednesday, March 18, 2026<br>1:19 PM MT</div>
     </a>
+    <div class="header-right">
+      <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode">🌙 Dark</button>
+      <button class="btn-sub" onclick="openNewsletter('')">Subscribe Free →</button>
+    </div>
   </div>
 </header>
 
 <!-- NAV -->
-<nav style="background:white;">
+<nav id="main-nav" style="background:white;">
   <div class="nav-bar">
     <a class="nav-link active" data-tab="latest">Latest</a>
     <a class="nav-link" data-tab="football">Football</a>
-    <a class="nav-link" data-tab="town">Around Town</a>
     <a class="nav-link" data-tab="basketball">Basketball</a>
     <a class="nav-link" data-tab="recruiting">Recruiting</a>
     <a class="nav-link" data-tab="portal">Portal/NIL</a>
     <a class="nav-link" data-tab="campus">Campus</a>
+    <a class="nav-link" data-tab="town">Around Town</a>
     <a class="nav-link" data-tab="podcasts">Podcasts</a>
-    <a class="nav-link" data-tab="amelia">Amelia</a>
     <a class="nav-link live" data-tab="live">Live</a>
   </div>
 </nav>
@@ -907,13 +1066,57 @@
 <!-- MAIN -->
 <div class="main-wrap">
 
-  <!-- ══ HERO ══ (row 1, col 1 — direct grid child so it matches ad height) -->
+  <!-- ══ HERO ROTATOR ══ (row 1, col 1) -->
   <div class="hero-row tab-section" data-tabs="latest">
-    <div class="hero" style="height:100%; box-sizing:border-box;">
-      <span class="tag">🏆 Campus Recognition</span>
-      <h2><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">CU Boulder Named 3rd Most Beautiful College Campus in America</a></h2>
-      <p>Travel + Leisure ranks the University of Colorado Boulder among the nation's most stunning campuses, citing the iconic Flatirons backdrop, historic sandstone architecture, and unmatched mountain setting as defining features.</p>
-      <div class="meta">March 5, 2026 · <a href="https://www.travelandleisure.com" target="_blank" style="color:rgba(255,255,255,0.6)">Travel + Leisure</a></div>
+    <div class="hero-rotator" style="height:100%; box-sizing:border-box;">
+      <div class="hero-slides">
+
+        <!-- Slide 1: Football -->
+        <div class="hr-slide active" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1209 60%, #0a0a0a 100%);">
+          <div class="hr-overlay"></div>
+          <div class="hr-content">
+            <span class="hr-pill">🏈 Football</span>
+            <h2 class="hr-headline"><a href="https://denversports.com/ncaa/cu-football/buffs-prime-dc-broncos/2128890" target="_blank">New DC, New Look: Chris Marve Takes Over as Colorado's Defensive Coordinator</a></h2>
+            <p class="hr-sub">Marve promoted after Robert Livingston left for the Denver Broncos. First full spring in charge of an overhauled defensive unit.</p>
+            <div class="hr-meta">Mar 21, 2026 · Denver Sports</div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Campus -->
+        <div class="hr-slide" style="background: linear-gradient(135deg, #070c1a 0%, #0a1628 60%, #070c1a 100%);">
+          <div class="hr-overlay"></div>
+          <div class="hr-content">
+            <span class="hr-pill">🏆 Campus</span>
+            <h2 class="hr-headline"><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">CU Boulder Named 3rd Most Beautiful College Campus in America</a></h2>
+            <p class="hr-sub">Travel + Leisure cites the Flatirons backdrop, historic sandstone architecture, and unmatched mountain setting as defining features.</p>
+            <div class="hr-meta">Mar 5, 2026 · Travel + Leisure</div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Basketball -->
+        <div class="hr-slide" style="background: linear-gradient(135deg, #0d0505 0%, #1a0a0a 60%, #0d0505 100%);">
+          <div class="hr-overlay"></div>
+          <div class="hr-content">
+            <span class="hr-pill">🏀 Basketball</span>
+            <h2 class="hr-headline"><a href="https://cubuffs.com/news/2026/3/17/womens-basketball-buffs-earn-ncaa-tournament-bid" target="_blank">CU Women's Basketball Earns NCAA Tournament Bid, Set to Face Illinois</a></h2>
+            <p class="hr-sub">Buffs punch ticket to March Madness. JR Payne's squad heads to the tournament as one of the hottest teams in the Big 12.</p>
+            <div class="hr-meta">Mar 17, 2026 · CUBuffs.com</div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Season Opener -->
+        <div class="hr-slide" style="background: linear-gradient(135deg, #0a0a0a 0%, #111 60%, #0a0a0a 100%);">
+          <div class="hr-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(224,186,81,0.08) 60%, transparent 100%);"></div>
+          <div class="hr-content">
+            <span class="hr-pill">📺 Football</span>
+            <h2 class="hr-headline"><a href="https://denversports.com/ncaa/cu-football/buffs-gt-moved-up-2026/2128716" target="_blank">Season Opener vs. Georgia Tech Moved to Prime Time National TV</a></h2>
+            <p class="hr-sub">CU's Sept. 5 opener shifted to prime time. Buffs seek revenge after last year's 27–20 home loss in Boulder.</p>
+            <div class="hr-meta">Mar 21, 2026 · Denver Sports</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="hr-dots" id="hr-dots"></div>
     </div>
   </div>
 
@@ -921,7 +1124,7 @@
 
     <!-- ══ FOOTBALL ══ -->
     <div class="tab-section" data-tabs="latest football" data-cycle-feed="live-football" data-cycle-pill="pill-football" data-cycle-label="Football">
-      <div class="section-label gold"><h3>Football</h3></div>
+      <div class="section-label gold"><h3>🏈 Football</h3></div>
       <div class="headlines" id="curated-football">
         <div class="hl-card" data-date="2026-03-21">
           <span class="accent-dot dot-football"></span>
@@ -1027,7 +1230,7 @@
 
     <!-- ══ MEN'S BASKETBALL ══ -->
     <div class="tab-section" data-tabs="latest basketball" data-cycle-feed="live-basketball" data-cycle-pill="pill-basketball" data-cycle-label="Basketball">
-      <div class="section-label"><h3>Men's Basketball</h3></div>
+      <div class="section-label"><h3>🏀 Men's Basketball</h3></div>
       <div class="headlines" id="curated-basketball">
         <div class="hl-card" data-date="2026-03-16">
           <span class="accent-dot dot-basketball"></span>
@@ -1066,7 +1269,7 @@
 
     <!-- ══ WBB ══ -->
     <div class="tab-section" data-tabs="latest basketball" data-cycle-feed="live-basketball" data-cycle-pill="pill-wbb" data-cycle-label="WBB">
-      <div class="section-label"><h3>Women's Basketball</h3></div>
+      <div class="section-label"><h3>🏀 Women's Basketball</h3></div>
       <div class="headlines" id="curated-wbb">
         <div class="hl-card" data-date="2026-03-21">
           <span class="accent-dot dot-wbb"></span>
@@ -1176,7 +1379,7 @@
 
     <!-- ══ RECRUITING ══ -->
     <div class="tab-section" data-tabs="latest recruiting">
-      <div class="section-label"><h3>Recruiting</h3></div>
+      <div class="section-label"><h3>🎯 Recruiting</h3></div>
       <div class="headlines">
         <div class="hl-card">
           <span class="accent-dot dot-recruiting"></span>
@@ -1237,7 +1440,7 @@
 
     <!-- ══ PORTAL / NIL ══ -->
     <div class="tab-section" data-tabs="latest portal">
-      <div class="section-label"><h3>Transfer Portal / NIL</h3></div>
+      <div class="section-label"><h3>🔄 Transfer Portal / NIL</h3></div>
       <div class="link-cluster">
         <div class="link-item"><a href="https://247sports.com/college/colorado/season/2026-football/transferportal/" target="_blank">COMPLETE: CU Transfer Portal Tracker - 40+ In, 36 Out</a><span class="src">247Sports</span></div>
         <div class="link-item"><a href="https://www.si.com/college/colorado/football/colorado-buffaloes-deion-sanders-updated-transfer-portal-rankings" target="_blank">Portal rankings updated: No. 21 transfer class nationally</a><span class="src">Sports Illustrated</span></div>
@@ -1293,7 +1496,7 @@
 
     <!-- Campus extra -->
     <div class="tab-section hidden" data-tabs="campus">
-      <div class="section-label academic"><h3>More Campus &amp; Research</h3></div>
+      <div class="section-label academic"><h3>🎓 More Campus &amp; Research</h3></div>
       <div class="headlines">
         <div class="hl-card">
           <span class="accent-dot dot-campus"></span>
@@ -1374,7 +1577,7 @@
       </div>
 
       <!-- Live Boulder News Feed -->
-      <div class="section-label" style="margin-top:16px;"><h3>Latest Boulder News</h3></div>
+      <div class="section-label" style="margin-top:16px;"><h3>🏔️ Latest Boulder News</h3></div>
       <div id="live-town" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading Boulder news…</div></div></div>
       </div>
@@ -1383,7 +1586,7 @@
 
     <!-- ══ PODCASTS ══ -->
     <div class="tab-section hidden" data-tabs="podcasts" data-lazy-section="podcasts">
-      <div class="section-label purple"><h3>CU Buffs Podcasts</h3></div>
+      <div class="section-label purple"><h3>🎙️ CU Buffs Podcasts</h3></div>
 
       <div class="podcast-card">
         <div class="podcast-icon" style="background:linear-gradient(135deg,#1a1a1a,#333);color:#E0BA51;">DN</div>
@@ -1526,7 +1729,7 @@
       </div>
 
       <!-- Live web feed for Live tab -->
-      <div class="section-label" style="margin-top:16px;"><h3>Breaking Now: from the Web</h3></div>
+      <div class="section-label" style="margin-top:16px;"><h3>🔴 Breaking Now: from the Web</h3></div>
       <div id="live-all" class="live-feed-container">
         <div class="hl-card" style="opacity:.5"><div class="hl-body"><div class="hl-sub">Loading latest headlines…</div></div></div>
       </div>
@@ -1638,6 +1841,21 @@
       <div class="otf-item"><a href="https://thednvr.com/buffs/podcast/" target="_blank">DNVR: Spring Practice Day 3 Recap</a><div class="otf-src">DNVR Buffs · Today</div></div>
       <div class="otf-item"><a href="https://podcasts.apple.com/us/podcast/locked-on-buffs-daily-podcast-on-colorado-football/id1641365043" target="_blank">Locked On: Rebuilt Coaching Staff Breakdown</a><div class="otf-src">Locked On Buffs · Yesterday</div></div>
       <div class="otf-item"><a href="https://buffstampede.podbean.com/" target="_blank">BuffStampede: Portal Report Card</a><div class="otf-src">BuffStampede · 3 days ago</div></div>
+    </div>
+
+    <!-- SUBSCRIBE WIDGET -->
+    <div class="widget" style="padding:16px;">
+      <div style="font-family:'Playfair Display',serif; font-size:16px; font-weight:900; color:var(--text); margin-bottom:4px;">Start Your Day Buff.</div>
+      <p style="font-size:12px; color:var(--text-secondary); margin-bottom:12px; line-height:1.5;">Free daily email. CU athletics + campus + Boulder. 60 seconds to read.</p>
+      <button onclick="openNewsletter('')" style="width:100%; padding:11px; border-radius:8px; background:var(--primary); color:#000; font-size:13px; font-weight:800; font-family:'Merriweather Sans',sans-serif; border:none; cursor:pointer; letter-spacing:0.3px; transition:background 0.15s;">Get My Free Daily Buff →</button>
+      <div class="social-proof">
+        <div class="sp-avatars">
+          <div class="sp-av" style="background:#E0BA51;color:#000;">R</div>
+          <div class="sp-av" style="background:#2563EB;color:#fff;">M</div>
+          <div class="sp-av" style="background:#111;color:#E0BA51;">K</div>
+        </div>
+        <div class="sp-text"><strong>5,200+ Buffs</strong> read this daily <span class="sp-stars">★★★★★</span></div>
+      </div>
     </div>
 
     <div class="widget">
@@ -2223,7 +2441,7 @@ activateTab('latest');
   // ResizeObserver re-fires whenever fonts load or content reflows.
   (function() {
     function syncAdToHero() {
-      var hero = document.querySelector('.hero');
+      var hero = document.querySelector('.hero-rotator');
       var ad   = document.querySelector('.ad-sidebar-top');
       if (!hero || !ad) return;
       if (window.innerWidth <= 900) { ad.style.height = ''; return; }
@@ -2235,11 +2453,90 @@ activateTab('latest');
     window.addEventListener('resize', syncAdToHero);
     if (window.ResizeObserver) {
       new ResizeObserver(syncAdToHero).observe(
-        document.querySelector('.hero') || document.body
+        document.querySelector('.hero-rotator') || document.body
       );
     }
   })();
 
+</script>
+
+<!-- FLOATING SUBSCRIBE BUTTON -->
+<button class="float-sub" id="float-sub" onclick="openNewsletter('')" aria-label="Subscribe to The Daily Buff">
+  📬 Daily Buff — Free
+</button>
+
+<script>
+// ── DARK MODE TOGGLE ──────────────────────────────────────────────────────
+(function() {
+  const toggle = document.getElementById('dark-toggle');
+  const root   = document.documentElement;
+  const saved  = localStorage.getItem('br-theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  root.setAttribute('data-theme', saved);
+  if (toggle) toggle.innerHTML = saved === 'dark' ? '☀️ Light' : '🌙 Dark';
+
+  if (toggle) toggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('br-theme', next);
+    toggle.innerHTML = next === 'dark' ? '☀️ Light' : '🌙 Dark';
+  });
+})();
+
+// ── STICKY NAV SHADOW ─────────────────────────────────────────────────────
+(function() {
+  const nav = document.getElementById('main-nav');
+  if (!nav) return;
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+})();
+
+// ── HERO ROTATOR ──────────────────────────────────────────────────────────
+(function() {
+  const slides = document.querySelectorAll('.hr-slide');
+  const dotsEl = document.getElementById('hr-dots');
+  if (!slides.length || !dotsEl) return;
+
+  let current = 0, timer;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'hr-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => { goTo(i); resetTimer(); });
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('active');
+  }
+
+  function resetTimer() { clearInterval(timer); timer = setInterval(() => goTo(current + 1), 6000); }
+
+  const rotator = document.querySelector('.hero-rotator');
+  if (rotator) {
+    rotator.addEventListener('mouseenter', () => clearInterval(timer));
+    rotator.addEventListener('mouseleave', resetTimer);
+  }
+
+  // Hide float button briefly after subscribe widget appears in view
+  const floatBtn = document.getElementById('float-sub');
+  if (floatBtn && 'IntersectionObserver' in window) {
+    const subWidget = document.querySelector('.social-proof');
+    if (subWidget) {
+      new IntersectionObserver(entries => {
+        floatBtn.style.opacity = entries[0].isIntersecting ? '0' : '1';
+        floatBtn.style.pointerEvents = entries[0].isIntersecting ? 'none' : 'auto';
+      }, { threshold: 0.5 }).observe(subWidget);
+    }
+  }
+
+  resetTimer();
+})();
 </script>
 </body>
 </html>
