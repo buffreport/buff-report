@@ -1388,7 +1388,7 @@ fetch('/breaking-news.json?v=' + Date.now())
     </div>
 
     <!-- ══ WBB ══ -->
-    <div class="tab-section" data-tabs="latest basketball" data-cycle-feed="live-basketball" data-cycle-pill="pill-wbb" data-cycle-label="WBB">
+    <div class="tab-section" data-tabs="latest basketball" data-cycle-feed="live-wbb" data-cycle-pill="pill-wbb" data-cycle-label="WBB">
       <div class="section-label"><h3>🏀 Women's Basketball</h3></div>
       <div class="headlines" id="curated-wbb">
         <div class="hl-card" data-date="2026-03-22">
@@ -2324,16 +2324,13 @@ function refreshCuratedSections() {
         const pub   = item.pubDate || '';
         const src   = getSrc(link, item.author);
         const date  = pub ? new Date(pub).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
-        const imgUrl = _getStoryImage(item, feedKey);
-        const catClass = 'cat-' + feedKey;
         return `<div class="hl-card" data-date="${today}">
-          <div class="hl-card-img" style="background-image:url('${imgUrl}')">
-            <span class="hl-card-cat ${catClass}">${label}</span>
-          </div>
-          <div class="hl-card-body">
-            <h3><a href="${link}" target="_blank" rel="noopener">${title}</a></h3>
-            <div class="hl-card-footer">
-              <span class="hl-source">${src.name}</span>
+          <span class="accent-dot dot-${feedKey}"></span>
+          <div class="hl-body">
+            <h4><a href="${link}" target="_blank" rel="noopener">${title}</a></h4>
+            <div class="hl-meta">
+              <span class="sport-pill pill-${feedKey}">${label}</span>
+              <span>${src.name}</span>
               ${date ? `<span>${date}</span>` : ''}
             </div>
           </div>
@@ -2652,14 +2649,16 @@ const _lazyLoaded = {};
 async function loadLiveFeeds(sections = ['football','basketball','recruiting','campus','all']) {
   const loads = {};
 
-  if (sections.includes('football'))    loads.fb        = fetchViaProxy('Colorado Buffs football Deion Sanders 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:bleacherreport.com OR site:skobuffssports.com OR site:milehighsports.com');
-  if (sections.includes('basketball'))  loads.bb        = fetchViaProxy('Colorado Buffs basketball 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:bleacherreport.com OR site:skobuffssports.com');
-  if (sections.includes('recruiting'))  loads.rec       = fetchViaProxy('Colorado Buffs recruiting transfer portal NIL 2026 2027 site:247sports.com OR site:on3.com OR site:si.com OR site:sportingnews.com');
+  if (sections.includes('football'))    loads.fb        = fetchViaProxy('"Colorado Buffs" OR "CU Buffaloes" football Deion Sanders 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com OR site:milehighsports.com');
+  if (sections.includes('basketball'))  loads.bb        = fetchViaProxy('"Colorado Buffaloes" men\'s basketball Tad Boyle 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com OR site:milehighsports.com');
+  if (sections.includes('basketball'))  loads.wbb       = fetchViaProxy('"Colorado Buffaloes" women\'s basketball "JR Payne" 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com');
+  if (sections.includes('wbb'))         loads.wbb       = fetchViaProxy('"Colorado Buffaloes" women\'s basketball "JR Payne" 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com');
+  if (sections.includes('recruiting'))  loads.rec       = fetchViaProxy('"Colorado Buffs" OR "CU Buffaloes" recruiting transfer portal NIL 2026 2027 site:247sports.com OR site:on3.com OR site:si.com OR site:sportingnews.com');
   if (sections.includes('campus'))      loads.camp      = fetchRSS('https://www.colorado.edu/today/rss.xml');
-  if (sections.includes('campus'))      loads.lifestyle = fetchViaProxy('"CU Boulder" OR "University of Colorado Boulder" campus research ranking innovation site:cpr.org OR site:kunc.org OR site:cuindependent.com OR site:colorado.edu');
-  if (sections.includes('all'))         loads.all       = fetchViaProxy('"CU Boulder" OR "Colorado Buffs" news 2026 site:ralphiereport.com OR site:espn.com OR site:247sports.com OR site:dailycamera.com OR site:on3.com OR site:milehighsports.com');
-  if (sections.includes('town'))        loads.town      = fetchViaProxy('Boulder Colorado local news 2026 site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com OR site:9news.com');
-  if (sections.includes('ski'))         loads.ski       = fetchViaProxy('CU Colorado Buffs skiing NCAA ski championships 2026 site:cubuffs.com OR site:espn.com OR site:dailycamera.com OR site:freeskier.com OR site:skimag.com OR site:powder.com');
+  if (sections.includes('campus'))      loads.lifestyle = fetchViaProxy('"CU Boulder" OR "University of Colorado" campus research ranking Boulder 2026 site:cpr.org OR site:kunc.org OR site:cuindependent.com OR site:colorado.edu');
+  if (sections.includes('all'))         loads.all       = fetchViaProxy('"Colorado Buffs" OR "CU Buffaloes" OR "Colorado Buffaloes" Big 12 sports 2026 site:ralphiereport.com OR site:espn.com OR site:247sports.com OR site:dailycamera.com OR site:on3.com OR site:milehighsports.com');
+  if (sections.includes('town'))        loads.town      = fetchViaProxy('Boulder Colorado local news community 2026 site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com OR site:9news.com');
+  if (sections.includes('ski'))         loads.ski       = fetchViaProxy('"Colorado Buffs" OR "CU" skiing NCAA ski championships alpine nordic 2026 site:cubuffs.com OR site:espn.com OR site:dailycamera.com OR site:freeskier.com OR site:skimag.com OR site:powder.com');
 
   const results = {};
   await Promise.all(Object.entries(loads).map(async ([k,p]) => { results[k] = await p; }));
@@ -2680,8 +2679,9 @@ async function loadLiveFeeds(sections = ['football','basketball','recruiting','c
   // Populate feed cache so refreshCuratedSections() can use fresh data
   if (results.fb)            _feedCache.football    = results.fb;
   if (results.bb)            _feedCache.basketball  = results.bb;
+  if (results.wbb)           _feedCache.wbb         = results.wbb;
   if (results.rec)           _feedCache.recruiting  = results.rec;
-  if (results.rec)           _feedCache.portal      = results.rec;  // portal reuses recruiting feed
+  if (results.rec)           _feedCache.portal      = results.rec;
   if (mergedCampus.length)   _feedCache.campus      = mergedCampus;
   if (results.all)           _feedCache.all         = results.all;
   if (results.town)          _feedCache.town        = results.town;
@@ -2699,8 +2699,8 @@ async function loadLiveFeeds(sections = ['football','basketball','recruiting','c
 
 // ── INTERSECTION OBSERVER LAZY LOADING ───────────────────────────────────
 // Load core feeds immediately on page load
-loadLiveFeeds(['football','basketball','recruiting','campus','all','ski','town']);
-setInterval(() => loadLiveFeeds(['football','basketball','recruiting','campus','all','ski','town']), 15 * 60 * 1000);
+loadLiveFeeds(['football','basketball','wbb','recruiting','campus','all','ski','town']);
+setInterval(() => loadLiveFeeds(['football','basketball','wbb','recruiting','campus','all','ski','town']), 15 * 60 * 1000);
 
 // Lazy-load Around Town, Podcasts, and Live sections when scrolled into view
 if ('IntersectionObserver' in window) {
