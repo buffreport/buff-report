@@ -2221,26 +2221,20 @@ activateTab('latest');
   // Sets the top sidebar ad to exactly match the hero height.
   // ResizeObserver re-fires whenever fonts load or content reflows.
   (function() {
-    var lastHeroH = 0;
     function syncAdToHero() {
-      var heroRow = document.querySelector('.hero-row');
-      var ad      = document.querySelector('.ad-sidebar-top');
-      if (!heroRow || !ad) return;
+      var hero = document.querySelector('.hero');
+      var ad   = document.querySelector('.ad-sidebar-top');
+      if (!hero || !ad) return;
       if (window.innerWidth <= 900) { ad.style.height = ''; return; }
-      var h = heroRow.getBoundingClientRect().height;
-      if (h > 0 && h !== lastHeroH) {
-        lastHeroH = h;
-        ad.style.height = h + 'px';
-      }
+      var h = hero.getBoundingClientRect().height;
+      if (h > 0) ad.style.height = h + 'px';
     }
-    // Fire immediately (DOM ready), after full load, and on resize
     syncAdToHero();
     window.addEventListener('load', syncAdToHero);
     window.addEventListener('resize', syncAdToHero);
-    // Re-fire whenever the hero row changes size (fonts, reflow, etc.)
     if (window.ResizeObserver) {
       new ResizeObserver(syncAdToHero).observe(
-        document.querySelector('.hero-row') || document.body
+        document.querySelector('.hero') || document.body
       );
     }
   })();
