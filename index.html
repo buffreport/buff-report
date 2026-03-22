@@ -306,6 +306,7 @@
   .dot-lacrosse { background: #E11D48; }
   .dot-podcast { background: #6366F1; }
   .dot-wbb { background: #D946EF; }
+  .dot-town { background: #2d8a4e; }
 
   .hl-card .hl-body { flex: 1; }
   .hl-card h4 { font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 3px; }
@@ -329,6 +330,7 @@
   .pill-campus { background: #EFF6FF; color: var(--academic); }
   .pill-lacrosse { background: #FFF1F2; color: #E11D48; }
   .pill-podcast { background: #EEF2FF; color: #6366F1; }
+  .pill-town { background: #e8f5e9; color: #2d8a4e; }
   .pill-live { background: #FEF2F2; color: var(--accent-red); }
 
   /* LINK CLUSTER (dense Drudge-style) */
@@ -1393,31 +1395,31 @@
     </div>
 
     <!-- ══ RECRUITING ══ -->
-    <div class="tab-section" data-tabs="latest recruiting">
+    <div class="tab-section" data-tabs="latest recruiting" data-cycle-feed="live-recruiting" data-cycle-pill="pill-recruiting" data-cycle-label="Recruiting">
       <div class="section-label"><h3>🎯 Recruiting</h3></div>
-      <div class="headlines">
-        <div class="hl-card">
+      <div class="headlines" id="curated-recruiting">
+        <div class="hl-card" data-date="2026-02-01">
           <span class="accent-dot dot-recruiting"></span>
           <div class="hl-body">
             <h4><a href="https://247sports.com/college/colorado/season/2026-football/commits/" target="_blank">2027 Class Building: 13 Commits and Counting for CU Football</a></h4>
             <div class="hl-sub">Xavier Payne (OL, Miami), Preston Ashley (CB, Brandon MS), Maurice Williams Jr. (CB, NOLA), Domata Peko Jr. (Edge), Gavin Mueller (TE) among commits.</div>
-            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>247Sports</span><span>Updated</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>247Sports</span><span>Feb 1</span></div>
           </div>
         </div>
-        <div class="hl-card">
+        <div class="hl-card" data-date="2026-02-15">
           <span class="accent-dot dot-recruiting"></span>
           <div class="hl-body">
             <h4><a href="https://www.si.com/college/colorado/football/where-colorado-recruiting-class-ranks-nationally-new-commitments-big-12-xavier-mcdonald" target="_blank">Where CU's Recruiting Class Ranks Nationally After Latest Commitments</a></h4>
             <div class="hl-sub">Sanders building momentum in Big 12 recruiting wars. Class trending upward.</div>
-            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>Sports Illustrated</span><span>Recent</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>Sports Illustrated</span><span>Feb 15</span></div>
           </div>
         </div>
-        <div class="hl-card">
+        <div class="hl-card" data-date="2026-02-20">
           <span class="accent-dot dot-recruiting"></span>
           <div class="hl-body">
             <h4><a href="https://www.si.com/college/colorado/recruiting" target="_blank">4-Star RB KJ Edwards (Texas) Among Top 2027 Targets</a></h4>
             <div class="hl-sub">Also targeting 4-star WR Jase Mathews (Mississippi). Sanders casting wide net for next cycle.</div>
-            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>Sports Illustrated</span><span>Recent</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>Sports Illustrated</span><span>Feb 20</span></div>
           </div>
         </div>
       </div>
@@ -1468,13 +1470,13 @@
     </div>
 
     <!-- ══ CAMPUS / ACADEMICS ══ -->
-    <div class="tab-section" data-tabs="latest campus">
+    <div class="tab-section" data-tabs="latest campus" data-cycle-feed="live-campus" data-cycle-pill="pill-campus" data-cycle-label="Campus">
       <div class="campus-banner">
         <h3>Off the Field: Campus &amp; Academics</h3>
         <span>Research · Rankings · Innovation · Student Life</span>
       </div>
-      <div class="headlines">
-        <div class="hl-card" style="border-left: 3px solid #E0BA51; background: #fffdf5;">
+      <div class="headlines" id="curated-campus">
+        <div class="hl-card" data-date="2026-03-05" style="border-left: 3px solid #E0BA51; background: #fffdf5;">
           <span class="accent-dot dot-campus"></span>
           <div class="hl-body">
             <h4><a href="https://www.travelandleisure.com/most-beautiful-college-campus-in-usa-11910559" target="_blank">🏆 CU Boulder Named 3rd Most Beautiful College Campus in America</a></h4>
@@ -1482,15 +1484,15 @@
             <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>Travel + Leisure</span><span>Mar 5</span></div>
           </div>
         </div>
-        <div class="hl-card">
+        <div class="hl-card" data-date="2026-02-20">
           <span class="accent-dot dot-campus"></span>
           <div class="hl-body">
             <h4><a href="https://connections.cu.edu/stories/innovation-real-time-2026-cu-ie-awards-spotlight-smart-solutions" target="_blank">CU Ranks No. 2 in Nation for Startups Launched in a Single Year</a></h4>
             <div class="hl-sub">Mana Battery, Flari Tech, Mesa Quantum among breakout ventures. I&amp;E Awards spotlight smart solutions.</div>
-            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Connections</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Connections</span><span>Feb 20</span></div>
           </div>
         </div>
-        <div class="hl-card">
+        <div class="hl-card" data-date="2026-03-09">
           <span class="accent-dot dot-campus"></span>
           <div class="hl-body">
             <h4><a href="https://www.cpr.org/2026/03/09/cu-ai-rollout/" target="_blank">CU Faculty, Staff and Students Push Back Against University-Controlled AI Rollout</a></h4>
@@ -1498,7 +1500,7 @@
             <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>Colorado Public Radio</span><span>Mar 9</span></div>
           </div>
         </div>
-        <div class="hl-card">
+        <div class="hl-card" data-date="2026-03-11">
           <span class="accent-dot dot-campus"></span>
           <div class="hl-body">
             <h4><a href="https://www.colorado.edu/today/2026/03/11/3-takeaways-second-nature-higher-education-climate-leadership-summit" target="_blank">3 Takeaways from the Higher Education Climate Leadership Summit</a></h4>
@@ -1543,50 +1545,50 @@
     </div>
 
     <!-- ══ AROUND TOWN ══ -->
-    <div class="tab-section hidden" data-tabs="town" data-lazy-section="town">
+    <div class="tab-section hidden" data-tabs="town" data-lazy-section="town" data-cycle-feed="live-town" data-cycle-pill="pill-town" data-cycle-label="Town">
       <div class="campus-banner" style="background:linear-gradient(135deg,#2d4a2d,#1a3a1a);">
         <h3>Around Town: Boulder City</h3>
         <span>Restaurants · Bars · Development · Local News</span>
       </div>
-      <div class="headlines">
-        <div class="hl-card">
-          <span class="accent-dot" style="background:#2d8a4e;"></span>
+      <div class="headlines" id="curated-town">
+        <div class="hl-card" data-date="2026-03-12">
+          <span class="accent-dot dot-town"></span>
           <div class="hl-body">
             <h4><a href="https://www.denverpost.com/2026/03/12/last-call-at-the-dark-horse-boulders-world-famous-dive-bar-and-burger-joint/" target="_blank">Last Call at the Dark Horse: Boulder's 'World Famous' Dive Bar Closes After 51 Years</a></h4>
             <div class="hl-sub">The beloved dive bar and burger joint on University Ave shut its doors for good. Developers plan a mixed-use project with student housing on the site.</div>
-            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">Bars & Breweries</span><span>Denver Post</span><span>Mar 12</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-town">Bars & Breweries</span><span>Denver Post</span><span>Mar 12</span></div>
           </div>
         </div>
-        <div class="hl-card">
-          <span class="accent-dot" style="background:#2d8a4e;"></span>
+        <div class="hl-card" data-date="2026-03-12">
+          <span class="accent-dot dot-town"></span>
           <div class="hl-body">
             <h4><a href="https://www.9news.com/article/money/business/dark-horse-restaurant-boulder-closes/73-77506872-af71-4bf7-bc0d-df0c527377a4" target="_blank">Dark Horse Closure Sparks Conversation About Boulder's Changing Food Scene</a></h4>
             <div class="hl-sub">As one of Boulder's oldest spots shuts down, locals reflect on the rapid transformation of the city's restaurant and bar landscape amid rising rents and new development.</div>
-            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">Food & Drink</span><span>9News</span><span>Mar 12</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-town">Food & Drink</span><span>9News</span><span>Mar 12</span></div>
           </div>
         </div>
-        <div class="hl-card">
-          <span class="accent-dot" style="background:#2d8a4e;"></span>
+        <div class="hl-card" data-date="2026-03-09">
+          <span class="accent-dot dot-town"></span>
           <div class="hl-body">
             <h4><a href="https://www.dailycamera.com/2026/03/09/boulder-county-affordable-housing-tax/" target="_blank">Boulder County's Affordable Housing Tax Funds 572 Units in Year One</a></h4>
             <div class="hl-sub">The first year of the new county housing tax supported new construction and rehabilitation, helping hundreds of residents stay housed in one of Colorado's priciest markets.</div>
-            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">City News</span><span>Daily Camera</span><span>Mar 9</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-town">City News</span><span>Daily Camera</span><span>Mar 9</span></div>
           </div>
         </div>
-        <div class="hl-card">
-          <span class="accent-dot" style="background:#2d8a4e;"></span>
+        <div class="hl-card" data-date="2026-03-07">
+          <span class="accent-dot dot-town"></span>
           <div class="hl-body">
             <h4><a href="https://www.dailycamera.com/2026/03/07/boulder-city-council-affordable-housing/" target="_blank">Boulder City Council Debates Affordable Housing Funding Strategies</a></h4>
             <div class="hl-sub">Council members weigh new approaches as demand for income-restricted units continues to outpace supply across the city and surrounding neighborhoods.</div>
-            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">City News</span><span>Daily Camera</span><span>Mar 7</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-town">City News</span><span>Daily Camera</span><span>Mar 7</span></div>
           </div>
         </div>
-        <div class="hl-card">
-          <span class="accent-dot" style="background:#2d8a4e;"></span>
+        <div class="hl-card" data-date="2026-03-06">
+          <span class="accent-dot dot-town"></span>
           <div class="hl-body">
             <h4><a href="https://www.dailycamera.com/2026/03/06/boulder-creek-neighborhoods-launches-peacock-court/" target="_blank">New Peacock Court Development Breaks Ground Near East Boulder Rec Center</a></h4>
             <div class="hl-sub">Boulder Creek Neighborhoods launches a 15-home community off 55th Street, mixing deed-restricted affordable homes with market-rate cottages and single-family residences.</div>
-            <div class="hl-meta"><span class="sport-pill" style="background:#e8f5e9;color:#2d8a4e;">Development</span><span>Daily Camera</span><span>Mar 6</span></div>
+            <div class="hl-meta"><span class="sport-pill pill-town">Development</span><span>Daily Camera</span><span>Mar 6</span></div>
           </div>
         </div>
       </div>
@@ -2176,6 +2178,9 @@ async function loadLiveFeeds(sections = ['football','basketball','recruiting','c
 
   document.getElementById('refreshTime').textContent =
     new Date().toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', second:'2-digit' });
+
+  // Cycle oldest articles now that feeds are populated
+  if (typeof cycleOldestArticles === 'function') cycleOldestArticles();
 }
 
 // ── INTERSECTION OBSERVER LAZY LOADING ───────────────────────────────────
@@ -2450,8 +2455,8 @@ activateTab('latest');
     });
   }
 
-  // Run 4 seconds after page load — gives live feeds time to populate
-  setTimeout(cycleOldestArticles, 4000);
+  // cycleOldestArticles is now called at the end of loadLiveFeeds()
+  // so it always runs after feeds are populated — no timeout needed
 
   // ── SYNC AD HEIGHT TO HERO ──────────────────────────────────────────
   // On Latest tab: sizes the top sidebar ad to match the hero height.
