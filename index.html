@@ -3169,7 +3169,7 @@ activateTab('latest');
 
     // Try NFL stats first (will 404 until he plays regular season games)
     try {
-      const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/athletes/4432762/statistics');
+      const res = await fetch('https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/4432762/statistics/0');
       if (res.ok) {
         const data = await res.json();
         const cats = data?.splits?.categories || [];
@@ -3183,9 +3183,7 @@ activateTab('latest');
             break;
           }
         }
-        const team   = data?.athlete?.team?.displayName;
-        const season = data?.season?.displayName;
-        if (team || season) label = [season, team].filter(Boolean).join(' · ');
+        label = 'Cleveland Browns';
       }
     } catch(e) {}
 
