@@ -782,9 +782,11 @@
     .main-wrap > main { grid-column: 1; grid-row: 2; }
     .main-wrap > .sidebar { grid-column: 1; grid-row: 3; }
     .main-wrap.hero-hidden > .sidebar { grid-row: 2; }
-    /* Convert tall portrait sidebar ads to full-width banners */
-    .ad-sidebar, .ad-sidebar.ad-sidebar-top { height: 200px; min-height: 200px; }
-    .ad-sidebar.ad-sidebar-top img { object-position: center top; }
+    /* Sidebar ads: full-width, natural aspect ratio, full image visible */
+    .ad-sidebar, .ad-sidebar.ad-sidebar-top {
+      height: auto; min-height: unset; aspect-ratio: 4/3; background: #fff;
+    }
+    .ad-sidebar img, .ad-sidebar.ad-sidebar-top img { object-fit: contain; }
     .hero h2 { font-size: 26px; }
     .breaking-bar { font-size: 11px; flex-wrap: wrap; text-align: center; }
     .site-footer { flex-direction: column; gap: 12px; text-align: center; }
@@ -824,8 +826,8 @@
     /* Main content */
     .main-wrap { padding: 12px 12px; gap: 16px; }
     .main-wrap { grid-template-columns: 1fr; }
-    /* Sidebar ads: compact banner height on phone */
-    .ad-sidebar, .ad-sidebar.ad-sidebar-top { height: 160px; min-height: 160px; }
+    /* Sidebar ads: phone — slightly tighter aspect ratio */
+    .ad-sidebar, .ad-sidebar.ad-sidebar-top { aspect-ratio: 3/2; }
 
     /* Hero */
     .hero { padding: 20px 16px; border-radius: 8px; }
