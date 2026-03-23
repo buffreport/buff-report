@@ -2766,95 +2766,135 @@ function loadPaidAd(slotId, imageUrl, linkUrl, altText) {
     </a>`;
 }
 
-// ── SIDEBAR SCOREBOARD — ESPN scoreboard API (today + yesterday) ──────────
+// ── SIDEBAR SCOREBOARD — 7-day window: past results + upcoming games ──────
 async function loadSidebarScoreboard() {
   const container = document.getElementById('sidebar-scoreboard');
   if (!container) return;
-  const yd = new Date(Date.now() - 864e5).toISOString().slice(0,10).replace(/-/g,'');
   const TEAM = '38';
-  const sportEndpoints = [
-    { urls: [
-        'https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard',
-        `https://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard?dates=${yd}`
-      ], label: 'WBB' },
-    { urls: [
-        'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard',
-        `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=${yd}`
-      ], label: 'MBB' },
-    { urls: [
-        'https://site.api.espn.com/apis/site/v2/sports/lacrosse/womens-lacrosse/scoreboard',
-        `https://site.api.espn.com/apis/site/v2/sports/lacrosse/womens-lacrosse/scoreboard?dates=${yd}`
-      ], label: 'LAX' },
-    { urls: [
-        'https://site.api.espn.com/apis/site/v2/sports/lacrosse/mens-lacrosse/scoreboard',
-        `https://site.api.espn.com/apis/site/v2/sports/lacrosse/mens-lacrosse/scoreboard?dates=${yd}`
-      ], label: 'MLAX' },
+  const now = Date.now();
+  const weekAgo   = new Date(now - 7 * 864e5);
+  const weekAhead = new Date(now + 7 * 864e5);
+
+  // Generate date strings for past 7 days through next 7 days
+  const dateStrings = [];
+  for (let i = -7; i <= 7; i++) {
+    const d = new Date(now + i * 864e5);
+    dateStrings.push(d.toISOString().slice(0,10).replace(/-/g,''));
+  }
+
+  const sports = [
+    { sport: 'basketball', league: 'womens-college-basketball', label: 'WBB' },
+    { sport: 'basketball', league: 'mens-college-basketball',   label: 'MBB' },
+    { sport: 'lacrosse',   league: 'womens-lacrosse',           label: 'WLAX' },
+    { sport: 'lacrosse',   league: 'mens-lacrosse',             label: 'MLAX' },
   ];
+
   try {
-    const allFetches = sportEndpoints.flatMap(s => s.urls.map(url => ({ url, label: s.label })));
-    const results = await Promise.allSettled(
-      allFetches.map(({ url }) => fetch(url, { signal: AbortSignal.timeout(6000) }).then(r => r.json()))
+    // Try team schedule API first (single request per sport, returns full season)
+    const scheduleResults = await Promise.allSettled(
+      sports.map(s =>
+        fetch(`https://site.api.espn.com/apis/site/v2/sports/${s.sport}/${s.league}/teams/${TEAM}/schedule`,
+          { signal: AbortSignal.timeout(6000) }).then(r => r.json())
+      )
     );
+
+    // For sports with no schedule data, fall back to individual scoreboard dates
+    const scoreboardFetches = [];
+    sports.forEach((s, si) => {
+      const res = scheduleResults[si];
+      if (!res?.value?.events?.length) {
+        dateStrings.forEach(date => {
+          scoreboardFetches.push({
+            label: s.label,
+            promise: fetch(`https://site.api.espn.com/apis/site/v2/sports/${s.sport}/${s.league}/scoreboard?dates=${date}`,
+              { signal: AbortSignal.timeout(5000) }).then(r => r.json()).catch(() => null)
+          });
+        });
+      }
+    });
+    const sbResults = await Promise.allSettled(scoreboardFetches.map(f => f.promise));
+
+    // Collect all CU games
     const seenIds = new Set();
     const cuGames = [];
-    results.forEach((r, i) => {
-      if (r.status !== 'fulfilled' || !r.value?.events) return;
-      const label = allFetches[i].label;
-      r.value.events.forEach(event => {
-        if (seenIds.has(event.id)) return;
-        seenIds.add(event.id);
-        const comp = event.competitions?.[0];
-        const cuTeam = comp?.competitors?.find(c => c.team?.id === TEAM);
-        if (!cuTeam) return;
-        cuGames.push({ event, comp, cuTeam, label });
-      });
+
+    const addEvent = (event, label) => {
+      if (seenIds.has(event.id)) return;
+      const comp = event.competitions?.[0];
+      const cuTeam = comp?.competitors?.find(c => c.team?.id === TEAM);
+      if (!cuTeam) return;
+      const eventDate = new Date(event.date);
+      const state = comp.status?.type?.state;
+      if (state === 'post' && eventDate < weekAgo)   return; // older than 7 days
+      if (state === 'pre'  && eventDate > weekAhead) return; // more than 7 days out
+      seenIds.add(event.id);
+      cuGames.push({ event, comp, cuTeam, label });
+    };
+
+    // Add from schedule API results
+    scheduleResults.forEach((res, si) => {
+      if (res.status !== 'fulfilled' || !res.value?.events?.length) return;
+      res.value.events.forEach(e => addEvent(e, sports[si].label));
     });
-    // Sort: live first, then upcoming (soonest), then finished (most recent)
+
+    // Add from scoreboard fallback results
+    sbResults.forEach((res, i) => {
+      if (res.status !== 'fulfilled' || !res.value?.events) return;
+      res.value.events.forEach(e => addEvent(e, scoreboardFetches[i].label));
+    });
+
+    // Sort: live → upcoming soonest → finished most recent
     const stateOrder = { in: 0, pre: 1, post: 2 };
     cuGames.sort((a, b) => {
       const sa = stateOrder[a.comp?.status?.type?.state] ?? 3;
       const sb = stateOrder[b.comp?.status?.type?.state] ?? 3;
       if (sa !== sb) return sa - sb;
-      if (sa === 1) return new Date(a.event.date) - new Date(b.event.date); // upcoming: soonest first
-      return new Date(b.event.date) - new Date(a.event.date); // finished: most recent first
+      if (sa === 1) return new Date(a.event.date) - new Date(b.event.date);
+      return new Date(b.event.date) - new Date(a.event.date);
     });
-    const display = cuGames.slice(0, 4);
+
+    const display = cuGames.slice(0, 6);
     if (!display.length) {
       container.innerHTML = '<div class="score-game"><div class="game-label" style="color:var(--text-muted);">No recent CU games</div></div>';
       return;
     }
+
+    const scoreVal = v => typeof v === 'object' ? (v?.displayValue ?? '0') : (v ?? '0');
+
     container.innerHTML = display.map(({ event, comp, cuTeam, label }) => {
-      const opp = comp.competitors.find(c => c.team.id !== TEAM);
-      const state = comp.status?.type?.state;
-      const oppName = opp?.team?.shortDisplayName || opp?.team?.displayName || 'TBD';
-      const cuRank  = cuTeam.curatedRank?.current > 0 && cuTeam.curatedRank.current <= 25 ? `#${cuTeam.curatedRank.current} ` : '';
-      const oppRank = opp?.curatedRank?.current > 0 && opp.curatedRank.current <= 25 ? `#${opp.curatedRank.current} ` : '';
-      const note    = comp.notes?.[0]?.headline || '';
-      const gameLabel = note ? note + ' · ' + label : label;
+      const opp      = comp.competitors.find(c => c.team.id !== TEAM);
+      const state    = comp.status?.type?.state;
+      const oppName  = opp?.team?.shortDisplayName || opp?.team?.displayName || 'TBD';
+      const cuRank   = cuTeam.curatedRank?.current > 0 && cuTeam.curatedRank.current <= 25 ? `#${cuTeam.curatedRank.current} ` : '';
+      const oppRank  = opp?.curatedRank?.current > 0 && opp.curatedRank.current <= 25 ? `#${opp.curatedRank.current} ` : '';
+      const note     = comp.notes?.[0]?.headline || '';
+      const gameLabel = note ? `${note} · ${label}` : label;
+      const gameDate = new Date(event.date);
+      const dateStr  = gameDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
       if (state === 'in') {
-        const desc = comp.status?.type?.description || 'Live';
-        const cuPts = cuTeam.score || '0';
-        const oppPts = opp?.score || '0';
-        const cuWin = parseInt(cuPts) >= parseInt(oppPts);
+        const desc   = comp.status?.type?.description || 'Live';
+        const cuPts  = scoreVal(cuTeam.score);
+        const oppPts = scoreVal(opp?.score);
+        const cuWin  = parseInt(cuPts) >= parseInt(oppPts);
         return `<div class="score-game">
           <div class="game-label" style="color:var(--accent-red);">🔴 LIVE · ${desc} · ${gameLabel}</div>
           <div class="score-line"><span class="team cu">${cuRank}Colorado</span><span class="pts" style="color:${cuWin?'var(--accent-green)':'var(--accent-red)'}">${cuPts}</span></div>
           <div class="score-line"><span class="team">${oppRank}${oppName}</span><span class="pts">${oppPts}</span></div>
         </div>`;
       } else if (state === 'pre') {
-        const detail = comp.status?.type?.shortDetail || 'TBA';
         const cuSide = cuTeam.homeAway === 'home' ? 'vs' : 'at';
         return `<div class="score-game">
           <div class="game-label upcoming">${gameLabel}</div>
           <div class="score-line"><span class="team cu">${cuRank}Colorado</span><span class="pts" style="font-size:11px;color:var(--academic);">${cuSide}</span></div>
-          <div class="score-line"><span class="team">${oppRank}${oppName}</span><span class="pts" style="font-size:11px;color:var(--text-muted);">${detail}</span></div>
+          <div class="score-line"><span class="team">${oppRank}${oppName}</span><span class="pts" style="font-size:11px;color:var(--text-muted);">${dateStr} · TBD</span></div>
         </div>`;
       } else {
-        const cuPts  = cuTeam.score || '0';
-        const oppPts = opp?.score || '0';
+        const cuPts  = scoreVal(cuTeam.score);
+        const oppPts = scoreVal(opp?.score);
         const cuWon  = parseInt(cuPts) > parseInt(oppPts);
         return `<div class="score-game">
-          <div class="game-label final">Final · ${gameLabel}</div>
+          <div class="game-label final">Final · ${dateStr} · ${gameLabel}</div>
           <div class="score-line"><span class="team cu">${cuRank}Colorado</span><span class="pts${cuWon?' winner':''}">${cuPts}</span></div>
           <div class="score-line"><span class="team">${oppRank}${oppName}</span><span class="pts${!cuWon?' winner':''}">${oppPts}</span></div>
         </div>`;
