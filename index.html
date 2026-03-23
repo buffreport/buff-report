@@ -3165,39 +3165,60 @@ activateTab('latest');
 
   // ── SHEDEUR WATCH ────────────────────────────────────────────────────
   (async function loadShedeurStats() {
+    let yds = '—', tds = '—', ints = '—', label = 'Cleveland Browns';
+
+    // Try NFL stats first (will 404 until he plays regular season games)
     try {
       const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/athletes/4432762/statistics');
-      if (!res.ok) return;
-      const data = await res.json();
-      const cats = data?.splits?.categories || [];
-
-      let yds = '—', tds = '—', ints = '—';
-      for (const cat of cats) {
-        if (cat.name === 'passing') {
-          for (const stat of (cat.stats || [])) {
-            if (stat.name === 'passingYards')      yds  = stat.displayValue ?? '—';
-            if (stat.name === 'passingTouchdowns') tds  = stat.displayValue ?? '—';
-            if (stat.name === 'interceptions')     ints = stat.displayValue ?? '—';
+      if (res.ok) {
+        const data = await res.json();
+        const cats = data?.splits?.categories || [];
+        for (const cat of cats) {
+          if (cat.name === 'passing') {
+            for (const stat of (cat.stats || [])) {
+              if (stat.name === 'passingYards')      yds  = stat.displayValue ?? '—';
+              if (stat.name === 'passingTouchdowns') tds  = stat.displayValue ?? '—';
+              if (stat.name === 'interceptions')     ints = stat.displayValue ?? '—';
+            }
+            break;
           }
-          break;
         }
-      }
-
-      const ydEl  = document.getElementById('sw-yds');
-      const tdEl  = document.getElementById('sw-tds');
-      const intEl = document.getElementById('sw-ints');
-      if (ydEl)  ydEl.textContent  = yds;
-      if (tdEl)  tdEl.textContent  = tds;
-      if (intEl) intEl.textContent = ints;
-
-      // Season label: use athlete's team/season from response if available
-      const team   = data?.athlete?.team?.displayName;
-      const season = data?.season?.displayName;
-      const labelEl = document.getElementById('shedeur-season-label');
-      if (labelEl && (team || season)) {
-        labelEl.textContent = [season, team].filter(Boolean).join(' · ');
+        const team   = data?.athlete?.team?.displayName;
+        const season = data?.season?.displayName;
+        if (team || season) label = [season, team].filter(Boolean).join(' · ');
       }
     } catch(e) {}
+
+    // If no NFL stats yet, fall back to his 2024 CU season stats
+    if (yds === '—') {
+      try {
+        const res2 = await fetch('https://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/2024/types/2/athletes/4432762/statistics/0');
+        if (res2.ok) {
+          const data2 = await res2.json();
+          const cats2 = data2?.splits?.categories || [];
+          for (const cat of cats2) {
+            if (cat.name === 'passing') {
+              for (const stat of (cat.stats || [])) {
+                if (stat.name === 'passingYards')      yds  = stat.displayValue ?? '—';
+                if (stat.name === 'passingTouchdowns') tds  = stat.displayValue ?? '—';
+                if (stat.name === 'interceptions')     ints = stat.displayValue ?? '—';
+              }
+              break;
+            }
+          }
+          label = '2024 · Colorado Buffaloes';
+        }
+      } catch(e) {}
+    }
+
+    const ydEl  = document.getElementById('sw-yds');
+    const tdEl  = document.getElementById('sw-tds');
+    const intEl = document.getElementById('sw-ints');
+    if (ydEl)  ydEl.textContent  = yds;
+    if (tdEl)  tdEl.textContent  = tds;
+    if (intEl) intEl.textContent = ints;
+    const labelEl = document.getElementById('shedeur-season-label');
+    if (labelEl) labelEl.textContent = label;
   })();
 
   (async function loadShedeurNews() {
