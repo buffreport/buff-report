@@ -2437,9 +2437,18 @@ async function fetchOgImage(articleUrl) {
   }
 }
 
+// Picks a contextually relevant CU football filler based on article title.
+// Recruiting/player articles get jacob.webp (football player photo); others cycle the pool.
+function pickFootballFiller(title, usedImgs) {
+  const t = (title || '').toLowerCase();
+  const isRecruiting = ['recruit', 'quarterback', ' qb ', 'commit', 'transfer', 'signing', 'offer'].some(k => t.includes(k));
+  if (isRecruiting && !usedImgs.has('jacob.webp')) return 'jacob.webp';
+  return _CU_FILLERS.find(f => !usedImgs.has(f)) || _CU_FILLERS[0];
+}
+
 // ── FOOTBALL CARD SMART CYCLE ─────────────────────────────────────────────
 // Replaces only the oldest featured card when newer football news arrives.
-// Fetches the real og:image from the article before rendering.
+// Fetches the real og:image only from whitelisted sources; all others get a CU filler.
 async function smartCycleFootballCards() {
   const container = document.getElementById('curated-football');
   const items = _feedCache.football;
@@ -2476,15 +2485,12 @@ async function smartCycleFootballCards() {
     const m = el.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
     return m ? m[1] : '';
   }));
-  // Sources that frequently serve unrelated og:images get skipped — football filler used instead.
-  // Check author AND title: Google News appends "- 247Sports" to titles even when author is blank.
-  const OG_SKIP = ['247sports', 'rivals'];
-  const skipOg  = OG_SKIP.some(d =>
-    (item.author || '').toLowerCase().includes(d) ||
-    (item.title  || '').toLowerCase().includes(d)
-  );
-  let imgUrl = skipOg ? null : await fetchOgImage(item.link);
-  // Require at least 4:3 landscape ratio — rejects headshots/staff photos even if slightly wider than tall
+  // Whitelist: only fetch og:image from sources known to have relevant football photos.
+  // Blank author (Google redirect fallback) → filler. Unlisted source → filler.
+  const OG_ALLOW = ['denver sports', 'denversports', 'daily camera', 'dailycamera', 'the athletic', 'fox sports', 'foxsports', 'ralphie report'];
+  const useOg = OG_ALLOW.some(d => (item.author || '').toLowerCase().includes(d));
+  let imgUrl = useOg ? await fetchOgImage(item.link) : null;
+  // Require at least 4:3 landscape ratio — rejects headshots/staff photos
   if (imgUrl) {
     const ok = await new Promise(resolve => {
       const i = new Image();
@@ -2494,7 +2500,7 @@ async function smartCycleFootballCards() {
     });
     if (!ok) imgUrl = null;
   }
-  if (!imgUrl) imgUrl = _CU_FILLERS.find(f => !usedImgs.has(f)) || _CU_FILLERS[0];
+  if (!imgUrl) imgUrl = pickFootballFiller(item.title, usedImgs);
   const title   = clean(item.title);
   const link    = item.link;
   const src     = getSrc(link, item.author);
@@ -3076,24 +3082,22 @@ async function validateFootballCardImages() {
     // Already a known-good football filler — nothing to do
     if (_CU_FILLERS.includes(src)) continue;
 
-    // Check source label AND headline text — when item.author is blank, getSrc() falls back to
-    // "NEWS" (from the google.com redirect URL), so source label alone can miss 247Sports articles.
-    // Google News RSS appends "- 247Sports" to every title, so title check is the reliable fallback.
+    // Only whitelisted sources are trusted to have relevant football photos.
+    // Everything else (247Sports, Rivals, ESPN roster pages, etc.) gets a CU filler.
+    const OG_ALLOW   = ['denver sports', 'denversports', 'daily camera', 'dailycamera', 'the athletic', 'fox sports', 'foxsports', 'ralphie report'];
     const sourceText = (card.querySelector('.hl-source')?.textContent || '').toLowerCase();
-    const titleText  = (card.querySelector('h3 a, h4 a')?.textContent || '').toLowerCase();
-    const OG_SKIP    = ['247sports', 'rivals'];
-    const forceSwap  = OG_SKIP.some(d => sourceText.includes(d) || titleText.includes(d));
+    const isTrusted  = OG_ALLOW.some(d => sourceText.includes(d));
 
-    // Also check aspect ratio for all other sources
-    const isGoodImage = forceSwap ? false : await new Promise(resolve => {
+    const isGoodImage = isTrusted ? await new Promise(resolve => {
       const img = new Image();
       img.onload  = () => resolve(img.naturalWidth / img.naturalHeight >= 1.3);
       img.onerror = () => resolve(true);
       img.src = src;
-    });
+    }) : false;
 
     if (!isGoodImage) {
-      const filler = _CU_FILLERS.find(f => !usedFillers.has(f)) || _CU_FILLERS[0];
+      const titleText = (card.querySelector('h3 a, h4 a')?.textContent || '');
+      const filler = pickFootballFiller(titleText, usedFillers);
       el.style.backgroundImage = `url('${filler}')`;
       usedFillers.add(filler);
     }
