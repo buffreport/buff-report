@@ -2442,7 +2442,11 @@ async function smartCycleFootballCards() {
     const m = el.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
     return m ? m[1] : '';
   }));
-  let imgUrl = await fetchOgImage(item.link);
+  // Sources that frequently serve unrelated og:images (wrong sport, default site images)
+  // get skipped entirely — football filler used instead
+  const OG_SKIP = ['247sports.com', 'rivals.com'];
+  const skipOg  = OG_SKIP.some(d => (item.link || '').includes(d));
+  let imgUrl = skipOg ? null : await fetchOgImage(item.link);
   // Require at least 4:3 landscape ratio — rejects headshots/staff photos even if slightly wider than tall
   if (imgUrl) {
     const ok = await new Promise(resolve => {
