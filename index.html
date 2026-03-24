@@ -885,8 +885,7 @@
   [data-theme="dark"] .score-game  { border-color: #374151; }
   [data-theme="dark"] .live-feed-item { background: #1f2937; border-color: #374151; }
   [data-theme="dark"] .live-feed-item:hover { border-color: #CFB000; }
-  [data-theme="dark"] .dark-toggle { border-color: #374151; color: #9ca3af; }
-  [data-theme="dark"] .dark-toggle:hover { border-color: #CFB000; color: #CFB000; }
+  [data-theme="dark"] .dark-toggle:hover { opacity: 0.75; }
   [data-theme="dark"] .nav-link.active { color: #CFB000; border-bottom-color: #CFB000; }
   [data-theme="dark"] .section-label h3 { color: #e5e5e5; }
   [data-theme="dark"] .sched-row   { border-color: #374151; }
@@ -897,23 +896,31 @@
   [data-theme="dark"] .ad-sidebar img { border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,255,255,0.08); }
   [data-theme="dark"] .ad-slot img   { border-radius: 8px; box-shadow: 0 0 0 1px rgba(255,255,255,0.06); }
 
-  /* ── DARK TOGGLE BUTTON ───────────────────────────────────────────── */
+  /* ── DARK TOGGLE SWITCH ───────────────────────────────────────────── */
   .dark-toggle {
-    background: none;
-    border: 1.5px solid var(--border);
+    position: relative;
+    width: 44px; height: 24px;
+    background: var(--border);
+    border: none;
     border-radius: 9999px;
-    padding: 6px 13px;
     cursor: pointer;
-    font-size: 15px;
-    line-height: 1;
-    transition: border-color 0.15s, color 0.15s;
-    color: var(--text-muted);
-    display: flex; align-items: center; gap: 5px;
-    font-family: var(--font-body, 'Merriweather Sans', sans-serif);
-    font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
-    white-space: nowrap;
+    padding: 0;
+    transition: background 0.25s;
+    flex-shrink: 0;
   }
-  .dark-toggle:hover { border-color: var(--primary); color: var(--primary); }
+  .dark-toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+  }
+  [data-theme="dark"] .dark-toggle { background: var(--primary); }
+  [data-theme="dark"] .dark-toggle::after { transform: translateX(20px); }
+  .dark-toggle:hover { opacity: 0.85; }
 
   /* ── STICKY NAV ───────────────────────────────────────────────────── */
   #main-nav {
@@ -1155,7 +1162,7 @@ fetch('/breaking-news.json?v=' + Date.now())
       <div class="logo-dateline" id="dateline">Wednesday, March 18, 2026<br>1:19 PM MT</div>
     </a>
     <div class="header-right">
-      <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode">🌙 Dark</button>
+      <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode"></button>
       <button class="btn-sub" onclick="openNewsletter('')">Subscribe Free →</button>
     </div>
   </div>
@@ -3326,13 +3333,11 @@ activateTab('latest');
   const saved  = localStorage.getItem('br-theme') ||
     (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   root.setAttribute('data-theme', saved);
-  if (toggle) toggle.innerHTML = saved === 'dark' ? '☀️ Light' : '🌙 Dark';
 
   if (toggle) toggle.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     localStorage.setItem('br-theme', next);
-    toggle.innerHTML = next === 'dark' ? '☀️ Light' : '🌙 Dark';
   });
 })();
 
