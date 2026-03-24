@@ -2388,43 +2388,6 @@ function refreshCuratedSections() {
 // ── OG:IMAGE FETCH ────────────────────────────────────────────────────────
 // Asks the Cloudflare Worker to scrape the og:image from an article URL.
 // Returns null if the fetch fails or no image is found.
-// Hardcoded fallbacks — used immediately and kept as backup if TheSportsDB is unavailable
-let _CU_FILLERS = [
-  'jacob.webp',
-  'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg',
-  'https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg',
-  'https://s3media.247sports.com/Uploads/Assets/335/658/13658335.jpg',
-  'https://images.sidearmdev.com/resize?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fcubuffs.com%2Fimages%2F2026%2F3%2F6%2FDSC09371.jpg&width=1600&type=jpeg',
-];
-
-// Fetch CU football team images from TheSportsDB and add to football filler pool.
-// Basketball images are intentionally excluded — mixing sports in the filler pool
-// causes basketball photos to appear on football article cards.
-async function loadSportsDBImages() {
-  try {
-    const resp = await fetch('https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Colorado+Buffaloes', { signal: AbortSignal.timeout(6000) });
-    const data = await resp.json();
-    const teams = data.teams || [];
-
-    // Only use the American Football entry
-    const footballTeam = teams.find(t => t.strSport === 'American Football');
-    if (!footballTeam) return;
-
-    const newImages = [];
-    ['strFanart1','strFanart2','strFanart3','strFanart4','strBanner'].forEach(key => {
-      const url = footballTeam[key];
-      if (url && url.startsWith('http') && !_CU_FILLERS.includes(url)) {
-        newImages.push(url);
-      }
-    });
-
-    if (newImages.length) {
-      _CU_FILLERS = [..._CU_FILLERS, ...newImages];
-    }
-  } catch {
-    // TheSportsDB unavailable — hardcoded fillers remain active
-  }
-}
 
 async function fetchOgImage(articleUrl) {
   try {
@@ -2435,15 +2398,6 @@ async function fetchOgImage(articleUrl) {
   } catch {
     return null;
   }
-}
-
-// Picks a contextually relevant CU football filler based on article title.
-// Recruiting/player articles get jacob.webp (football player photo); others cycle the pool.
-function pickFootballFiller(title, usedImgs) {
-  const t = (title || '').toLowerCase();
-  const isRecruiting = ['recruit', 'quarterback', ' qb ', 'commit', 'transfer', 'signing', 'offer'].some(k => t.includes(k));
-  if (isRecruiting && !usedImgs.has('jacob.webp')) return 'jacob.webp';
-  return _CU_FILLERS.find(f => !usedImgs.has(f)) || _CU_FILLERS[0];
 }
 
 // ── FOOTBALL CARD SMART CYCLE ─────────────────────────────────────────────
@@ -2504,7 +2458,7 @@ async function smartCycleFootballCards() {
     });
     if (!ok) imgUrl = null;
   }
-  if (!imgUrl) imgUrl = pickFootballFiller(item.title, usedImgs);
+  // No image from trusted source — card will render with black background
   const title   = clean(item.title);
   const link    = item.link;
   const src     = getSrc(link, item.author);
@@ -2512,7 +2466,7 @@ async function smartCycleFootballCards() {
   const dateStr = pub ? new Date(pub).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
   const dateAttr = pub ? new Date(pub).toISOString().slice(0,10) : new Date().toISOString().slice(0,10);
   cards[0].outerHTML = `<div class="hl-card" data-date="${dateAttr}">
-    <div class="hl-card-img" style="background-image:url('${imgUrl}')">
+    <div class="hl-card-img" style="${imgUrl ? `background-image:url('${imgUrl}')` : ''}">
       <span class="hl-card-cat cat-football">Football</span>
     </div>
     <div class="hl-card-body">
@@ -2523,7 +2477,6 @@ async function smartCycleFootballCards() {
       </div>
     </div>
   </div>`;
-  // Safety net: validate all cards after each cycle in case a bad og:image slipped through
   validateFootballCardImages();
 }
 
@@ -3064,51 +3017,36 @@ setInterval(loadSidebarScoreboard, 60 * 1000);
 loadCFBDRecruits();
 // Load TheSportsDB images first, then validate existing card images
 // so the full filler pool is available before any swaps happen
-loadSportsDBImages().then(() => validateFootballCardImages());
-// Re-run validator at 2s and 5s after load to catch any race conditions
-// from async feed loading and smartCycle running after initial validate
+validateFootballCardImages();
 setTimeout(() => validateFootballCardImages(), 2000);
 setTimeout(() => validateFootballCardImages(), 5000);
 
 // Check all rendered football card images — swap portrait/square ones for landscape fillers
 async function validateFootballCardImages() {
-  const cards = document.querySelectorAll('#curated-football .hl-card');
-  const usedFillers = new Set();
-  // Pre-mark fillers that are already correctly displayed
-  cards.forEach(card => {
-    const m = card.querySelector('.hl-card-img')?.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
-    if (m && _CU_FILLERS.includes(m[1])) usedFillers.add(m[1]);
-  });
-
-  for (const card of cards) {
-    const el  = card.querySelector('.hl-card-img');
+  const OG_ALLOW = ['denver sports', 'denversports', 'daily camera', 'dailycamera', 'the athletic', 'fox sports', 'foxsports', 'ralphie report'];
+  for (const card of document.querySelectorAll('#curated-football .hl-card')) {
+    const el = card.querySelector('.hl-card-img');
     if (!el) continue;
     const bgMatch = el.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
     if (!bgMatch) continue;
     const src = bgMatch[1];
-
-    // Already a known-good football filler — nothing to do
-    if (_CU_FILLERS.includes(src)) continue;
-
-    // Only whitelisted sources are trusted to have relevant football photos.
-    // Everything else (247Sports, Rivals, ESPN roster pages, etc.) gets a CU filler.
-    const OG_ALLOW   = ['denver sports', 'denversports', 'daily camera', 'dailycamera', 'the athletic', 'fox sports', 'foxsports', 'ralphie report'];
+    // Leave manually-set local images (e.g. jacob.webp) untouched
+    if (!src.startsWith('http')) continue;
     const sourceText = (card.querySelector('.hl-source')?.textContent || '').toLowerCase();
-    const isTrusted  = OG_ALLOW.some(d => sourceText.includes(d));
-
-    const isGoodImage = isTrusted ? await new Promise(resolve => {
+    const isTrusted = OG_ALLOW.some(d => sourceText.includes(d));
+    if (!isTrusted) {
+      // Untrusted source — clear the image, card shows black background
+      el.style.backgroundImage = '';
+      continue;
+    }
+    // Trusted source — still reject portrait/square images
+    const ok = await new Promise(resolve => {
       const img = new Image();
       img.onload  = () => resolve(img.naturalWidth / img.naturalHeight >= 1.3);
-      img.onerror = () => resolve(true);
+      img.onerror = () => resolve(false);
       img.src = src;
-    }) : false;
-
-    if (!isGoodImage) {
-      const titleText = (card.querySelector('h3 a, h4 a')?.textContent || '');
-      const filler = pickFootballFiller(titleText, usedFillers);
-      el.style.backgroundImage = `url('${filler}')`;
-      usedFillers.add(filler);
-    }
+    });
+    if (!ok) el.style.backgroundImage = '';
   }
 }
 
