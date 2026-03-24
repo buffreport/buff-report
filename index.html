@@ -2363,34 +2363,32 @@ let _CU_FILLERS = [
   'https://images.sidearmdev.com/resize?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fcubuffs.com%2Fimages%2F2026%2F3%2F6%2FDSC09371.jpg&width=1600&type=jpeg',
 ];
 
-// Fetch CU team images from TheSportsDB (free, no API key) and expand the filler pool
+// Fetch CU football team images from TheSportsDB and add to football filler pool.
+// Basketball images are intentionally excluded — mixing sports in the filler pool
+// causes basketball photos to appear on football article cards.
 async function loadSportsDBImages() {
   try {
-    // Fetch football and basketball in parallel
-    const [fbResp, bbResp] = await Promise.all([
-      fetch('https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Colorado+Buffaloes', { signal: AbortSignal.timeout(6000) }),
-      fetch('https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Colorado+Buffaloes', { signal: AbortSignal.timeout(6000) }),
-    ]);
-    const [fbData, bbData] = await Promise.all([fbResp.json(), bbResp.json()]);
+    const resp = await fetch('https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Colorado+Buffaloes', { signal: AbortSignal.timeout(6000) });
+    const data = await resp.json();
+    const teams = data.teams || [];
 
-    const allTeams = [...(fbData.teams || []), ...(bbData.teams || [])];
+    // Only use the American Football entry
+    const footballTeam = teams.find(t => t.strSport === 'American Football');
+    if (!footballTeam) return;
+
     const newImages = [];
-
-    for (const team of allTeams) {
-      // Only use photo-quality images (fanart, banner) — skip badge/logo/equipment (small transparent graphics)
-      ['strFanart1','strFanart2','strFanart3','strFanart4','strBanner'].forEach(key => {
-        const url = team[key];
-        if (url && url.startsWith('http') && !newImages.includes(url) && !_CU_FILLERS.includes(url)) {
-          newImages.push(url);
-        }
-      });
-    }
+    ['strFanart1','strFanart2','strFanart3','strFanart4','strBanner'].forEach(key => {
+      const url = footballTeam[key];
+      if (url && url.startsWith('http') && !_CU_FILLERS.includes(url)) {
+        newImages.push(url);
+      }
+    });
 
     if (newImages.length) {
       _CU_FILLERS = [..._CU_FILLERS, ...newImages];
     }
   } catch {
-    // TheSportsDB unavailable — hardcoded fillers remain active, no action needed
+    // TheSportsDB unavailable — hardcoded fillers remain active
   }
 }
 
