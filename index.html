@@ -1546,30 +1546,7 @@ fetch('/breaking-news.json?v=' + Date.now())
     <div class="tab-section" data-tabs="latest recruiting" data-cycle-feed="live-recruiting" data-cycle-pill="pill-recruiting" data-cycle-label="Recruiting">
       <div class="section-label"><h3>🎯 Recruiting</h3></div>
       <div class="headlines" id="curated-recruiting">
-        <div class="hl-card" data-date="2026-02-01">
-          <span class="accent-dot dot-recruiting"></span>
-          <div class="hl-body">
-            <h4><a href="https://247sports.com/college/colorado/season/2026-football/commits/" target="_blank">2027 Class Building: 13 Commits and Counting for CU Football</a></h4>
-            <div class="hl-sub">Xavier Payne (OL, Miami), Preston Ashley (CB, Brandon MS), Maurice Williams Jr. (CB, NOLA), Domata Peko Jr. (Edge), Gavin Mueller (TE) among commits.</div>
-            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>247Sports</span><span>Feb 1</span></div>
-          </div>
-        </div>
-        <div class="hl-card" data-date="2026-02-15">
-          <span class="accent-dot dot-recruiting"></span>
-          <div class="hl-body">
-            <h4><a href="https://www.si.com/college/colorado/football/where-colorado-recruiting-class-ranks-nationally-new-commitments-big-12-xavier-mcdonald" target="_blank">Where CU's Recruiting Class Ranks Nationally After Latest Commitments</a></h4>
-            <div class="hl-sub">Sanders building momentum in Big 12 recruiting wars. Class trending upward.</div>
-            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>Sports Illustrated</span><span>Feb 15</span></div>
-          </div>
-        </div>
-        <div class="hl-card" data-date="2026-02-20">
-          <span class="accent-dot dot-recruiting"></span>
-          <div class="hl-body">
-            <h4><a href="https://www.si.com/college/colorado/recruiting" target="_blank">4-Star RB KJ Edwards (Texas) Among Top 2027 Targets</a></h4>
-            <div class="hl-sub">Also targeting 4-star WR Jase Mathews (Mississippi). Sanders casting wide net for next cycle.</div>
-            <div class="hl-meta"><span class="sport-pill pill-recruiting">Recruiting</span><span>Sports Illustrated</span><span>Feb 20</span></div>
-          </div>
-        </div>
+        <div class="hl-card"><span class="accent-dot dot-recruiting"></span><div class="hl-body" style="padding:16px 20px;"><h4 style="color:var(--text-muted);font-weight:400;">Loading recruiting news…</h4></div></div>
       </div>
     </div>
 
@@ -1668,12 +1645,10 @@ fetch('/breaking-news.json?v=' + Date.now())
             <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>Travel + Leisure</span><span>Mar 5</span></div>
           </div>
         </div>
-        <div class="hl-card" data-date="2026-02-20">
+        <div class="hl-card">
           <span class="accent-dot dot-campus"></span>
-          <div class="hl-body">
-            <h4><a href="https://connections.cu.edu/stories/innovation-real-time-2026-cu-ie-awards-spotlight-smart-solutions" target="_blank">CU Ranks No. 2 in Nation for Startups Launched in a Single Year</a></h4>
-            <div class="hl-sub">Mana Battery, Flari Tech, Mesa Quantum among breakout ventures. I&amp;E Awards spotlight smart solutions.</div>
-            <div class="hl-meta"><span class="sport-pill pill-campus">Campus</span><span>CU Connections</span><span>Feb 20</span></div>
+          <div class="hl-body" style="padding:16px 20px;">
+            <h4 style="color:var(--text-muted);font-weight:400;">Loading campus news…</h4>
           </div>
         </div>
         <div class="hl-card" data-date="2026-03-09">
@@ -2322,15 +2297,25 @@ function refreshCuratedSections() {
     const items = _feedCache[feedKey];
     if (!items?.length) return;
 
-    const today = new Date().toISOString().slice(0, 10);
-    const seen  = new Set();
-    const cards = items
-      .filter(i => {
-        const k = clean(i.title || '').substring(0, 40).toLowerCase();
-        if (seen.has(k)) return false;
-        seen.add(k);
-        return true;
-      })
+    const today    = new Date().toISOString().slice(0, 10);
+    const cutoff   = new Date(Date.now() - 30 * 864e5); // 30 days ago
+    const seen     = new Set();
+    const fresh    = items.filter(i => {
+      if (!i.title) return false;
+      if (i.pubDate && new Date(i.pubDate) < cutoff) return false; // drop >30 days old
+      const k = clean(i.title).substring(0, 40).toLowerCase();
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+
+    // If nothing is fresh enough, clear stale fallback cards and stop
+    if (!fresh.length) {
+      container.innerHTML = `<div class="hl-card"><span class="accent-dot dot-${feedKey}"></span><div class="hl-body" style="padding:16px 20px;"><h4 style="color:var(--text-muted);font-weight:400;">No recent ${label} news — check back soon.</h4></div></div>`;
+      return;
+    }
+
+    const cards = fresh
       .slice(0, 5)
       .map(item => {
         const title = clean(item.title || '');
@@ -2395,12 +2380,15 @@ async function smartCycleFootballCards() {
   // Sort cards oldest → newest
   cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
 
-  // Find feed items newer than the oldest card and not already shown
+  const cutoff     = new Date(Date.now() - 30 * 864e5);
   const oldestDate = new Date(cards[0].dataset.date);
+  // Treat stale (>30 days) cards the same as old — replace regardless of feed date
+  const targetDate = oldestDate < cutoff ? new Date(0) : oldestDate;
+
   const newer = items.filter(item => {
     if (!item.link || !item.title) return false;
     try { if (shownUrls.has(new URL(item.link).href)) return false; } catch {}
-    return new Date(item.pubDate || 0) > oldestDate;
+    return new Date(item.pubDate || 0) > targetDate;
   }).sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0));
 
   if (!newer.length) return;
@@ -2690,16 +2678,16 @@ const _lazyLoaded = {};
 async function loadLiveFeeds(sections = ['football','basketball','recruiting','campus','all']) {
   const loads = {};
 
-  if (sections.includes('football'))    loads.fb        = fetchViaProxy('"Colorado Buffs" OR "CU Buffaloes" football Deion Sanders 2026 site:dailycamera.com OR site:espn.com OR site:247sports.com OR site:on3.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com OR site:milehighsports.com');
-  if (sections.includes('basketball'))  loads.bb        = fetchViaProxy('"Colorado Buffaloes" men\'s basketball Tad Boyle 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com OR site:milehighsports.com');
-  if (sections.includes('basketball'))  loads.wbb       = fetchViaProxy('"Colorado Buffaloes" women\'s basketball "JR Payne" 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com');
-  if (sections.includes('wbb'))         loads.wbb       = fetchViaProxy('"Colorado Buffaloes" women\'s basketball "JR Payne" 2026 site:dailycamera.com OR site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com');
-  if (sections.includes('recruiting'))  loads.rec       = fetchViaProxy('"Colorado Buffs" OR "CU Buffaloes" recruiting transfer portal NIL 2026 2027 site:247sports.com OR site:on3.com OR site:si.com OR site:sportingnews.com');
+  if (sections.includes('football'))    loads.fb        = fetchViaProxy('"Colorado Buffs" OR "CU Buffaloes" OR "Colorado Buffaloes" football Deion Sanders 2026 site:espn.com OR site:247sports.com OR site:on3.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com OR site:milehighsports.com OR site:denversports.com OR site:theathletic.com');
+  if (sections.includes('basketball'))  loads.bb        = fetchViaProxy('"Colorado Buffaloes" OR "CU Buffs" men\'s basketball Tad Boyle 2026 site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com OR site:milehighsports.com OR site:on3.com OR site:247sports.com');
+  if (sections.includes('basketball'))  loads.wbb       = fetchViaProxy('"Colorado Buffaloes" women\'s basketball "JR Payne" 2026 site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com OR site:on3.com');
+  if (sections.includes('wbb'))         loads.wbb       = fetchViaProxy('"Colorado Buffaloes" women\'s basketball "JR Payne" 2026 site:espn.com OR site:cbssports.com OR site:ralphiereport.com OR site:coloradobuffaloeswire.usatoday.com OR site:skobuffssports.com OR site:on3.com');
+  if (sections.includes('recruiting'))  loads.rec       = fetchViaProxy('"Colorado Buffs" OR "Colorado Buffaloes" recruiting 2026 2027 site:247sports.com OR site:on3.com OR site:rivals.com OR site:espn.com OR site:sportingnews.com OR site:theathletic.com');
   if (sections.includes('campus'))      loads.camp      = fetchRSS('https://www.colorado.edu/today/rss.xml');
-  if (sections.includes('campus'))      loads.lifestyle = fetchViaProxy('"CU Boulder" OR "University of Colorado" campus research ranking Boulder 2026 site:cpr.org OR site:kunc.org OR site:cuindependent.com OR site:colorado.edu');
-  if (sections.includes('all'))         loads.all       = fetchViaProxy('"Colorado Buffs" OR "CU Buffaloes" OR "Colorado Buffaloes" Big 12 sports 2026 site:ralphiereport.com OR site:espn.com OR site:247sports.com OR site:dailycamera.com OR site:on3.com OR site:milehighsports.com');
-  if (sections.includes('town'))        loads.town      = fetchViaProxy('Boulder Colorado local news community 2026 site:dailycamera.com OR site:boulderbeat.news OR site:boulderweekly.com OR site:9news.com');
-  if (sections.includes('ski'))         loads.ski       = fetchViaProxy('"Colorado Buffs" OR "CU" skiing NCAA ski championships alpine nordic 2026 site:cubuffs.com OR site:espn.com OR site:dailycamera.com OR site:freeskier.com OR site:skimag.com OR site:powder.com');
+  if (sections.includes('campus'))      loads.lifestyle = fetchViaProxy('"CU Boulder" OR "University of Colorado Boulder" 2026 site:cpr.org OR site:kunc.org OR site:cuindependent.com OR site:denverpost.com OR site:9news.com OR site:coloradoan.com');
+  if (sections.includes('all'))         loads.all       = fetchViaProxy('"Colorado Buffs" OR "CU Buffaloes" OR "Colorado Buffaloes" Big 12 sports 2026 site:ralphiereport.com OR site:espn.com OR site:247sports.com OR site:on3.com OR site:milehighsports.com OR site:theathletic.com OR site:cbssports.com');
+  if (sections.includes('town'))        loads.town      = fetchViaProxy('Boulder Colorado local news 2026 site:boulderbeat.news OR site:boulderweekly.com OR site:9news.com OR site:denverpost.com OR site:cpr.org OR site:coloradoan.com');
+  if (sections.includes('ski'))         loads.ski       = fetchViaProxy('"Colorado Buffs" OR "CU" skiing NCAA ski championships alpine nordic 2026 site:cubuffs.com OR site:espn.com OR site:freeskier.com OR site:skimag.com OR site:powder.com OR site:skitalk.com');
 
   const results = {};
   await Promise.all(Object.entries(loads).map(async ([k,p]) => { results[k] = await p; }));
