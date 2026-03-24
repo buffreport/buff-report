@@ -2457,10 +2457,13 @@ async function smartCycleFootballCards() {
   const cards = [...container.querySelectorAll('.hl-card[data-date]')];
   if (!cards.length) return;
 
-  // Collect URLs already displayed so we don't show duplicates
-  const shownUrls = new Set([...container.querySelectorAll('a[href]')].map(a => {
+  // Deduplicate by URL AND by title prefix (RSS links are Google redirects, not direct URLs)
+  const shownUrls   = new Set([...container.querySelectorAll('a[href]')].map(a => {
     try { return new URL(a.href).href; } catch { return a.href; }
   }));
+  const shownTitles = new Set([...container.querySelectorAll('h3 a, h4 a')].map(a =>
+    clean(a.textContent).substring(0, 45).toLowerCase()
+  ));
 
   // Sort cards oldest → newest
   cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
@@ -2473,6 +2476,7 @@ async function smartCycleFootballCards() {
   const newer = items.filter(item => {
     if (!item.link || !item.title) return false;
     try { if (shownUrls.has(new URL(item.link).href)) return false; } catch {}
+    if (shownTitles.has(clean(item.title).substring(0, 45).toLowerCase())) return false;
     return new Date(item.pubDate || 0) > targetDate;
   }).sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0));
 
@@ -3061,6 +3065,10 @@ loadCFBDRecruits();
 // Load TheSportsDB images first, then validate existing card images
 // so the full filler pool is available before any swaps happen
 loadSportsDBImages().then(() => validateFootballCardImages());
+// Re-run validator at 2s and 5s after load to catch any race conditions
+// from async feed loading and smartCycle running after initial validate
+setTimeout(() => validateFootballCardImages(), 2000);
+setTimeout(() => validateFootballCardImages(), 5000);
 
 // Check all rendered football card images — swap portrait/square ones for landscape fillers
 async function validateFootballCardImages() {

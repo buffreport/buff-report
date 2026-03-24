@@ -7,8 +7,8 @@
  *   - Fallback: serve cached shell if fully offline
  */
 
-const CACHE_NAME   = 'buff-report-v2';
-const STATIC_CACHE = 'buff-report-static-v2';
+const CACHE_NAME   = 'buff-report-v3';
+const STATIC_CACHE = 'buff-report-static-v3';
 
 // Static assets to pre-cache on install (HTML excluded — fetched fresh each load)
 const PRECACHE_ASSETS = [
