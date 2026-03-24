@@ -159,7 +159,7 @@ async function handleOgImage(request) {
     const isLandscape = await checkImageLandscape(image);
     if (!isLandscape) return jsonResp({ image: null });
 
-    return jsonResp({ image }, { 'Cache-Control': 'public, max-age=3600' });
+    return jsonResp({ image }, { 'Cache-Control': 'public, max-age=300' });
   } catch {
     return jsonResp({ image: null });
   }

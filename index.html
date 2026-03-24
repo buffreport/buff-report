@@ -2445,6 +2445,16 @@ async function smartCycleFootballCards() {
     return m ? m[1] : '';
   }));
   let imgUrl = await fetchOgImage(item.link);
+  // Client-side landscape check — catches stale browser-cached portrait responses
+  if (imgUrl) {
+    const landscape = await new Promise(resolve => {
+      const i = new Image();
+      i.onload  = () => resolve(i.naturalWidth > i.naturalHeight);
+      i.onerror = () => resolve(true);
+      i.src = imgUrl;
+    });
+    if (!landscape) imgUrl = null;
+  }
   if (!imgUrl) imgUrl = _CU_FILLERS.find(f => !usedImgs.has(f)) || _CU_FILLERS[0];
   const title   = clean(item.title);
   const link    = item.link;
