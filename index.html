@@ -2355,12 +2355,45 @@ function refreshCuratedSections() {
 // ── OG:IMAGE FETCH ────────────────────────────────────────────────────────
 // Asks the Cloudflare Worker to scrape the og:image from an article URL.
 // Returns null if the fetch fails or no image is found.
-const _CU_FILLERS = [
+// Hardcoded fallbacks — used immediately and kept as backup if TheSportsDB is unavailable
+let _CU_FILLERS = [
   'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg',
   'https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg',
   'https://s3media.247sports.com/Uploads/Assets/335/658/13658335.jpg',
   'https://images.sidearmdev.com/resize?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fcubuffs.com%2Fimages%2F2026%2F3%2F6%2FDSC09371.jpg&width=1600&type=jpeg',
 ];
+
+// Fetch CU team images from TheSportsDB (free, no API key) and expand the filler pool
+async function loadSportsDBImages() {
+  try {
+    // Fetch football and basketball in parallel
+    const [fbResp, bbResp] = await Promise.all([
+      fetch('https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Colorado+Buffaloes', { signal: AbortSignal.timeout(6000) }),
+      fetch('https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Colorado+Buffaloes', { signal: AbortSignal.timeout(6000) }),
+    ]);
+    const [fbData, bbData] = await Promise.all([fbResp.json(), bbResp.json()]);
+
+    const allTeams = [...(fbData.teams || []), ...(bbData.teams || [])];
+    const newImages = [];
+
+    for (const team of allTeams) {
+      // Only use photo-quality images (fanart, banner) — skip badge/logo/equipment (small transparent graphics)
+      ['strFanart1','strFanart2','strFanart3','strFanart4','strBanner'].forEach(key => {
+        const url = team[key];
+        if (url && url.startsWith('http') && !newImages.includes(url) && !_CU_FILLERS.includes(url)) {
+          newImages.push(url);
+        }
+      });
+    }
+
+    if (newImages.length) {
+      _CU_FILLERS = [..._CU_FILLERS, ...newImages];
+    }
+  } catch {
+    // TheSportsDB unavailable — hardcoded fillers remain active, no action needed
+  }
+}
+
 async function fetchOgImage(articleUrl) {
   try {
     const resp = await fetch(`${PROXY}?og=${encodeURIComponent(articleUrl)}`,
@@ -2965,6 +2998,7 @@ async function loadSidebarScoreboard() {
 loadSidebarScoreboard();
 setInterval(loadSidebarScoreboard, 60 * 1000);
 loadCFBDRecruits();
+loadSportsDBImages();
 
 // ── UPCOMING SCHEDULE — ESPN team schedule API ────────────────────────────
 async function loadUpcomingGames() {
