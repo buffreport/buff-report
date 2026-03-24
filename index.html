@@ -611,6 +611,8 @@
     .ha-btn { width: 100%; text-align: center; padding: 10px; }
   }
 
+  /* Tallow ad: desktop sidebar only; mobile version injected after MBB section */
+  .ad-tallow-mobile { display: none; }
   /* Off the Field widget */
   .otf-item { padding: 8px 14px; border-bottom: 1px solid var(--border-light); font-size: 12px; }
   .otf-item:last-child { border-bottom: none; }
@@ -798,6 +800,9 @@
       height: auto; min-height: unset; aspect-ratio: 4/3; background: #fff;
     }
     .ad-sidebar img, .ad-sidebar.ad-sidebar-top img { object-fit: contain; }
+    /* Mobile: show inline ad after MBB, hide the one buried in sidebar */
+    .ad-tallow-mobile { display: block; }
+    .ad-tallow-desktop { display: none; }
 .hero h2 { font-size: 26px; }
     .breaking-bar { font-size: 11px; flex-wrap: wrap; text-align: center; }
     .site-footer { flex-direction: column; gap: 12px; text-align: center; }
@@ -1412,6 +1417,17 @@ fetch('/breaking-news.json?v=' + Date.now())
       </div>
     </div>
 
+    <!-- AD: TALLOW — mobile only, appears under Men's Basketball -->
+    <div class="ad-tallow-mobile ad-slot ad-sidebar ad-sidebar-top" style="border-radius:0; border:none; background:none; padding:0;">
+      <a href="https://tallowlskincare.com" target="_blank">
+        <picture>
+          <source srcset="Tallow.webp" type="image/webp">
+          <img src="Tallow.png" alt="Tallow Vanilla Orange Whipped Tallow" loading="lazy">
+        </picture>
+      </a>
+      <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px; z-index:2;">AD</div>
+    </div>
+
     <!-- ══ WBB ══ -->
     <div class="tab-section" data-tabs="latest basketball" data-cycle-feed="live-wbb" data-cycle-pill="pill-wbb" data-cycle-label="WBB">
       <div class="section-label"><h3>🏀 Women's Basketball</h3></div>
@@ -1960,7 +1976,7 @@ fetch('/breaking-news.json?v=' + Date.now())
   <aside class="sidebar">
 
     <!-- AD 3: SIDEBAR TOP (matches hero height on Latest tab via JS ResizeObserver) -->
-    <div class="ad-slot ad-sidebar ad-sidebar-top" style="border-radius:0; border:none; background:none; padding:0;">
+    <div class="ad-slot ad-sidebar ad-sidebar-top ad-tallow-desktop" style="border-radius:0; border:none; background:none; padding:0;">
       <a href="https://tallowlskincare.com" target="_blank">
         <picture>
           <source srcset="Tallow.webp" type="image/webp">
