@@ -2998,7 +2998,44 @@ async function loadSidebarScoreboard() {
 loadSidebarScoreboard();
 setInterval(loadSidebarScoreboard, 60 * 1000);
 loadCFBDRecruits();
-loadSportsDBImages();
+// Load TheSportsDB images first, then validate existing card images
+// so the full filler pool is available before any swaps happen
+loadSportsDBImages().then(() => validateFootballCardImages());
+
+// Check all rendered football card images — swap portrait/square ones for landscape fillers
+async function validateFootballCardImages() {
+  const cardImgs = document.querySelectorAll('#curated-football .hl-card-img');
+  const usedFillers = new Set();
+
+  for (const el of cardImgs) {
+    const bg = el.style.backgroundImage;
+    if (!bg) continue;
+    const match = bg.match(/url\(['"]?([^'"]+)['"]?\)/);
+    if (!match) continue;
+    const src = match[1];
+
+    // Skip already-known fillers — they're always landscape
+    if (_CU_FILLERS.includes(src)) { usedFillers.add(src); continue; }
+
+    const isLandscape = await new Promise(resolve => {
+      const img = new Image();
+      img.onload  = () => resolve(img.naturalWidth > img.naturalHeight);
+      img.onerror = () => resolve(true); // can't check — leave it
+      img.src = src;
+    });
+
+    if (!isLandscape) {
+      const filler = _CU_FILLERS.find(f => !usedFillers.has(f));
+      if (filler) {
+        el.style.backgroundImage = `url('${filler}')`;
+        usedFillers.add(filler);
+      }
+    } else {
+      // Track fillers already in use so we don't double-assign
+      if (_CU_FILLERS.includes(src)) usedFillers.add(src);
+    }
+  }
+}
 
 // ── UPCOMING SCHEDULE — ESPN team schedule API ────────────────────────────
 async function loadUpcomingGames() {
