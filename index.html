@@ -2442,10 +2442,10 @@ async function smartCycleFootballCards() {
     const m = el.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
     return m ? m[1] : '';
   }));
-  // Sources that frequently serve unrelated og:images (wrong sport, default site images)
-  // get skipped entirely — football filler used instead
-  const OG_SKIP = ['247sports.com', 'rivals.com'];
-  const skipOg  = OG_SKIP.some(d => (item.link || '').includes(d));
+  // Sources that frequently serve unrelated og:images get skipped — football filler used instead.
+  // Check author name (not link URL) because links are Google redirect URLs, not direct domains.
+  const OG_SKIP = ['247sports', 'rivals'];
+  const skipOg  = OG_SKIP.some(d => (item.author || '').toLowerCase().includes(d));
   let imgUrl = skipOg ? null : await fetchOgImage(item.link);
   // Require at least 4:3 landscape ratio — rejects headshots/staff photos even if slightly wider than tall
   if (imgUrl) {
@@ -3033,10 +3033,11 @@ async function validateFootballCardImages() {
     // Already a known-good football filler — nothing to do
     if (_CU_FILLERS.includes(src)) continue;
 
-    // Check the article link — sources that serve wrong og:images always get a filler
-    const articleLink = card.querySelector('h3 a')?.href || '';
-    const OG_SKIP = ['247sports.com', 'rivals.com'];
-    const forceSwap = OG_SKIP.some(d => articleLink.includes(d));
+    // Check the source label — links are Google redirect URLs so we can't match on domain.
+    // The .hl-source span always has the publisher name (e.g. "247Sports").
+    const sourceText = card.querySelector('.hl-source')?.textContent?.toLowerCase() || '';
+    const OG_SKIP    = ['247sports', 'rivals'];
+    const forceSwap  = OG_SKIP.some(d => sourceText.includes(d));
 
     // Also check aspect ratio for all other sources
     const isGoodImage = forceSwap ? false : await new Promise(resolve => {
