@@ -2445,7 +2445,7 @@ async function smartCycleFootballCards() {
   }));
   // Whitelist: only fetch og:image from sources known to have relevant football photos.
   // Blank author (Google redirect fallback) → filler. Unlisted source → filler.
-  const OG_ALLOW = ['denver sports', 'denversports', 'daily camera', 'dailycamera', 'the athletic', 'fox sports', 'foxsports', 'ralphie report'];
+  const OG_ALLOW = ['denver sports', 'denversports', 'daily camera', 'dailycamera', 'the athletic', 'fox sports', 'foxsports', 'ralphie report', 'espn'];
   const useOg = OG_ALLOW.some(d => (item.author || '').toLowerCase().includes(d));
   let imgUrl = useOg ? await fetchOgImage(item.link) : null;
   // Require at least 4:3 landscape ratio — rejects headshots/staff photos
@@ -3023,7 +3023,7 @@ setTimeout(() => validateFootballCardImages(), 5000);
 
 // Check all rendered football card images — swap portrait/square ones for landscape fillers
 async function validateFootballCardImages() {
-  const OG_ALLOW = ['denver sports', 'denversports', 'daily camera', 'dailycamera', 'the athletic', 'fox sports', 'foxsports', 'ralphie report'];
+  const OG_ALLOW = ['denver sports', 'denversports', 'daily camera', 'dailycamera', 'the athletic', 'fox sports', 'foxsports', 'ralphie report', 'espn'];
   for (const card of document.querySelectorAll('#curated-football .hl-card')) {
     const el = card.querySelector('.hl-card-img');
     if (!el) continue;
