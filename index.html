@@ -524,10 +524,7 @@
   .ad-banner-wrap .ad-slot { width: 100%; max-width: 970px; min-height: 90px; height: 90px; }
   /* Sidebar rectangle */
   .ad-sidebar { width: 100%; min-height: 250px; height: 250px; } /* CLS: explicit */
-  /* Mid-sidebar ad: compact banner format — less dominant than top ad */
-  .ad-sidebar-mid { height: 160px; min-height: 160px; }
-  .ad-sidebar-mid img { width: 100%; height: 100%; object-fit: contain; display: block; background: #fff; }
-  /* Top ad: JS sets height to exactly match .hero-row via ResizeObserver */
+/* Top ad: JS sets height to exactly match .hero-row via ResizeObserver */
   .ad-sidebar.ad-sidebar-top {
     position: relative;
     overflow: hidden;
@@ -801,9 +798,7 @@
       height: auto; min-height: unset; aspect-ratio: 4/3; background: #fff;
     }
     .ad-sidebar img, .ad-sidebar.ad-sidebar-top img { object-fit: contain; }
-    .ad-sidebar-mid { aspect-ratio: 16/9; height: auto; min-height: unset; }
-    .ad-sidebar-mid img { object-fit: contain; }
-    .hero h2 { font-size: 26px; }
+.hero h2 { font-size: 26px; }
     .breaking-bar { font-size: 11px; flex-wrap: wrap; text-align: center; }
     .site-footer { flex-direction: column; gap: 12px; text-align: center; }
     .logo-text h1 { font-size: 36px; }
@@ -1981,14 +1976,14 @@ fetch('/breaking-news.json?v=' + Date.now())
     </div>
 
     <!-- AD 4: SIDEBAR MID -->
-    <div class="ad-slot ad-sidebar ad-sidebar-mid" style="padding:0; border:none; background:#fff; overflow:hidden; position:relative;">
+    <div class="ad-slot ad-sidebar ad-sidebar-top" style="border-radius:0; border:none; background:none; padding:0;">
       <a href="https://tallowlskincare.com/collections/all/products/eye-serum" target="_blank">
         <picture>
           <source srcset="Eyeserum.webp" type="image/webp">
           <img src="Eyeserum.png" alt="Tallow Eye Serum" loading="lazy">
         </picture>
       </a>
-      <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px;">AD</div>
+      <div style="position:absolute; bottom:4px; right:6px; font-size:8px; color:#888; font-family:'Merriweather Sans',sans-serif; letter-spacing:1px; background:rgba(255,255,255,0.7); padding:1px 3px; border-radius:2px; z-index:2;">AD</div>
     </div>
 
     <!-- SHEDEUR WATCH WIDGET -->
@@ -3434,15 +3429,15 @@ activateTab('latest');
     function syncAdToHero() {
       var hero    = document.querySelector('.hero-rotator');
       var heroRow = document.querySelector('.hero-row');
-      var ad      = document.querySelector('.ad-sidebar-top');
-      if (!hero || !ad) return;
-      if (window.innerWidth <= 900) { ad.style.height = ''; return; }
+      var ads     = document.querySelectorAll('.ad-sidebar-top');
+      if (!hero || !ads.length) return;
+      if (window.innerWidth <= 900) { ads.forEach(function(a){ a.style.height = ''; }); return; }
       if (heroRow && heroRow.classList.contains('hidden')) {
-        ad.style.height = '300px';
+        ads.forEach(function(a){ a.style.height = '300px'; });
         return;
       }
       var h = hero.getBoundingClientRect().height;
-      if (h > 0) ad.style.height = h + 'px';
+      if (h > 0) ads.forEach(function(a){ a.style.height = h + 'px'; });
     }
     window._syncAdToHero = syncAdToHero;
     syncAdToHero();
