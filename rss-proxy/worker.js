@@ -73,7 +73,7 @@ async function handleSubscribe(request, env) {
   }
 
   const apiKey = env.BEEHIIV_API_KEY;
-  const pubId  = env.BEEHIIV_PUB_ID || '1dbc9ea7-e231-4c4e-a25c-bcc96b6a0dab';
+  const pubId  = env.BEEHIIV_PUB_ID || 'pub_0fb78e1b-e3cc-4cf9-a30e-ba392c863bba';
 
   if (!apiKey) {
     // No API key set yet — accept gracefully and note in response
@@ -114,7 +114,7 @@ async function handleSubscribe(request, env) {
     return json({ status: 'ok', message: "You're in! Check your inbox for a confirmation." });
 
   } catch (err) {
-    return json({ error: 'Network error. Please try again.' }, 502);
+    return json({ error: 'Network error. Please try again.', detail: err.message }, 502);
   }
 }
 
