@@ -2477,9 +2477,12 @@ async function smartCycleFootballCards() {
     return m ? m[1] : '';
   }));
   // Sources that frequently serve unrelated og:images get skipped — football filler used instead.
-  // Check author name (not link URL) because links are Google redirect URLs, not direct domains.
+  // Check author AND title: Google News appends "- 247Sports" to titles even when author is blank.
   const OG_SKIP = ['247sports', 'rivals'];
-  const skipOg  = OG_SKIP.some(d => (item.author || '').toLowerCase().includes(d));
+  const skipOg  = OG_SKIP.some(d =>
+    (item.author || '').toLowerCase().includes(d) ||
+    (item.title  || '').toLowerCase().includes(d)
+  );
   let imgUrl = skipOg ? null : await fetchOgImage(item.link);
   // Require at least 4:3 landscape ratio — rejects headshots/staff photos even if slightly wider than tall
   if (imgUrl) {
@@ -2510,6 +2513,8 @@ async function smartCycleFootballCards() {
       </div>
     </div>
   </div>`;
+  // Safety net: validate all cards after each cycle in case a bad og:image slipped through
+  validateFootballCardImages();
 }
 
 // ── MORE FOOTBALL — fully automated from feed ─────────────────────────────
@@ -3067,11 +3072,13 @@ async function validateFootballCardImages() {
     // Already a known-good football filler — nothing to do
     if (_CU_FILLERS.includes(src)) continue;
 
-    // Check the source label — links are Google redirect URLs so we can't match on domain.
-    // The .hl-source span always has the publisher name (e.g. "247Sports").
-    const sourceText = card.querySelector('.hl-source')?.textContent?.toLowerCase() || '';
+    // Check source label AND headline text — when item.author is blank, getSrc() falls back to
+    // "NEWS" (from the google.com redirect URL), so source label alone can miss 247Sports articles.
+    // Google News RSS appends "- 247Sports" to every title, so title check is the reliable fallback.
+    const sourceText = (card.querySelector('.hl-source')?.textContent || '').toLowerCase();
+    const titleText  = (card.querySelector('h3 a, h4 a')?.textContent || '').toLowerCase();
     const OG_SKIP    = ['247sports', 'rivals'];
-    const forceSwap  = OG_SKIP.some(d => sourceText.includes(d));
+    const forceSwap  = OG_SKIP.some(d => sourceText.includes(d) || titleText.includes(d));
 
     // Also check aspect ratio for all other sources
     const isGoodImage = forceSwap ? false : await new Promise(resolve => {
