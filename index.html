@@ -1009,6 +1009,22 @@
     transition: background 0.2s, transform 0.2s;
   }
   .hr-dot.active { background: var(--primary); transform: scale(1.35); }
+  /* Hero prev/next arrows — visible only on hover */
+  .hr-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 10; background: rgba(220,220,220,0.22); border: none;
+    color: rgba(255,255,255,0.9); width: 38px; height: 38px;
+    border-radius: 50%; cursor: pointer; font-size: 22px; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s, background 0.2s;
+  }
+  .hr-arrow:hover { background: rgba(220,220,220,0.4); }
+  .hero-rotator:hover .hr-arrow { opacity: 1; pointer-events: auto; }
+  .hr-arrow-left  { left: 12px; }
+  .hr-arrow-right { right: 12px; }
+  /* Hide arrows on touch-only devices (mobile uses swipe instead) */
+  @media (hover: none) { .hr-arrow { display: none; } }
   @media (max-width: 640px) {
     .hero-rotator, .hero-slides { min-height: 200px; }
     .hr-headline { font-size: 18px; }
@@ -1254,6 +1270,8 @@ fetch('/breaking-news.json?v=' + Date.now())
 
       </div>
       <div class="hr-dots" id="hr-dots"></div>
+      <button class="hr-arrow hr-arrow-left"  id="hr-prev" aria-label="Previous slide">&#8249;</button>
+      <button class="hr-arrow hr-arrow-right" id="hr-next" aria-label="Next slide">&#8250;</button>
     </div>
   </div>
 
@@ -3527,6 +3545,20 @@ activateTab('latest');
   if (rotator) {
     rotator.addEventListener('mouseenter', () => clearInterval(timer));
     rotator.addEventListener('mouseleave', resetTimer);
+
+    // Arrow buttons
+    const prevBtn = document.getElementById('hr-prev');
+    const nextBtn = document.getElementById('hr-next');
+    if (prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); resetTimer(); });
+    if (nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); resetTimer(); });
+
+    // Touch swipe
+    let touchStartX = 0;
+    rotator.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    rotator.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) { goTo(current + (dx < 0 ? 1 : -1)); resetTimer(); }
+    }, { passive: true });
   }
 
   // Hide float button briefly after subscribe widget appears in view
