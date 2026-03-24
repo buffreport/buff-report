@@ -3174,7 +3174,7 @@ activateTab('latest');
     msg.style.color = '';
 
     try {
-      const resp = await fetch('https://buff-subscribe.kerstiensrrk.workers.dev/subscribe', {
+      const resp = await fetch('https://buff-report-proxy.kerstiensrrk.workers.dev/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
@@ -3235,7 +3235,7 @@ activateTab('latest');
     btn.textContent = '...';
     msg.textContent = '';
     try {
-      const resp = await fetch('https://buff-subscribe.kerstiensrrk.workers.dev/subscribe', {
+      const resp = await fetch('https://buff-report-proxy.kerstiensrrk.workers.dev/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
