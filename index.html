@@ -640,6 +640,17 @@
   .status-committed { color: var(--accent-green); }
   .status-target { color: var(--accent-orange); }
   .stars { color: var(--primary); font-size: 10px; }
+  .rec-pos {
+    width: 36px; height: 36px; border-radius: 6px;
+    background: var(--secondary); color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 800; flex-shrink: 0; letter-spacing: 0.5px;
+  }
+  .rec-class-hdr {
+    font-size: 10px; font-weight: 700; color: var(--text-muted);
+    padding: 6px 14px 4px; text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-light);
+  }
 
 
   /* Trending */
@@ -1997,8 +2008,8 @@ fetch('/breaking-news.json?v=' + Date.now())
     </div>
 
     <div class="widget">
-      <div class="widget-header" style="color:var(--accent-green);">Recruiting Wire</div>
-      <div id="recruiting-wire"><div class="rec-item" style="padding:10px 14px;font-size:11px;color:var(--text-muted);">Loading…</div></div>
+      <div class="widget-header" style="color:var(--accent-green);">Recruiting Tracker</div>
+      <div id="recruiting-wire"><div class="rec-item" style="padding:10px 14px;font-size:11px;color:var(--text-muted);">Loading commits…</div></div>
     </div>
 
     <!-- AD 4: SIDEBAR MID — 300×250 Medium Rectangle, mid-scroll engagement spot -->
@@ -2453,35 +2464,81 @@ function updateMoreFootball() {
   }).join('');
 }
 
-// ── RECRUITING WIRE — automated from recruiting feed ──────────────────────
-function updateRecruitingWire() {
+// ── RECRUITING TRACKER — powered by College Football Data API ─────────────
+async function loadCFBDRecruits() {
   const container = document.getElementById('recruiting-wire');
-  const items = _feedCache.recruiting;
-  if (!container || !items?.length) return;
+  if (!container) return;
 
-  const seen = new Set();
-  const top = items.filter(item => {
-    if (!item.link || !item.title) return false;
-    const k = item.title.substring(0,50).toLowerCase();
-    if (seen.has(k)) return false;
-    seen.add(k);
-    return true;
-  }).slice(0, 5);
+  try {
+    const [r26, r27] = await Promise.all([
+      fetch(`${PROXY}?cfbd=/recruiting/players&year=2026&team=Colorado`, { signal: AbortSignal.timeout(9000) }).then(r => r.json()),
+      fetch(`${PROXY}?cfbd=/recruiting/players&year=2027&team=Colorado`, { signal: AbortSignal.timeout(9000) }).then(r => r.json()),
+    ]);
 
-  if (!top.length) return;
-  container.innerHTML = top.map(item => {
-    const title = clean(item.title);
-    const src   = getSrc(item.link, item.author);
-    const ago   = item.pubDate ? timeAgo(item.pubDate) : '';
-    const initials = title.split(' ').slice(0,2).map(w => w[0] || '').join('').toUpperCase();
-    return `<div class="rec-item">
-      <div class="rec-avatar" style="font-size:10px;">${initials}</div>
-      <div class="rec-info">
-        <div class="name"><a href="${item.link}" target="_blank" rel="noopener">${title}</a></div>
-        <div class="detail">${src.name}${ago ? ' · ' + ago : ''}</div>
-      </div>
-    </div>`;
-  }).join('');
+    const sortCommits = arr =>
+      (Array.isArray(arr) ? arr : [])
+        .sort((a, b) => (b.stars || 0) - (a.stars || 0) || (b.rating || 0) - (a.rating || 0));
+
+    const class26 = sortCommits(r26);
+    const class27 = sortCommits(r27);
+
+    if (!class26.length && !class27.length) {
+      container.innerHTML = `<div class="rec-item" style="font-size:11px;color:var(--text-muted);padding:10px 14px;">No recruiting data available.</div>`;
+      return;
+    }
+
+    const renderRecruit = p => {
+      const filledStars   = '★'.repeat(p.stars || 0);
+      const emptyStars    = '☆'.repeat(5 - (p.stars || 0));
+      const hometown      = [p.city, p.stateProvince].filter(Boolean).join(', ');
+      const rankingStr    = p.ranking ? ` · #${p.ranking} natl` : '';
+      return `<div class="rec-item">
+        <div class="rec-pos">${(p.position || '?').substring(0, 3).toUpperCase()}</div>
+        <div class="rec-info">
+          <div class="name">${p.name || 'Unknown'} <span class="stars">${filledStars}<span style="color:var(--border)">${emptyStars}</span></span></div>
+          <div class="detail">${p.school || ''}${hometown ? ' · ' + hometown : ''}${rankingStr}</div>
+        </div>
+      </div>`;
+    };
+
+    let html = '';
+    if (class26.length) {
+      html += `<div class="rec-class-hdr">Class of 2026 · ${class26.length} commits</div>`;
+      html += class26.slice(0, 10).map(renderRecruit).join('');
+    }
+    if (class27.length) {
+      html += `<div class="rec-class-hdr" style="margin-top:4px;">2027 Early Commits · ${class27.length}</div>`;
+      html += class27.slice(0, 5).map(renderRecruit).join('');
+    }
+
+    container.innerHTML = html;
+  } catch (err) {
+    console.warn('CFBD recruiting load failed:', err);
+    // Fall back to RSS headlines if CFBD is unavailable
+    const items = _feedCache.recruiting;
+    if (!container || !items?.length) return;
+    const seen = new Set();
+    const top = items.filter(item => {
+      if (!item.link || !item.title) return false;
+      const k = item.title.substring(0, 50).toLowerCase();
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    }).slice(0, 5);
+    container.innerHTML = top.map(item => {
+      const title = clean(item.title);
+      const src   = getSrc(item.link, item.author);
+      const ago   = item.pubDate ? timeAgo(item.pubDate) : '';
+      const initials = title.split(' ').slice(0, 2).map(w => w[0] || '').join('').toUpperCase();
+      return `<div class="rec-item">
+        <div class="rec-avatar" style="font-size:10px;">${initials}</div>
+        <div class="rec-info">
+          <div class="name"><a href="${item.link}" target="_blank" rel="noopener">${title}</a></div>
+          <div class="detail">${src.name}${ago ? ' · ' + ago : ''}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
 }
 
 // ── TRENDING NOW — always reflects freshest headlines across all feeds ─────
@@ -2907,6 +2964,7 @@ async function loadSidebarScoreboard() {
 }
 loadSidebarScoreboard();
 setInterval(loadSidebarScoreboard, 60 * 1000);
+loadCFBDRecruits();
 
 // ── UPCOMING SCHEDULE — ESPN team schedule API ────────────────────────────
 async function loadUpcomingGames() {
