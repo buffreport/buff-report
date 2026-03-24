@@ -2529,9 +2529,11 @@ function updateMoreFootball() {
     ? [...featured.querySelectorAll('a[href]')].map(a => { try { return new URL(a.href).href; } catch { return a.href; } })
     : []);
 
+  const cutoff = new Date(Date.now() - 30 * 864e5);
   const seen = new Set();
   const links = items.filter(item => {
     if (!item.link || !item.title) return false;
+    if (item.pubDate && new Date(item.pubDate) < cutoff) return false;
     try { if (featuredUrls.has(new URL(item.link).href)) return false; } catch {}
     const k = item.title.substring(0,50).toLowerCase();
     if (seen.has(k)) return false;
@@ -2782,10 +2784,12 @@ function renderLiveFeed(id, items, limit, fallbackUrl, fallbackName) {
     showFallback(id, fallbackUrl || 'https://news.google.com', fallbackName || 'Google News');
     return;
   }
+  const cutoff30 = new Date(Date.now() - 30 * 864e5);
   const seen = new Set();
   const unique = items.filter(i => {
     const k = clean(i.title||'').substring(0,40).toLowerCase();
     if (seen.has(k)) return false; seen.add(k);
+    if (i.pubDate && new Date(i.pubDate) < cutoff30) return false;
     // Also skip if URL already exists in curated static sections
     try { if (_curatedUrls.has(new URL(i.link||'').href)) return false; } catch(e) {}
     return true;
