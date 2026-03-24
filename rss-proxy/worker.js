@@ -178,7 +178,7 @@ async function checkImageLandscape(imageUrl) {
     const b = new Uint8Array(buf);
     const dims = parseImageDimensions(b);
     if (!dims) return true; // unrecognised format — allow it
-    return dims.width > dims.height;
+    return dims.width / dims.height >= 1.3; // require at least 4:3 landscape ratio
   } catch {
     return true;
   }
