@@ -2401,72 +2401,67 @@ async function fetchOgImage(articleUrl) {
 }
 
 // ── FOOTBALL CARD SMART CYCLE ─────────────────────────────────────────────
-// Replaces only the oldest featured card when newer football news arrives.
-// Fetches the real og:image only from whitelisted sources; all others get a CU filler.
+// Replaces all stale cards with the newest feed items on every cycle.
 async function smartCycleFootballCards() {
   const container = document.getElementById('curated-football');
   const items = _feedCache.football;
   if (!container || !items?.length) return;
 
-  const cards = [...container.querySelectorAll('.hl-card[data-date]')];
+  let cards = [...container.querySelectorAll('.hl-card[data-date]')];
   if (!cards.length) return;
 
-  // Deduplicate by URL AND by title prefix (RSS links are Google redirects, not direct URLs)
-  const shownUrls   = new Set([...container.querySelectorAll('a[href]')].map(a => {
-    try { return new URL(a.href).href; } catch { return a.href; }
-  }));
-  const shownTitles = new Set([...container.querySelectorAll('h3 a, h4 a')].map(a =>
-    clean(a.textContent).substring(0, 45).toLowerCase()
-  ));
+  const BAD_OG = ['247sports', 'rivals'];
+  const cutoff = new Date(Date.now() - 30 * 864e5);
 
-  // Sort cards oldest → newest
+  // Sort cards oldest → newest so we replace the stalest ones first
   cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
 
-  const cutoff     = new Date(Date.now() - 30 * 864e5);
-  const oldestDate = new Date(cards[0].dataset.date);
-  // Treat stale (>30 days) cards the same as old — replace regardless of feed date
-  const targetDate = oldestDate < cutoff ? new Date(0) : oldestDate;
+  for (const card of cards) {
+    // Re-read shown URLs/titles each iteration since we're replacing cards
+    const shownUrls = new Set([...container.querySelectorAll('a[href]')].map(a => {
+      try { return new URL(a.href).href; } catch { return a.href; }
+    }));
+    const shownTitles = new Set([...container.querySelectorAll('h3 a, h4 a')].map(a =>
+      clean(a.textContent).substring(0, 45).toLowerCase()
+    ));
 
-  const newer = items.filter(item => {
-    if (!item.link || !item.title) return false;
-    try { if (shownUrls.has(new URL(item.link).href)) return false; } catch {}
-    if (shownTitles.has(clean(item.title).substring(0, 45).toLowerCase())) return false;
-    return new Date(item.pubDate || 0) > targetDate;
-  }).sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0));
+    const cardDate   = new Date(card.dataset.date);
+    const targetDate = cardDate < cutoff ? new Date(0) : cardDate;
 
-  if (!newer.length) return;
+    const newer = items.filter(item => {
+      if (!item.link || !item.title) return false;
+      try { if (shownUrls.has(new URL(item.link).href)) return false; } catch {}
+      if (shownTitles.has(clean(item.title).substring(0, 45).toLowerCase())) return false;
+      return new Date(item.pubDate || 0) > targetDate;
+    }).sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0));
 
-  // Replace one oldest card per cycle (prevents flooding on first load)
-  const item = newer[0];
-  // Fetch og:image from all sources EXCEPT those known to use unrelated staff/author photos.
-  // The Cloudflare Worker already validates landscape ratio server-side.
-  // null → black background (CSS background-color: #111 handles this automatically).
-  // Only fetch og:image when we have a known author AND it's not a bad source.
-  // Blank author = unknown source (often 247Sports with self-closing <source/> tag) → black card.
-  const BAD_OG = ['247sports', 'rivals'];
-  const authorText = (item.author || '').trim().toLowerCase();
-  const skipOg = !authorText || BAD_OG.some(s =>
-    authorText.includes(s) || (item.title || '').toLowerCase().includes(s)
-  );
-  const imgUrl = skipOg ? null : await fetchOgImage(item.link);
-  const title   = clean(item.title);
-  const link    = item.link;
-  const src     = getSrc(link, item.author);
-  const pub     = item.pubDate || '';
-  const dateStr = pub ? new Date(pub).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
-  const dateAttr = pub ? new Date(pub).toISOString().slice(0,10) : new Date().toISOString().slice(0,10);
-  cards[0].outerHTML = `<div class="hl-card" data-date="${dateAttr}">
-    <div class="hl-card-img" style="${imgUrl ? `background-image:url('${imgUrl}')` : ''}">
-      <span class="hl-card-cat cat-football">Football</span>
-    </div>
-    <div class="hl-card-body">
-      <h3><a href="${link}" target="_blank" rel="noopener">${title}</a></h3>
-      <div class="hl-card-footer">
-        <span class="hl-source">${src.name}</span>
-        ${dateStr ? `<span>${dateStr}</span>` : ''}
+    if (!newer.length) continue;
+
+    const item       = newer[0];
+    const authorText = (item.author || '').trim().toLowerCase();
+    const skipOg     = !authorText || BAD_OG.some(s =>
+      authorText.includes(s) || (item.title || '').toLowerCase().includes(s)
+    );
+    const imgUrl  = skipOg ? null : await fetchOgImage(item.link);
+    const title   = clean(item.title);
+    const link    = item.link;
+    const src     = getSrc(link, item.author);
+    const pub     = item.pubDate || '';
+    const dateStr = pub ? new Date(pub).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
+    const dateAttr = pub ? new Date(pub).toISOString().slice(0,10) : new Date().toISOString().slice(0,10);
+    card.outerHTML = `<div class="hl-card" data-date="${dateAttr}">
+      <div class="hl-card-img" style="${imgUrl ? `background-image:url('${imgUrl}')` : ''}">
+        <span class="hl-card-cat cat-football">Football</span>
       </div>
-    </div>
-  </div>`;
+      <div class="hl-card-body">
+        <h3><a href="${link}" target="_blank" rel="noopener">${title}</a></h3>
+        <div class="hl-card-footer">
+          <span class="hl-source">${src.name}</span>
+          ${dateStr ? `<span>${dateStr}</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }
 }
 
 // ── MORE FOOTBALL — fully automated from feed ─────────────────────────────
