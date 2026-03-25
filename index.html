@@ -2407,6 +2407,7 @@ const FB_FALLBACK_IMGS = [
   'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg',
   'https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg',
   'https://www.dailycamera.com/wp-content/uploads/2026/03/Mitchell.jpg?w=600',
+  'jacob.webp',
 ];
 async function smartCycleFootballCards() {
   const container = document.getElementById('curated-football');
@@ -2449,14 +2450,9 @@ async function smartCycleFootballCards() {
       authorText.includes(s) || (item.title || '').toLowerCase().includes(s)
     );
     let imgUrl = skipOg ? null : await fetchOgImage(item.link);
-    // Fall back to a rotating CU football image rather than showing a black card
-    if (!imgUrl) {
-      const usedImgs = new Set([...container.querySelectorAll('.hl-card-img')].map(el => {
-        const m = el.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
-        return m ? m[1] : '';
-      }));
-      imgUrl = FB_FALLBACK_IMGS.find(u => !usedImgs.has(u)) || FB_FALLBACK_IMGS[0];
-    }
+    // Fall back to a rotating CU football image rather than showing a black card.
+    // Use card index so each slot always gets a distinct image.
+    if (!imgUrl) imgUrl = FB_FALLBACK_IMGS[cards.indexOf(card) % FB_FALLBACK_IMGS.length];
     const title   = clean(item.title);
     const link    = item.link;
     const src     = getSrc(link, item.author);
