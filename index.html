@@ -2402,9 +2402,9 @@ async function fetchOgImage(articleUrl) {
 
 // ── FOOTBALL CARD SMART CYCLE ─────────────────────────────────────────────
 // Always renders the 4 most recent articles from the feed.
-// og:image fetched from article via Cloudflare Worker (landscape-validated).
-// Falls back to DEION.jpg if no valid image found.
-async function smartCycleFootballCards() {
+// Card images are fixed: slot 0→DEION2, slot 1→DEION2, slot 2→DEION3, slot 3→DEION4.
+const CARD_IMGS = ['DEION2.jpeg', 'DEION2.jpeg', 'DEION3.webp', 'DEION4.webp'];
+function smartCycleFootballCards() {
   const container = document.getElementById('curated-football');
   const items = _feedCache.football;
   if (!container || !items?.length) return;
@@ -2428,12 +2428,9 @@ async function smartCycleFootballCards() {
 
   if (!top4.length) return;
 
-  // Fetch all og:images in parallel — Worker validates landscape ratio server-side
-  const images = await Promise.all(top4.map(item => fetchOgImage(item.link)));
-
-  // Build and inject all 4 cards at once
+  // Build and inject all 4 cards at once with fixed images
   container.innerHTML = top4.map((item, i) => {
-    const imgUrl  = images[i] || 'DEION.jpg';
+    const imgUrl  = CARD_IMGS[i];
     const title   = clean(item.title);
     const link    = item.link;
     const src     = getSrc(link, item.author);
