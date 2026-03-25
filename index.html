@@ -2402,6 +2402,12 @@ async function fetchOgImage(articleUrl) {
 
 // ── FOOTBALL CARD SMART CYCLE ─────────────────────────────────────────────
 // Replaces all stale cards with the newest feed items on every cycle.
+// Fallback images used when og:image is unavailable (e.g. 247Sports articles).
+const FB_FALLBACK_IMGS = [
+  'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg',
+  'https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg',
+  'https://www.dailycamera.com/wp-content/uploads/2026/03/Mitchell.jpg?w=600',
+];
 async function smartCycleFootballCards() {
   const container = document.getElementById('curated-football');
   const items = _feedCache.football;
@@ -2442,7 +2448,15 @@ async function smartCycleFootballCards() {
     const skipOg     = !authorText || BAD_OG.some(s =>
       authorText.includes(s) || (item.title || '').toLowerCase().includes(s)
     );
-    const imgUrl  = skipOg ? null : await fetchOgImage(item.link);
+    let imgUrl = skipOg ? null : await fetchOgImage(item.link);
+    // Fall back to a rotating CU football image rather than showing a black card
+    if (!imgUrl) {
+      const usedImgs = new Set([...container.querySelectorAll('.hl-card-img')].map(el => {
+        const m = el.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
+        return m ? m[1] : '';
+      }));
+      imgUrl = FB_FALLBACK_IMGS.find(u => !usedImgs.has(u)) || FB_FALLBACK_IMGS[0];
+    }
     const title   = clean(item.title);
     const link    = item.link;
     const src     = getSrc(link, item.author);
@@ -2450,7 +2464,7 @@ async function smartCycleFootballCards() {
     const dateStr = pub ? new Date(pub).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
     const dateAttr = pub ? new Date(pub).toISOString().slice(0,10) : new Date().toISOString().slice(0,10);
     card.outerHTML = `<div class="hl-card" data-date="${dateAttr}">
-      <div class="hl-card-img" style="${imgUrl ? `background-image:url('${imgUrl}')` : ''}">
+      <div class="hl-card-img" style="background-image:url('${imgUrl}')">
         <span class="hl-card-cat cat-football">Football</span>
       </div>
       <div class="hl-card-body">
