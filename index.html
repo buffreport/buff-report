@@ -2401,65 +2401,46 @@ async function fetchOgImage(articleUrl) {
 }
 
 // ── FOOTBALL CARD SMART CYCLE ─────────────────────────────────────────────
-// Replaces all stale cards with the newest feed items on every cycle.
-// Fallback images used when og:image is unavailable (e.g. 247Sports articles).
-const FB_FALLBACK_IMGS = [
-  'https://denversports.com/wp-content/uploads/2025/11/GettyImages-2244527708-e1762280742515.jpg',
-  'https://denversports.com/wp-content/uploads/2026/02/GettyImages-2232773200-1-e1771287005234.jpg',
-  'https://www.dailycamera.com/wp-content/uploads/2026/03/Mitchell.jpg?w=600',
-  'jacob.webp',
-];
+// Always renders the 4 most recent articles from the feed.
+// og:image fetched from article via Cloudflare Worker (landscape-validated).
+// Falls back to DEION.jpg if no valid image found.
 async function smartCycleFootballCards() {
   const container = document.getElementById('curated-football');
   const items = _feedCache.football;
   if (!container || !items?.length) return;
 
-  let cards = [...container.querySelectorAll('.hl-card[data-date]')];
-  if (!cards.length) return;
-
-  const BAD_OG = ['247sports', 'rivals'];
+  // Enforce 30-day rule — no exceptions
   const cutoff = new Date(Date.now() - 30 * 864e5);
 
-  // Sort cards oldest → newest so we replace the stalest ones first
-  cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
-
-  for (const card of cards) {
-    // Re-read shown URLs/titles each iteration since we're replacing cards
-    const shownUrls = new Set([...container.querySelectorAll('a[href]')].map(a => {
-      try { return new URL(a.href).href; } catch { return a.href; }
-    }));
-    const shownTitles = new Set([...container.querySelectorAll('h3 a, h4 a')].map(a =>
-      clean(a.textContent).substring(0, 45).toLowerCase()
-    ));
-
-    const cardDate   = new Date(card.dataset.date);
-    const targetDate = cardDate < cutoff ? new Date(0) : cardDate;
-
-    const newer = items.filter(item => {
+  // Deduplicate by title prefix, enforce cutoff, sort newest first, take top 4
+  const seen = new Set();
+  const top4 = items
+    .filter(item => {
       if (!item.link || !item.title) return false;
-      try { if (shownUrls.has(new URL(item.link).href)) return false; } catch {}
-      if (shownTitles.has(clean(item.title).substring(0, 45).toLowerCase())) return false;
-      return new Date(item.pubDate || 0) > targetDate;
-    }).sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0));
+      if (item.pubDate && new Date(item.pubDate) < cutoff) return false;
+      const key = clean(item.title).substring(0, 45).toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0))
+    .slice(0, 4);
 
-    if (!newer.length) continue;
+  if (!top4.length) return;
 
-    const item       = newer[0];
-    const authorText = (item.author || '').trim().toLowerCase();
-    const skipOg     = !authorText || BAD_OG.some(s =>
-      authorText.includes(s) || (item.title || '').toLowerCase().includes(s)
-    );
-    let imgUrl = skipOg ? null : await fetchOgImage(item.link);
-    // Fall back to a rotating CU football image rather than showing a black card.
-    // Use card index so each slot always gets a distinct image.
-    if (!imgUrl) imgUrl = FB_FALLBACK_IMGS[cards.indexOf(card) % FB_FALLBACK_IMGS.length];
+  // Fetch all og:images in parallel — Worker validates landscape ratio server-side
+  const images = await Promise.all(top4.map(item => fetchOgImage(item.link)));
+
+  // Build and inject all 4 cards at once
+  container.innerHTML = top4.map((item, i) => {
+    const imgUrl  = images[i] || 'DEION.jpg';
     const title   = clean(item.title);
     const link    = item.link;
     const src     = getSrc(link, item.author);
     const pub     = item.pubDate || '';
     const dateStr = pub ? new Date(pub).toLocaleDateString('en-US', { month:'short', day:'numeric' }) : '';
     const dateAttr = pub ? new Date(pub).toISOString().slice(0,10) : new Date().toISOString().slice(0,10);
-    card.outerHTML = `<div class="hl-card" data-date="${dateAttr}">
+    return `<div class="hl-card" data-date="${dateAttr}">
       <div class="hl-card-img" style="background-image:url('${imgUrl}')">
         <span class="hl-card-cat cat-football">Football</span>
       </div>
@@ -2471,7 +2452,7 @@ async function smartCycleFootballCards() {
         </div>
       </div>
     </div>`;
-  }
+  }).join('');
 }
 
 // ── MORE FOOTBALL — fully automated from feed ─────────────────────────────
