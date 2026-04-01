@@ -2370,6 +2370,7 @@ function refreshCuratedSections() {
     }
 
     const cards = fresh
+      .sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0))
       .slice(0, 5)
       .map(item => {
         const title = clean(item.title || '');
