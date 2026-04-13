@@ -297,21 +297,40 @@ async function handleRSS(request) {
     return json({ error: 'Missing ?q= or ?url= parameter' }, 400);
   }
 
-  const feedUrl = rssUrl
-    ? rssUrl
-    : `https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=${encodeURIComponent(query)}`;
+  const buildFeedUrl = (q, variant = 0) => {
+    if (rssUrl) return rssUrl;
+    const base = encodeURIComponent(q);
+    const variants = [
+      `https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=${base}`,
+      `https://news.google.com/rss/search?q=${base}&hl=en-US&gl=US&ceid=US:en`,
+      `https://news.google.com/rss/search?q=${base}`,
+    ];
+    return variants[variant % variants.length];
+  };
+
+  const HEADERS = [
+    { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'Accept': 'application/rss+xml, application/xml, text/xml, */*' },
+    { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' },
+    { 'User-Agent': 'Feedfetcher-Google; (+http://www.google.com/feedfetcher.html)', 'Accept': '*/*' },
+  ];
 
   let xml;
-  try {
-    const resp = await fetch(feedUrl, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BuffReport/1.0)' },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!resp.ok) throw new Error(`Upstream returned ${resp.status}`);
-    xml = await resp.text();
-  } catch (err) {
-    return json({ error: err.message }, 502);
+  let lastErr;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const feedUrl = buildFeedUrl(query, attempt);
+      const resp = await fetch(feedUrl, {
+        headers: HEADERS[attempt],
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!resp.ok) { lastErr = `Upstream returned ${resp.status}`; continue; }
+      xml = await resp.text();
+      break;
+    } catch (err) {
+      lastErr = err.message;
+    }
   }
+  if (!xml) return json({ error: lastErr || 'All attempts failed' }, 502);
 
   const items = [];
   const itemRegex = /<item>([\s\S]*?)<\/item>/g;
