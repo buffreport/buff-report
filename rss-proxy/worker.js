@@ -297,40 +297,42 @@ async function handleRSS(request) {
     return json({ error: 'Missing ?q= or ?url= parameter' }, 400);
   }
 
-  const buildFeedUrl = (q, variant = 0) => {
-    if (rssUrl) return rssUrl;
-    const base = encodeURIComponent(q);
-    const variants = [
-      `https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=${base}`,
-      `https://news.google.com/rss/search?q=${base}&hl=en-US&gl=US&ceid=US:en`,
-      `https://news.google.com/rss/search?q=${base}`,
-    ];
-    return variants[variant % variants.length];
-  };
+  const BROWSER_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
-  const HEADERS = [
-    { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'Accept': 'application/rss+xml, application/xml, text/xml, */*' },
-    { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' },
-    { 'User-Agent': 'Feedfetcher-Google; (+http://www.google.com/feedfetcher.html)', 'Accept': '*/*' },
+  // Bing News RSS — primary (doesn't block cloud IPs)
+  // Google News RSS — fallback
+  const FEEDS = rssUrl ? [rssUrl] : [
+    `https://www.bing.com/news/search?q=${encodeURIComponent(query)}&format=rss`,
+    `https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=${encodeURIComponent(query)}`,
   ];
 
   let xml;
   let lastErr;
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (const feedUrl of FEEDS) {
     try {
-      const feedUrl = buildFeedUrl(query, attempt);
       const resp = await fetch(feedUrl, {
-        headers: HEADERS[attempt],
+        headers: { 'User-Agent': BROWSER_UA, 'Accept': 'application/rss+xml,*/*' },
         signal: AbortSignal.timeout(20000),
       });
       if (!resp.ok) { lastErr = `Upstream returned ${resp.status}`; continue; }
       xml = await resp.text();
-      break;
+      // Bing returns empty channel (no items) when query fails — try next
+      if (xml && xml.includes('<item>')) break;
+      lastErr = 'No items in feed';
     } catch (err) {
       lastErr = err.message;
     }
   }
-  if (!xml) return json({ error: lastErr || 'All attempts failed' }, 502);
+  if (!xml || !xml.includes('<item>')) return json({ error: lastErr || 'No results' }, 502);
+
+  // Extracts real URL from Bing tracking redirect or returns link as-is
+  const extractUrl = (raw) => {
+    try {
+      const m = raw.match(/[?&]url=([^&]+)/);
+      if (m) return decodeURIComponent(m[1]);
+    } catch {}
+    return raw;
+  };
 
   const items = [];
   const itemRegex = /<item>([\s\S]*?)<\/item>/g;
@@ -342,10 +344,16 @@ async function handleRSS(request) {
       return m ? (m[1] || m[2] || '').trim() : '';
     };
     const title   = get('title');
-    const link    = get('link') || block.match(/<link[^>]*>(.*?)<\/link>/)?.[1]?.trim() || '';
+    const rawLink = get('link') || block.match(/<link[^>]*>(.*?)<\/link>/)?.[1]?.trim() || '';
+    const link    = extractUrl(rawLink.replace(/&amp;/g, '&'));
     const pubDate = get('pubDate');
-    const source  = block.match(/<source[^>]*>([^<]*)<\/source>/)?.[1]?.trim() || '';
-    if (title) items.push({ title, link, pubDate, author: source });
+    // Bing uses <News:Source>, Google uses <source>
+    const source  = block.match(/<News:Source[^>]*>([^<]*)<\/News:Source>/i)?.[1]?.trim()
+                 || block.match(/<source[^>]*>([^<]*)<\/source>/)?.[1]?.trim()
+                 || '';
+    // Bing provides thumbnail via <News:Image>
+    const image   = block.match(/<News:Image[^>]*>([^<]*)<\/News:Image>/i)?.[1]?.trim() || '';
+    if (title) items.push({ title, link, pubDate, author: source, image });
   }
 
   return json({ status: 'ok', items }, 200, { 'Cache-Control': 'public, max-age=300' });
